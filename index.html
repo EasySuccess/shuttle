@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Auction</title>
-    <meta name="description" content="拍賣網" />
-    <meta name="author" content="拍賣網" />
+    <title>shuttle</title>
+    <meta name="description" content="接送系統" />
+    <meta name="author" content="接送系統" />
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -13,9 +13,8 @@
     <link rel="stylesheet" href="css/icomoon.css" />
     <link rel="stylesheet" href="css/screen.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="js/owl-carousel/owl.theme.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Page Wrapper -->
     <div id="page">
@@ -25,8 +24,8 @@
                 <div class="row">
                     <div class="col-xs-4 col-sm-2">
                         <a class="brand" href="index.html">
-                            <img src="img/logo.png" alt="logo-image" width="80"/>
-                            <!--<h1>logo</h1>-->
+                            <!--<img src="img/identity.png" alt="logo-image" />-->
+                            <h1>logo</h1>
                         </a>
                     </div>
                     <div class="col-xs-8 col-sm-10">
@@ -36,16 +35,7 @@
                             </span>
                             <span class="menu-toggleList" data-toggle="modal" data-target="#registerModal" id="actionBarSignUpBtn">註冊</span>
                             <span class="menu-toggleList" data-toggle="modal" data-target="#loginModal" id="actionBarLogInBtn">登入</span>
-                            <!-- <span class="menu-toggleList" data-toggle="modal" data-target="#checkbrowser" id="actioncheckbrowser">checkbrowser</span> -->
-                            <span class="menu-toggleList">
-                            	<a class="my-account" href="user-asset.html" id="userAvatar">
-                            		<span class="icon icon-MyAccount"></span>
-                            		<span class="my-account-name"></span>
-                            		<span class="popup">我的拍賣品</span>
-									<span class="my-account-name"></span>
-                            	</a>
-                            </span>
-							<a href="javascript:logOut()" class="menu-toggleList" id="actionBarLogOutBtn">登出</a>
+                            <a href="javascript:logOut()" class="menu-toggleList" id="actionBarLogOutBtn">登出</a>
                         </div>
                     </div>
                 </div>
@@ -53,7 +43,6 @@
             <nav>
                 <ul>
                     <li class="current-menu-item"><a href="index.html">首頁</a></li>
-                    <li class="user-backend-link"><a href="user-asset.html">我的拍賣品</a></li>
                     <li><a href="#">聯絡方法</a></li>
                 </ul>
             </nav>
@@ -62,167 +51,127 @@
         <div class="content-wrapper">
             <!-- Hero Section -->
             <section class="section-hero">
-                <!-- Main Slider -->
-                <div id="owl-slider-image" class="owl-carousel owl-theme">
-                    <div class="item">
-                        <img src="img/hero-1.jpg" alt="image01">
-                        <h1 class="heading slider-component">拍賣你的喜愛你商品</h1>
-                        <br />
-                        <a href="#" class="slider-component second-row btn theme-btn-1">
-                            <span class="button">查詢詳情</span>
-                        </a>
-                    </div>
-                    <div class="item"><img src="img/hero-2.jpg" alt="image02">
-                        <h1 class="heading slider-component">拍賣你的喜愛你商品</h1>
-                        <br />
-                        <a href="#" class="slider-component second-row btn theme-btn-1">
-                            <span class="button">查詢詳情</span>
-                        </a>
-                    </div>
-                    <div class="item"><img src="img/hero-3.jpg" alt="image03">
-                        <h1 class="heading slider-component">拍賣你的喜愛你商品</h1>
-                        <br />
-                        <a href="#" class="slider-component second-row btn theme-btn-1">
-                            <span class="button">查詢詳情</span>
-                        </a>
+                <div class="hero-content courses-list">
+                    <div class="container">
+                        <h1 class="heading" id="heading-type">補習社接送系統</h1>
                     </div>
                 </div>
             </section>
-            <!-- Section -->
-            <section class="section-courses no-padding">
-                <div class="container">
-                    <div class="section-header">
-                        <h1>推介商品</h1>
-                    </div>
-                    <div id="owl-card-paly" class="owl-carousel">
-                        <div class="item">
-                            <div class="single-course grid-course">
-                                <div class="course-thumbnail">
-                                    <a href="#" class="cover-info">
-                                        <div class="text">
-                                            <h4>畫名 ： 夢 The Dream</h4>
-                                        </div>
-                                    </a>
-                                    <img src="img/file01.jpg" alt="image" />
-                                </div>
-                                <div class="course-details">
-                                    <h3 class="title">
-										<a href="#">《夢》的整體色調鮮明，用筆直接，線條使用較多，充分表現女人身體線條。畫面當中女人的臉被從中截開，是立體派表現的一種手法。女人的面部表情安詳柔和，看得出她睡的好甜，讓人有種欲睡的感覺，女人的身體比例不是很協調，上下半部分過于窄小。</a>
-									</h3>
-                                    <ul class="course-meta">
-                                    	 	<li><span class="sub-title">拍賣品：</span><span>畢家索的名畫</span></li>
-                                        <li><span class="sub-title">分類：</span><span>畢家</span></li>
-                                        <li><span class="sub-title">預售日期：</span><span>1932-01-01至1932-01-01</span></li>
-                                        <li><span class="sub-title">競標日期：</span><span>1932-01-01至1932-01-01</span></li>
-                                        <li><span class="sub-title">目標價：</span><span>$1000</span></li>
-                                        <li><span class="sub-title hide">起標價：</span><span class="hide">$1000</span></li>
-                                    </ul>
-                                    <div class="course-action">
-                                        <a href="#" class="btn theme-btn-1 register-btn">
-                                            <span class="button">詳細資料</span>
-                                        </a>
-                                        <span class="price">$1000000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--[end]item-->
-						<div class="item">
-                            <div class="single-course grid-course">
-                                <div class="course-thumbnail">
-                                    <a href="#" class="cover-info">
-                                        <div class="text">
-                                            <h4>畫名 ： 夢 The Dream</h4>
-                                        </div>
-                                    </a>
-                                    <img src="img/file01.jpg" alt="image" />
-                                </div>
-                                <div class="course-details">
-                                    <h3 class="title">
-										<a href="#">《夢》的整體色調鮮明，用筆直接，線條使用較多，充分表現女人身體線條。畫面當中女人的臉被從中截開，是立體派表現的一種手法。女人的面部表情安詳柔和，看得出她睡的好甜，讓人有種欲睡的感覺，女人的身體比例不是很協調，上下半部分過于窄小。</a>
-									</h3>
-                                    <ul class="course-meta">
-                                        <li><span class="sub-title">分類：</span><span>畢家</span></li>
-                                        <li><span class="sub-title">預售日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">競標日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">競標結束日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">目標價：</span><span>1932-01-01</span></li>
-                                    </ul>
-                                    <div class="course-action">
-                                        <a href="#" class="btn theme-btn-1 register-btn">
-                                            <span class="button">詳細資料</span>
-                                        </a>
-                                        <span class="price">$1000000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--[end]item-->
-						<div class="item">
-                            <div class="single-course grid-course">
-                                <div class="course-thumbnail">
-                                    <a href="#" class="cover-info">
-                                        <div class="text">
-                                            <h4>畫名 ： 夢 The Dream</h4>
-                                        </div>
-                                    </a>
-                                    <img src="img/file01.jpg" alt="image" />
-                                </div>
-                                <div class="course-details">
-                                    <h3 class="title">
-										<a href="#">《夢》的整體色調鮮明，用筆直接，線條使用較多，充分表現女人身體線條。畫面當中女人的臉被從中截開，是立體派表現的一種手法。女人的面部表情安詳柔和，看得出她睡的好甜，讓人有種欲睡的感覺，女人的身體比例不是很協調，上下半部分過于窄小。</a>
-									</h3>
-                                    <ul class="course-meta">
-                                        <li><span class="sub-title">分類：</span><span>畢家</span></li>
-                                        <li><span class="sub-title">預售日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">競標日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">競標結束日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">目標價：</span><span>1932-01-01</span></li>
-                                    </ul>
-                                    <div class="course-action">
-                                        <a href="#" class="btn theme-btn-1 register-btn">
-                                            <span class="button">詳細資料</span>
-                                        </a>
-                                        <span class="price">$1000000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--[end]item-->
-						<div class="item">
-                            <div class="single-course grid-course">
-                                <div class="course-thumbnail">
-                                    <a href="#" class="cover-info">
-                                        <div class="text">
-                                            <h4>畫名 ： 夢 The Dream</h4>
-                                        </div>
-                                    </a>
-                                    <img src="img/file01.jpg" alt="image" />
-                                </div>
-                                <div class="course-details">
-                                    <h3 class="title">
-										<a href="#">《夢》的整體色調鮮明，用筆直接，線條使用較多，充分表現女人身體線條。畫面當中女人的臉被從中截開，是立體派表現的一種手法。女人的面部表情安詳柔和，看得出她睡的好甜，讓人有種欲睡的感覺，女人的身體比例不是很協調，上下半部分過于窄小。</a>
-									</h3>
-                                    <ul class="course-meta">
-                                        <li><span class="sub-title">分類：</span><span>畢家</span></li>
-                                        <li><span class="sub-title">預售日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">競標日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">競標結束日期：</span><span>1932-01-01</span></li>
-                                        <li><span class="sub-title">目標價：</span><span>1932-01-01</span></li>
-                                    </ul>
-                                    <div class="course-action">
-                                        <a href="#" class="btn theme-btn-1 register-btn">
-                                            <span class="button">詳細資料</span>
-                                        </a>
-                                        <span class="price">$1000000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--[end]item-->
-                    </div>
-                </div>
-            </section>
+                        
+            <!-- Links Box -->
+        		<div class="links-wrapper" style="margin: 20px;">
+        				<div class="container">
+        					<div class="row">
+        						<div class="col-sm-6 col-md-4">
+        							<div class="links-box">
+        								<h3 class="caption green">上課中學生</h3>
+        
+        								<ul class="links">
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_green"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_green"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_green"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        								</ul>				
+        							</div>
+        						</div><!--[end]上課中學生-->	
+        
+        						<div class="col-sm-6 col-md-4" >
+        							<div class="links-box" >
+        								<h3 class="caption yellow">需要落課學生</h3>
+        
+        								<ul class="links">
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_yellow"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_yellow"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        									
+        								</ul>							
+        							</div>
+        						</div><!--[end]需要落課學生-->
+        
+        						<div class="col-sm-6 col-md-4">
+        							<div class="links-box">
+        								<h3 class="caption blue">未上課學生</h3>
+        
+        								<ul class="links">
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_blue"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        									<li>
+        										<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
+        											<span class="">
+        												<img src="img/circle_img.svg" alt="img" class="img-circle">
+        												<span class="circle_in_blue"></span>
+        											</span>
+        											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
+        											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
+        											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
+        										</a>
+        									</li><!--[end]li-->
+        									
+        								</ul>					
+        							</div>
+        						</div><!--[end]未上課學生-->	
+        
+        					</div>
+        				</div>
+        			</div>
+        		
         </div>
         <!-- Footer -->
         <footer class="">
@@ -232,158 +181,57 @@
                         <div class="menu">
                             <ul>
                                 <li><a href="index.html">首頁</a></li>
-                                <li class="user-backend-link"><a href="user-asset.html">我的拍賣品</a></li>
-<!--                                 <li><a href="#">推介</a></li>
-                                <li><a href="#">特價</a></li> -->
                                 <li><a href="#">聯絡我們</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="copyrights">
-                        <p>Copyright 2015. Designed by <a href="#" target="blank">TEAM</a></p>
+                        <p>Copyright 2016. Designed by <a href="#" target="blank">EasySuccess team</a></p>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
-    <!--REGISTER-->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+    
+    <!--onClassModal-->
+    <div class="modal fade" id="onClassModal" tabindex="-1" role="dialog">		
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <div class="section-header">
-                        <h1>註冊</h1></div>
+                        <h1>黎小明</h1></div>
                 </div>
-				
 				<div class="blackout"></div>
-				
-				<form role="form" data-toggle="validator" class="RegisterLogin" id="registerForm">
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="type" class="control-label">用戶類型：</label>
-							<select class="form-control" id="type">
-								<option value="user">一般用戶</option>
-								<option value="agent">經理人</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="username" class="control-label">登入帳號：</label>
-							<input type="text" class="form-control" id="username" data-minlength="3" data-error="至少3個字元" required>
-							<div class="help-block with-errors"></div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="control-label">姓名：</label>
-							<input type="text" class="form-control" id="name" name="" required>
-						</div>
-						<div class="form-group">
-							<label for="password" class="control-label">密碼：</label>
-							<input type="password" class="form-control" id="password" data-minlength="5" data-error="至少5個字元" required>
-							<div class="help-block with-errors"></div>
-						</div>
-						<div class="form-group">
-							<label for="email" class="control-label">E-mail：</label>
-							<input type="email" class="form-control" id="email" required>
-						</div>
-					</div>
-					<div class="modal-footer form-group">
-						<button type="submit" class="btn theme-btn-2">註冊</button>
-						<button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
-						<a href="tel:5555555" class="btn theme-btn-2">聯絡客服</a>
-						<button type="login" class="btn theme-btn-2" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">登入</button>
-					</div>
-				</form>
+								<form role="form" data-toggle="validator" class="RegisterLogin" id="loginForm">
+								    <div class="modal-body">
+								    		
+								        <div class="form-group">
+								        		<div class="onclass-from">
+								        		    <div class="onclass" id="">
+								        		        <p><span>上課時間：<span class="sum" id="cart-balance">2016-10-10 10:00</span></span></p>
+								        		        <p><span>現在時間：<span class="sum" id="cart-balance-after">2016-10-10 10:00</span></span></p>
+								        		    </div>
+								        		</div>
+								            <label for="username" class="control-label">備註:</label>
+								            <input type="text" class="form-control" id="username" name="" required>
+								        </div>
+								    </div>
+								    <div class="modal-footer  form-group">
+								        <button type="submit" class="btn theme-btn-2">確定</button>
+								        <button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
+								    </div>
+								</form>
+								
             </div>
         </div>
     </div>
-    <!--[end]REGISTER-->
-    <!--Login-->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div class="section-header">
-                        <h1>登入</h1></div>
-                </div>
-				
-				<div class="blackout"></div>
-				
-				<form role="form" data-toggle="validator" class="RegisterLogin" id="loginForm">
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="username" class="control-label">登入帳號:</label>
-							<input type="text" class="form-control" id="username" name="" required>
-						</div>
-						<div class="form-group">
-							<label for="password" class="control-label">密碼:</label>
-							<input type="password" class="form-control" id="password" name="" required>
-						</div>
-					</div>
-					<div class="modal-footer  form-group">
-						<button type="submit" class="btn theme-btn-2">登入</button>
-						<button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
-						<a href="tel:5555555" class="btn theme-btn-2">聯絡客服</a>
-						<button type="register" class="btn theme-btn-2" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">註冊</button>
-					</div>
-				</form>
-            </div>
-        </div>
-    </div>
-    <!--[end]Login-->
-   
+    <!--[end]onClassModal-->
+
 </body>
-<!-- Scripts -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap/bootstrap.min.js"></script>
-<script src="js/leancloud/config.js"></script>
-<script src="js/leancloud/av-mini-0.5.4.js"></script>
 <script src="js/velocity.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/owl-carousel/owl.carousel.js"></script>
-<script src="js/bootbox.min.js"></script>
-<script src="js/frontend-common.js"></script>
-<script src="js/common-function.js"></script>
-<script src="js/frontend-function.js"></script>
-<script src="js/validator.min.js"></script>	
-<script src="js/moment.min.js"></script>	
-<script>
-	
-	/*
-		frontend-common contains common initialization for general purposes.
-	*/
-	
-	$(document).ready(function(){
-			
-		getArtworkListFE().then(function(){
-			bounceRate();
-			
-			// index.html owl slider main
-			var owl_index_main = $("#owl-slider-image");
-				owl_index_main.owlCarousel({
-				 navigation : true, // Show next and prev buttons
-				 navigationText : ["<span class='icon icon-arrow-left'></span>","<span class='icon icon-arrow-right'></span>"],
-				 slideSpeed : 300,
-				 paginationSpeed : 400,
-				 singleItem:true,
-						autoPlay: 10000,
-				});
-			//index.html owl slider item
-			var owl_inedex_item = $("#owl-card-paly");
-			  owl_inedex_item.owlCarousel({
-					navigation : true,
-					navigationText : ["<span class='icon icon-arrow-left'></span>","<span class='icon icon-arrow-right'></span>"],
-				  items : 3, //10 items above 1000px browser width
-				  itemsDesktop : [1000,3], //5 items between 1000px and 901px
-				  itemsDesktopSmall : [900,2], // betweem 900px and 601px
-				  itemsTablet: [600,1], //2 items between 600 and 0
-				  itemsMobile : false, // itemsMobile disabled - inherit from itemsTablet option
-				  autoPlay: 8000,
-				  pagination : true,  //dots show/hide
-				  theme : "owl-itemTheme",
-			  });
-		});
-		
-	});
-</script>
+
 </html>

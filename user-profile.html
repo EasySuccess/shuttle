@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Auction</title>
+	<meta name="description" content="拍賣網" />
+	<meta name="author" content="拍賣網" />
+	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/icomoon.css" />
+	<link rel="stylesheet" href="css/screen.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link href="js/owl-carousel/owl.theme.css" rel="stylesheet"> </head>
+
+<body>
+
+	<div class="blackout" ></div>
+
+	<!-- Page Wrapper -->
+	<div id="page">
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-4 col-sm-2">
+						<a class="brand" href="index.html">
+							<!--<img src="img/identity.png" alt="logo-image" />-->
+							<h1>logo</h1> </a>
+					</div>
+					<div class="col-xs-8 col-sm-10">
+						<div class="action-bar" id="frontend-action-bar"> <span class="menu-toggle no-select">Menu
+								<span class="hamburger"><span class="menui top-menu"></span><span class="menui mid-menu"></span><span class="menui bottom-menu"></span></span>
+							</span> <span class="menu-toggleList" data-toggle="modal" data-target="#registerModal" id="actionBarSignUpBtn">註冊</span> <span class="menu-toggleList" data-toggle="modal" data-target="#loginModal" id="actionBarLogInBtn">登入</span> 
+							<span class="menu-toggleList">
+                            	<a class="my-account" href="user-asset.html" id="userAvatar">
+                            		<span class="icon icon-MyAccount"></span>
+                            		<span class="my-account-name"></span>
+                            		<span class="popup">我的拍賣品</span>
+									<span class="my-account-name"></span>
+                            	</a>
+                            </span>
+							<a href="javascript:logOut()" class="menu-toggleList" id="actionBarLogOutBtn">登出</a> </div>
+					</div>
+				</div>
+			</div>
+			<nav>
+                <ul>
+                    <li class="current-menu-item"><a href="index.html">首頁</a></li>
+                    <li><a href="user-asset.html">我的拍賣品</a></li>
+                    <li><a href="#">聯絡方法</a></li>
+                </ul>
+			</nav>
+		</header>
+		<!-- Main Content -->
+		<div class="content-wrapper">
+			<!-- Hero Section -->
+			<section class="section-hero">
+				<div class="hero-content courses-list">
+					<div class="container">
+						<h1 class="heading">我的個人資料</h1> </div>
+				</div>
+			</section>
+			<!-- item Section -->
+			<!-- My account section -->
+			<section class="section-myaccount">
+				<div class="container">
+					<div class="col-md-3">
+						<div class="menu">
+							<ul>
+								<li><a href="user-asset.html">我的拍賣品</a></li>
+								<li><a href="user-queue.html">我的預訂</a></li>
+								<li><a href="user-transaction.html">我的交易紀錄</a></li>
+								<li><a href="user-profile.html">我的個人資料</a></li>
+								<li><a href="user-change-password.html"> 更改密碼</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-9 col-lg-8">
+						<div class="tabs-box">
+							<div id="edit-profile">
+								<h3 class="box-caption">我的個人資料</h3>
+								<label class="col-sm-12" id="balance" >帳戶餘額：<span></span></label>
+								<form class="edit-profile-form" data-toggle="validator" id="editForm">
+									<div class="row">
+										<div class="col-sm-6 form-group">
+											<label for="username" class="col-sm-6 control-label">登入帳號：</label>
+											<input type="name" class="form-control" id="username" name="username" placeholder="登入帳號" disabled> 
+										</div>
+										<div class="col-sm-6 form-group">
+											<label for="name" class="col-sm-6 control-label">姓名：</label>
+											<input type="name" class="form-control" id="name" name="name" placeholder="姓名" required> 
+										</div>
+										<div class="col-sm-6 form-group">
+											<label for="email" class="col-sm-6 control-label">E-mail：</label>
+											<input type="email" class="form-control" id="email" name="email" placeholder="電郵地址" required> 
+										</div>
+										<div class="col-sm-6 form-group">
+											<label for="phone" class="col-sm-6 control-label">電話：</label>
+											<input type="text" class="form-control" id="phone" name="phone" placeholder="電話"> 
+										</div>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn theme-btn-3">確定修改個人資料</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- Footer -->
+		<footer class="">
+			<div class="container">
+				<div class="footer-wrapper">
+					<div class="main-area">
+						<div class="menu">
+							<ul>
+								<li><a href="index.html">首頁</a></li>
+								<li class="user-backend-link"><a href="user-asset.html">我的拍賣品</a></li>
+								<!-- <li><a href="#">推介</a></li>
+								<li><a href="#">特價</a></li> -->
+								<li><a href="#">聯絡我們</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="copyrights">
+						<p>Copyright 2015. Designed by <a href="#" target="blank">TEAM</a></p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="js/leancloud/config.js"></script>
+<script src="js/leancloud/av-mini-0.5.4.js"></script>
+<script src="js/velocity.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/owl-carousel/owl.carousel.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/frontend-common.js"></script>
+<script src="js/common-function.js"></script>
+<script src="js/frontend-function.js"></script>
+<script src="js/validator.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script>
+
+	/*
+		frontend-common contains common initialization for general purposes.
+	*/
+	
+	$(document).ready(function() {
+		var user = AV.User.current();
+		
+		if (user) {
+			
+			$("#username").val(user.get("username"));
+			$("#name").val(user.get("name"));
+			$("#email").val(user.get("email"));
+			$("#phone").val(user.get("phone"));
+			
+			user.get("wallet").fetch().then(function(wallet){
+				$("#balance >span").html("$" + wallet.get("balance"));
+			}, function(err){
+				console.log(err);
+			});
+
+		}
+		
+		$("#editForm").validator().submit(function(e){		
+		
+			if (!e.isDefaultPrevented()) {
+				disableUI();
+			
+				user.set("name", $("#editForm #name").val());
+				user.set("email", $("#editForm #email").val());
+				user.set("phone", $("#editForm #phone").val());
+				
+				user.save(null, {
+					success: function(updateUser){
+						bootbox.alert("更改個人資料成功", function(){
+							if(getStoredValue("url") != null){
+								window.location.href = getStoredValue("url");
+							}else{
+								window.location.href = "index.html";
+							};
+						});
+					},
+					error: function(user, err){
+						console.log(err);
+						bootbox.alert("更改個人資料失敗");
+						enableUI();
+					}
+				});
+				
+				e.preventDefault();
+			}
+		});
+	});
+</script>
+</html>
