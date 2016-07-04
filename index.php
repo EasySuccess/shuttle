@@ -3,31 +3,60 @@ require_once('lib/meekrodb.2.3.class.php');
 require_once('lib/config.php'); 
 	
 function showOnline(){
-	$results = DB::query("SHOW TABLES");
+	$results = DB::query('SELECT * 
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stustatus="on"', DB::$coCode);
+	
 	foreach ($results as $row) {
-		echo $row["Tables_in_education"] . "\n";
+		echo '<li class="">'.
+			'<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">'.
+			'<span class="">'.
+			'<img src="img/circle_img.svg" alt="img" class="img-circle">'.
+			'<span class="circle_in_green"></span>'.
+			'</span>'.
+			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">'.$row["StuName"].'</span></span>'.
+			// '<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30<'./'span></span>'.
+			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
+			'</a>'.
+		'</li>';
 	} 
 }
 
 function showPending(){
-	$results = DB::query("SHOW TABLES");
+	$results = DB::query('SELECT * 
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stustatus="pending"', DB::$coCode);
+	
 	foreach ($results as $row) {
-		echo $row["Tables_in_education"] . "\n";
+		echo '<li class="">'.
+			'<a data-toggle="modal" data-target="#pendingModal" id="actionBarSignUpBtn">'.
+			'<span class="">'.
+			'<img src="img/circle_img.svg" alt="img" class="img-circle">'.
+			'<span class="circle_in_yellow"></span>'.
+			'</span>'.
+			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">'.$row["StuName"].'</span></span>'.
+			// '<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>'.
+			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
+			'</a>'.
+		'</li>';
 	} 
 }
 
 function showOffline(){
-	$results = DB::query('SELECT * FROM tbStudent WHERE CoCode=%s', DB::$coCode);
+	$results = DB::query('SELECT * 
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stustatus="off"', DB::$coCode);
+	
 	foreach ($results as $row) {
 		echo '<li>' .
-			'<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">' .
+			'<a data-toggle="modal" data-target="#offClassModal" id="actionBarSignUpBtn">' .
 			'<span class="">' .
 			'<img src="img/circle_img.svg" alt="img" class="img-circle">' .
 			'<span class="circle_in_blue"></span>' .
 			'</span>' .
 			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">'.$row["StuName"].'</span></span>' .
-			'<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03  18:30</span></span>' .
-			'<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>' .
+			// '<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03  18:30</span></span>' .
+			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>' .
 			'</a>' .
 		'</li>';
 	} 
@@ -189,7 +218,7 @@ function showOffline(){
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<div class="section-header">
-							<h1>黎小明</h1>
+							<h1 id="modalStuName"></h1>
 						</div>
 					</div>
 					<div class="blackout"></div>
@@ -220,4 +249,14 @@ function showOffline(){
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<script src="js/velocity.js"></script>
 	<script src="js/custom.js"></script>
+	<script>
+		$(document).ready(function() {
+			
+			// $('a[data-toggle="modal"], button[data-toggle="modal"]').click(function () {
+				// console.log($(this).find(".title-main"));
+				// $('#modalStuName').html("Test");
+			// })
+			
+		});
+	</script>
 </html>
