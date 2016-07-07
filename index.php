@@ -4,8 +4,8 @@ require_once('lib/config.php');
 	
 function showOnline(){
 	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stustatus="on"', DB::$coCode);
+	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="on"', DB::$coCode);
 	
 	foreach ($results as $row) {
 		echo '<li class="">'.
@@ -24,8 +24,8 @@ function showOnline(){
 
 function showPending(){
 	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stustatus="pending"', DB::$coCode);
+	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="pending"', DB::$coCode);
 	
 	foreach ($results as $row) {
 		echo '<li class="">'.
@@ -44,8 +44,8 @@ function showPending(){
 
 function showOffline(){
 	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stustatus="off"', DB::$coCode);
+	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="off"', DB::$coCode);
 	
 	foreach ($results as $row) {
 		echo '<li>' .

@@ -24,34 +24,34 @@ if (isset($_POST['action'])) {
 }
 
 function updateWait($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stustatus' => 'pending',
-	  'stuarrivetime' => date("Y-m-d H:i:s")
-	  ), "stucode=%s and cocode=%s", $stuCode, DB::$coCode);
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'pending',
+	  'stuArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateImmed($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stustatus' => 'pending',
-	  'stuarrivetime' => date("Y-m-d H:i:s")
-	  ), "stucode=%s and cocode=%s", $stuCode, DB::$coCode);
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'pending',
+	  'stuArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateOff($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stustatus' => 'off',
-	  'stuarrivetime' => date("Y-m-d H:i:s")
-	  ), "stucode=%s and cocode=%s", $stuCode, DB::$coCode);
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'off',
+	  'stuArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateOn($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stustatus' => 'on',
-	  'stuarrivetime' => date("Y-m-d H:i:s")
-	  ), "stucode=%s and cocode=%s", $stuCode, DB::$coCode);
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'on',
+	  'stuArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 ?>
