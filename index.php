@@ -14,7 +14,7 @@ function showOnline(){
 			'<img src="img/circle_img.svg" alt="img" class="img-circle">'.
 			'<span class="circle_in_green"></span>'.
 			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">'.$row["StuName"].'</span></span>'.
+			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
 			// '<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30<'./'span></span>'.
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
 			'</a>'.
@@ -34,7 +34,7 @@ function showPending(){
 			'<img src="img/circle_img.svg" alt="img" class="img-circle">'.
 			'<span class="circle_in_yellow"></span>'.
 			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">'.$row["StuName"].'</span></span>'.
+			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
 			// '<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>'.
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
 			'</a>'.
@@ -54,7 +54,7 @@ function showOffline(){
 			'<img src="img/circle_img.svg" alt="img" class="img-circle">' .
 			'<span class="circle_in_blue"></span>' .
 			'</span>' .
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">'.$row["StuName"].'</span></span>' .
+			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
 			// '<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03  18:30</span></span>' .
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>' .
 			'</a>' .
@@ -218,7 +218,7 @@ function showOffline(){
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<div class="section-header">
-							<h1 id="modalStuName"></h1>
+							<h1>確定要接走學生嗎？</h1>
 						</div>
 					</div>
 					<div class="blackout"></div>
@@ -227,16 +227,18 @@ function showOffline(){
 							<div class="form-group">
 								<div class="onclass-from">
 									<div class="onclass" id="">
-										<p><span>上課時間：<span class="sum" id="cart-balance">2016-10-10 10:00</span></span></p>
-										<p><span>現在時間：<span class="sum" id="cart-balance-after">2016-10-10 10:00</span></span></p>
+										<p class=""><span>姓名：<span class="sum" id="cart-name">Student</span></span></p>
+										<p class="hide"><span>上課時間：<span class="sum" id="cart-balance">2016-10-10 10:00</span></span></p>
+										<p class="hide"><span>現在時間：<span class="sum" id="cart-balance-after">2016-10-10 10:00</span></span></p>
 									</div>
 								</div>
 								<label for="username" class="control-label">備註:</label>
-								<input type="text" class="form-control" id="username" name="" required>
+								<input type="text" class="form-control" id="username" name="">
 							</div>
 						</div>
 						<div class="modal-footer  form-group">
-							<button type="submit" class="btn theme-btn-2">確定</button>
+							<button type="submit" class="btn theme-btn-2">等候</button>
+							<button type="submit" class="btn theme-btn-2">立即接走</button>
 							<button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
 						</div>
 					</form>
@@ -244,6 +246,41 @@ function showOffline(){
 			</div>
 		</div>
 		<!--[end]onClassModal-->
+		<!--pendingModal-->
+		<div class="modal fade" id="pendingModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<div class="section-header">
+							<h1>學生下課嗎？</h1>
+						</div>
+					</div>
+					<div class="blackout"></div>
+					<form role="form" data-toggle="validator" class="RegisterLogin" id="loginForm">
+						<div class="modal-body">
+							<div class="form-group">
+								<div class="onclass-from">
+									<div class="onclass" id="">
+										<p class=""><span>姓名：<span class="sum" id="cart-name">Student</span></span></p>
+										<p class="hide"><span>上課時間：<span class="sum" id="cart-balance">2016-10-10 10:00</span></span></p>
+										<p class="hide"><span>現在時間：<span class="sum" id="cart-balance-after">2016-10-10 10:00</span></span></p>
+									</div>
+								</div>
+								<label for="username" class="control-label">備註:</label>
+								<input type="text" class="form-control" id="username" name="">
+							</div>
+						</div>
+						<div class="modal-footer  form-group">
+							<button type="submit" class="btn theme-btn-2">等候</button>
+							<button type="submit" class="btn theme-btn-2">立即接走</button>
+							<button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--[end]pendingModal-->
 	</body>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
@@ -252,10 +289,11 @@ function showOffline(){
 	<script>
 		$(document).ready(function() {
 			
-			// $('a[data-toggle="modal"], button[data-toggle="modal"]').click(function () {
-				// console.log($(this).find(".title-main"));
-				// $('#modalStuName').html("Test");
-			// })
+			$('a[data-toggle="modal"], button[data-toggle="modal"]').click(function () {
+				var stuName = $(this).find(".title-sub").html();
+				var stuCode = $(this).find(".title-sub").attr("id");
+				$('#cart-name').html(stuName);
+			})
 			
 		});
 	</script>

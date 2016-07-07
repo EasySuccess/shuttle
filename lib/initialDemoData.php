@@ -69,19 +69,19 @@
 	//Student Status
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's001',
-		'StuStatus' => 'off',
+		'StuStatus' => 'on',
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's002',
-		'StuStatus' => 'off',
+		'StuStatus' => 'on',
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's003',
-		'StuStatus' => 'off',
+		'StuStatus' => 'pending',
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's004',
-		'StuStatus' => 'off',
+		'StuStatus' => 'pending',
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's005',
