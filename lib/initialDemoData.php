@@ -2,6 +2,7 @@
 
 	require_once('meekrodb.2.3.class.php'); 
 	require_once('config.php'); 
+	date_default_timezone_set("Asia/Hong_Kong");
 
 	DB::$error_handler = false;	
 	
@@ -69,43 +70,63 @@
 	//Student Status
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's001',
+		'CoCode' => 'c001',
 		'StuStatus' => 'on',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's002',
+		'CoCode' => 'c001',
 		'StuStatus' => 'on',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's003',
+		'CoCode' => 'c001',
 		'StuStatus' => 'pending',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's004',
+		'CoCode' => 'c001',
 		'StuStatus' => 'pending',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's005',
+		'CoCode' => 'c001',
 		'StuStatus' => 'off',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's006',
+		'CoCode' => 'c001',
 		'StuStatus' => 'off',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's007',
+		'CoCode' => 'c001',
 		'StuStatus' => 'off',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's008',
+		'CoCode' => 'c001',
 		'StuStatus' => 'off',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's009',
+		'CoCode' => 'c001',
 		'StuStatus' => 'off',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	DB::insert("tbStuStatus", array(
 		'StuCode' => 's010',
+		'CoCode' => 'c001',
 		'StuStatus' => 'off',
+		'stuarrivetime' => date("Y-m-d H:i:s"),
 	));
 	
 ?>
