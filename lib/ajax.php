@@ -33,7 +33,7 @@ function updateWait($stuCode) {
 
 function updateImmed($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 'pending',
+	  'stuStatus' => 'immediate',
 	  'stuArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
