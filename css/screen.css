@@ -363,7 +363,8 @@ box-shadow: 5px 5px 5px 0px rgba(85,85,85,0.5);
 .caption.blue{background-color: #43b9c7;}
 
 
-.links-wrapper .links-box li{width: 100%;border-bottom:1px dashed #898989;position: relative;padding-bottom: 10px;}
+.links-wrapper .links-box li{width: 100%;border-bottom:1px dashed #898989;position: relative;padding-bottom: 20px;
+}
 .links-wrapper .links-box li a{cursor: pointer;}
 .links-wrapper .links-box li a span{color:#43b9c7;width: 65%; margin-left: 5px;position: relative;}
 .links-wrapper .links-box li a img{width:35%;}
