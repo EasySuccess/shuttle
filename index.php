@@ -14,8 +14,8 @@ function showOnline(){
 			'<img src="img/'.DB::$coCode.'/'.$row["StuCode"].'.png" alt="img" class="img-circle">'.
 			'<span class="circle_in_green"></span>'.
 			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">'.$row["StuArriveTime"].'</span></span>'.
+			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
+			'<span class="title-2"><span class="title-main">上課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
 			'</a>'.
 		'</li>';
@@ -34,8 +34,8 @@ function showPending(){
 			'<img src="img/'.DB::$coCode.'/'.$row["StuCode"].'.png" alt="img" class="img-circle">'.
 			'<span class="circle_in_yellow"></span>'.
 			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">家長到達時間：</span><span class="title-sub">'.$row["StuArriveTime"].'</span></span>'.
+			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
+			'<span class="title-2"><span class="title-main">到達時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
 			'</a>'.
 		'</li>';
@@ -54,8 +54,8 @@ function showImmediate(){
 			'<img src="img/'.DB::$coCode.'/'.$row["StuCode"].'.png" alt="img" class="img-circle">'.
 			'<span class="circle_in_red"></span>'.
 			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">家長到達時間：</span><span class="title-sub">'.$row["StuArriveTime"].'</span></span>'.
+			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
+			'<span class="title-2"><span class="title-main">到達時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
 			'</a>'.
 		'</li>';
@@ -74,8 +74,8 @@ function showOffline(){
 			'<img src="img/'.DB::$coCode.'/'.$row["StuCode"].'.png" alt="img" class="img-circle">'.
 			'<span class="circle_in_blue"></span>' .
 			'</span>' .
-			'<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">下課時間：</span><span class="title-sub">'.$row["StuArriveTime"].'</span></span>'.
+			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
+			'<span class="title-2"><span class="title-main">下課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
 			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>' .
 			'</a>' .
 		'</li>';
@@ -151,18 +151,6 @@ function showOffline(){
 									<h3 class="caption green">上課中學生</h3>
 									<ul class="links">
 										<?php showOnline(); ?>
-										<li class="hide">
-											<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
-											<span class="">
-											<img src="img/circle_img.svg" alt="img" class="img-circle">
-											<span class="circle_in_green"></span>
-											</span>
-											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
-											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
-											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
-											</a>
-										</li>
-										<!--[end]li-->
 									</ul>
 								</div>
 							</div>
@@ -172,18 +160,6 @@ function showOffline(){
 									<h3 class="caption yellow">需要落課學生</h3>
 									<ul class="links">
 										<?php showPending(); ?>
-										<li class="hide">
-											<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
-											<span class="">
-											<img src="img/circle_img.svg" alt="img" class="img-circle">
-											<span class="circle_in_yellow"></span>
-											</span>
-											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
-											<span class="title-2"><span class="title-main">家長到達時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
-											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
-											</a>
-										</li>
-										<!--[end]li-->
 									</ul>
 								</div>
 							</div>
@@ -193,18 +169,6 @@ function showOffline(){
 									<h3 class="caption red">立即落課學生</h3>
 									<ul class="links">
 										<?php showImmediate(); ?>
-										<li class="hide">
-											<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
-											<span class="">
-											<img src="img/circle_img.svg" alt="img" class="img-circle">
-											<span class="circle_in_red"></span>
-											</span>
-											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
-											<span class="title-2"><span class="title-main">上課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
-											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
-											</a>
-										</li>
-										<!--[end]li-->
 									</ul>
 								</div>
 							</div>
@@ -214,18 +178,6 @@ function showOffline(){
 									<h3 class="caption blue">未上課學生</h3>
 									<ul class="links">
 										<?php showOffline(); ?>
-										<li class="hide">
-											<a data-toggle="modal" data-target="#onClassModal" id="actionBarSignUpBtn">
-											<span class="">
-											<img src="img/circle_img.svg" alt="img" class="img-circle">
-											<span class="circle_in_blue"></span>
-											</span>
-											<span class="title-1"><span class="title-main">姓名：</span><span class="title-sub">黎小明</span></span>
-											<span class="title-2"><span class="title-main">下課時間：</span><span class="title-sub">2016-07-03 18:30</span></span>
-											<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>
-											</a>
-										</li>
-										<!--[end]li-->
 									</ul>
 								</div>
 							</div>
@@ -306,19 +258,30 @@ function showOffline(){
 				switch($(this).attr("id")){
 					case "onModal":
 						$(".modal-header h1").html("確定要接走學生嗎？");
-						$(".modal-footer button[type='submit']").attr("value", "wait");
-						$(".modal-footer button[type='submit']").html("等候");
-						// $(".modal-footer button[type='submit']:eq(1)").removeClass("hide");
+						$(".modal-footer button[type='submit']:eq(0)").attr("value", "wait");
+						$(".modal-footer button[type='submit']:eq(0)").html("等候");
+
+						$(".modal-footer button[type='submit']:eq(1)").removeClass("hide");
+						$(".modal-footer button[type='submit']:eq(1)").attr("value", "immediate");
+						$(".modal-footer button[type='submit']:eq(1)").html("立即接走");
 						break;
 					case "pendingModal":
 						$(".modal-header h1").html("學生下課嗎？");
-						$(".modal-footer button[type='submit']").attr("value", "off");
-						$(".modal-footer button[type='submit']").html("下課");
+						$(".modal-footer button[type='submit']:eq(0)").attr("value", "off");
+						$(".modal-footer button[type='submit']:eq(0)").html("下課");
+						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
+						break;
+					case "immediateModal":
+						$(".modal-header h1").html("學生下課嗎？");
+						$(".modal-footer button[type='submit']:eq(0)").attr("value", "off");
+						$(".modal-footer button[type='submit']:eq(0)").html("下課");
+						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
 					case "offModal":
 						$(".modal-header h1").html("學生上課嗎？");
-						$(".modal-footer button[type='submit']").attr("value", "on");
-						$(".modal-footer button[type='submit']").html("上課");
+						$(".modal-footer button[type='submit']:eq(0)").attr("value", "on");
+						$(".modal-footer button[type='submit']:eq(0)").html("上課");
+						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
 				};
 				
@@ -330,8 +293,7 @@ function showOffline(){
 				var ajaxurl = 'lib/ajax.php',
 				data =  {'action': action,'stuCode': stuCode};
 				$.post(ajaxurl, data, function (response) {
-					//ToDo: Need to wait for the ajax finish then reload
-					alert("reloading");
+				}).always(function(){
 					location.reload();
 				});
 			});
