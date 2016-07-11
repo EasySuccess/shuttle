@@ -292,9 +292,10 @@ function showOffline(){
 				var stuCode = $('#modalStuName').attr("value");	
 				var ajaxurl = 'lib/ajax.php',
 				data =  {'action': action,'stuCode': stuCode};
-				$.post(ajaxurl, data, function (response) {
+				$.ajaxSetup({async: false});
+				$.post(ajaxurl, data, function (data,status) {
 				}).always(function(){
-					location.reload();
+					//location.reload();
 				});
 			});
 			

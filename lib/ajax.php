@@ -1,7 +1,6 @@
 <?php
 require_once('meekrodb.2.3.class.php'); 
 require_once('config.php'); 
-date_default_timezone_set("Asia/Hong_Kong");
 
 if (isset($_POST['action'])) {
 
