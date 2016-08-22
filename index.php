@@ -22,14 +22,14 @@ function showOnline(){
 	} 
 }
 
-function showPending(){
+function showDone(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="pending"', DB::$coCode);
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="done"', DB::$coCode);
 	
 	foreach ($results as $row) {
 		echo '<li class="">'.
-			'<a data-toggle="modal" data-target="#onClassModal" id="pendingModal">'.
+			'<a data-toggle="modal" data-target="#onClassModal" id="doneModal">'.
 			'<span class="">'.
 			'<img src="img/'.DB::$coCode.'/'.$row["StuCode"].'.png" alt="img" class="img-circle">'.
 			'<span class="circle_in_yellow"></span>'.
@@ -157,9 +157,9 @@ function showOffline(){
 							<!--[end]上課中學生-->	
 							<div class="col-sm-6 col-md-3" >
 								<div class="links-box" >
-									<h3 class="caption yellow">需要落課學生</h3>
+									<h3 class="caption yellow">已完成作業學生</h3>
 									<ul class="links">
-										<?php showPending(); ?>
+										<?php showDone(); ?>
 									</ul>
 								</div>
 							</div>
@@ -258,14 +258,14 @@ function showOffline(){
 				switch($(this).attr("id")){
 					case "onModal":
 						$(".modal-header h1").html("確定要接走學生嗎？");
-						$(".modal-footer button[type='submit']:eq(0)").attr("value", "wait");
-						$(".modal-footer button[type='submit']:eq(0)").html("等候");
+						$(".modal-footer button[type='submit']:eq(0)").attr("value", "done");
+						$(".modal-footer button[type='submit']:eq(0)").html("已完成作業");
 
 						$(".modal-footer button[type='submit']:eq(1)").removeClass("hide");
-						$(".modal-footer button[type='submit']:eq(1)").attr("value", "immediate");
-						$(".modal-footer button[type='submit']:eq(1)").html("立即接走");
+						$(".modal-footer button[type='submit']:eq(1)").attr("value", "off");
+						$(".modal-footer button[type='submit']:eq(1)").html("下課");
 						break;
-					case "pendingModal":
+					case "doneModal":
 						$(".modal-header h1").html("學生下課嗎？");
 						$(".modal-footer button[type='submit']:eq(0)").attr("value", "off");
 						$(".modal-footer button[type='submit']:eq(0)").html("下課");

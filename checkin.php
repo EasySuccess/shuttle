@@ -92,7 +92,7 @@ require_once('lib/config.php');
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<div class="section-header">
-							<h1>黎小明</h1>
+							<h1></h1>
 						</div>
 					</div>
 					<div class="blackout"></div>
@@ -101,8 +101,8 @@ require_once('lib/config.php');
 							<div class="form-group">
 								<div class="onclass-from">
 									<div class="onclass" id="">
-										<p><span>上課時間：<span class="sum" id="inTime">2016-10-10 10:00</span></span></p>
-										<!-- <p><span>現在時間：<span class="sum" id="pickUpTime">2016-10-10 10:00</span></span></p> -->
+										<p><span>上課時間：<span class="sum" id="inTime"></span></span></p>
+										<!-- <p><span>現在時間：<span class="sum" id="pickUpTime"></span></span></p> -->
 										<p><span>狀況:<span class="sum" id="status"></span></span></p>
 									</div>
 								</div>
@@ -110,7 +110,8 @@ require_once('lib/config.php');
 						</div>
 						<div class="modal-footer  form-group">
 							<button id="pickWait" type="submit" class="btn theme-btn-2 cricle hide" value="wait">等一下</button>
-							<button id="pickNow" type="submit" class="btn theme-btn-2 cricle  hide" value="immediate">立即接走</button>
+							<button id="pickNow" type="submit" class="btn theme-btn-2 cricle hide" value="immediate">立即接走</button>
+							<button type="close" class="btn theme-btn-2 cricle">返回</button>
 						</div>
 					</form>
 				</div>
@@ -144,6 +145,12 @@ require_once('lib/config.php');
 							case "done":
 								$("#status").html("已完成作業");
 								$("#pickNow").removeClass("hide");
+								break;
+							case "wait":
+								$("#status").html("家長等候中");
+								break;
+							case "immediate":
+								$("#status").html("家長要求立即接走學生");
 								break;
 							case "on":
 								$("#status").html("上課中");

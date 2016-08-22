@@ -10,6 +10,9 @@ if (isset($_POST['action'])) {
         case 'wait':
             updateWait($param);
             break;
+		case 'done':
+            updateDone($param);
+            break;
         case 'immediate':
             updateImmed($param);
             break;
@@ -25,9 +28,17 @@ if (isset($_POST['action'])) {
     }
 }
 
+function updateDone($stuCode) {
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'done',
+	  'stuArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    exit;
+}
+
 function updateWait($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 'pending',
+	  'stuStatus' => 'wait',
 	  'stuArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
