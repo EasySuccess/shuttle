@@ -2,12 +2,20 @@
 require_once('lib/meekrodb.2.3.class.php'); 
 require_once('lib/config.php'); 
 	
-function showOnline(){
+function showOn(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
 	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="on"', DB::$coCode);
 	
 	foreach ($results as $row) {
+	
+		$remark="";
+		if($row["StuPickupStatus"] == "immediate"){
+			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
+		}else if($row["StuPickupStatus"] == "wait"){
+			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
+		}
+		
 		echo '<li class="">'.
 			'<a data-toggle="modal" data-target="#onClassModal" id="onModal">'.
 			'<span class="">'.
@@ -15,8 +23,7 @@ function showOnline(){
 			'<span class="circle_in_green"></span>'.
 			'</span>'.
 			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">上課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
-			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
+			'<span class="title-2"><span class="title-main">上課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.$remark.
 			'</a>'.
 		'</li>';
 	} 
@@ -26,8 +33,17 @@ function showDone(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
 	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="done"', DB::$coCode);
-	
+		
 	foreach ($results as $row) {
+	
+		$remark="";
+		if($row["StuPickupStatus"] == "immediate"){
+			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
+		}else if($row["StuPickupStatus"] == "wait"){
+			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
+		}
+		
+
 		echo '<li class="">'.
 			'<a data-toggle="modal" data-target="#onClassModal" id="doneModal">'.
 			'<span class="">'.
@@ -35,34 +51,32 @@ function showDone(){
 			'<span class="circle_in_yellow"></span>'.
 			'</span>'.
 			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">到達時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
-			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
+			'<span class="title-2"><span class="title-main">到達時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.$remark.
 			'</a>'.
 		'</li>';
 	} 
 }
 
-function showImmediate(){
+function showLeave(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="immediate"', DB::$coCode);
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="leave"', DB::$coCode);
 	
 	foreach ($results as $row) {
-		echo '<li class="">'.
-			'<a data-toggle="modal" data-target="#onClassModal" id="immediateModal">'.
-			'<span class="">'.
+		echo '<li>' .
+			'<a data-toggle="modal" data-target="#onClassModal" id="leaveModal">' .
+			'<span class="">' .
 			'<img src="img/'.DB::$coCode.'/'.$row["StuCode"].'.png" alt="img" class="img-circle">'.
-			'<span class="circle_in_red"></span>'.
-			'</span>'.
+			'<span class="circle_in_blue"></span>' .
+			'</span>' .
 			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">到達時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
-			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>'.
-			'</a>'.
+			'<span class="title-2"><span class="title-main">下課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuLeaveTime"])).'</span></span>'.
+			'</a>' .
 		'</li>';
 	} 
 }
 
-function showOffline(){
+function showOff(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
 	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="off"', DB::$coCode);
@@ -75,8 +89,6 @@ function showOffline(){
 			'<span class="circle_in_blue"></span>' .
 			'</span>' .
 			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">下課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.
-			// '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">遲到10分鐘</span></span>' .
 			'</a>' .
 		'</li>';
 	} 
@@ -87,7 +99,7 @@ function showOffline(){
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>shuttle</title>
+		<title>Tuition</title>
 		<meta name="description" content="接送系統" />
 		<meta name="author" content="接送系統" />
 		<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
@@ -110,6 +122,7 @@ function showOffline(){
 							<a class="brand" href="index.php">
 								<!--<img src="img/identity.png" alt="logo-image" />-->
 								<h1>logo</h1>
+								<button class='btn btn theme-btn-2' type="submit" value="reset">重設</button>
 							</a>
 						</div>
 						<div class="col-xs-8 col-sm-10">
@@ -150,7 +163,7 @@ function showOffline(){
 								<div class="links-box">
 									<h3 class="caption green">上課中學生</h3>
 									<ul class="links">
-										<?php showOnline(); ?>
+										<?php showOn(); ?>
 									</ul>
 								</div>
 							</div>
@@ -163,12 +176,13 @@ function showOffline(){
 									</ul>
 								</div>
 							</div>
-							<!--[end]需要落課學生-->
+							<!--[end]已完成作業學生-->
 							<div class="col-sm-6 col-md-3">
 								<div class="links-box">
-									<h3 class="caption red">立即落課學生</h3>
+									<h3 class="caption red">已落課學生
+									</h3>
 									<ul class="links">
-										<?php showImmediate(); ?>
+										<?php showLeave(); ?>
 									</ul>
 								</div>
 							</div>
@@ -177,7 +191,7 @@ function showOffline(){
 								<div class="links-box">
 									<h3 class="caption blue">未上課學生</h3>
 									<ul class="links">
-										<?php showOffline(); ?>
+										<?php showOff(); ?>
 									</ul>
 								</div>
 							</div>
@@ -260,46 +274,47 @@ function showOffline(){
 						$(".modal-header h1").html("確定要接走學生嗎？");
 						$(".modal-footer button[type='submit']:eq(0)").attr("value", "done");
 						$(".modal-footer button[type='submit']:eq(0)").html("已完成作業");
-
-						$(".modal-footer button[type='submit']:eq(1)").removeClass("hide");
-						$(".modal-footer button[type='submit']:eq(1)").attr("value", "off");
+						$(".modal-footer button[type='submit']:eq(1)").attr("value", "leave");
 						$(".modal-footer button[type='submit']:eq(1)").html("下課");
+						$(".modal-footer button[type='submit']:eq(0)").removeClass("hide");
+						$(".modal-footer button[type='submit']:eq(1)").removeClass("hide");
 						break;
 					case "doneModal":
 						$(".modal-header h1").html("學生下課嗎？");
-						$(".modal-footer button[type='submit']:eq(0)").attr("value", "off");
+						$(".modal-footer button[type='submit']:eq(0)").attr("value", "leave");
 						$(".modal-footer button[type='submit']:eq(0)").html("下課");
+						$(".modal-footer button[type='submit']:eq(0)").removeClass("hide");
 						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
-					case "immediateModal":
+					case "leaveModal":
 						$(".modal-header h1").html("學生下課嗎？");
-						$(".modal-footer button[type='submit']:eq(0)").attr("value", "off");
-						$(".modal-footer button[type='submit']:eq(0)").html("下課");
+						$(".modal-footer button[type='submit']:eq(0)").addClass("hide");
 						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
 					case "offModal":
 						$(".modal-header h1").html("學生上課嗎？");
 						$(".modal-footer button[type='submit']:eq(0)").attr("value", "on");
 						$(".modal-footer button[type='submit']:eq(0)").html("上課");
+						$(".modal-footer button[type='submit']:eq(0)").removeClass("hide");
 						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
 				};
-				
 			});
 			
 			$('button[type="submit"]').click(function(){
 				var action = $(this).val();
-				var stuCode = $('#modalStuName').attr("value");	
-				var ajaxurl = 'lib/ajax.php',
-				data =  {'action': action,'param': stuCode};
+				var param = $('#modalStuName').attr("value");
+				var ajaxurl = 'lib/ajax.php';
+				data =  {'action': action,'param': param};
 				$.ajaxSetup({async: false});
-				$.post(ajaxurl, data, function (data,status) {
+				$.post(ajaxurl, data, function (response,status) {
 				}).always(function(){
-					//location.reload();
+					location.reload();
 				});
 			});
 			
-			setTimeout(function() { window.location=window.location;},10000);
+			//Setup autorefresh every 10s
+			setTimeout(function() { window.location=window.location;},30000);
 			
 		});
 	</script>

@@ -66,9 +66,10 @@ CREATE TABLE tbStuStatus (
 				StuCode	VARCHAR(10), 
 				CoCode VARCHAR(10), 
 				StuStatus VARCHAR(10), 
-				StuShuttle VARCHAR(10), 
 				StuArriveTime DATETIME,
-				StuDefaultTime DATETIME,
+				StuPickupStatus VARCHAR(10), 
+				StuPickupArriveTime DATETIME,
+				StuLeaveTime DATETIME,
 				PRIMARY KEY (StuCode, CoCode),
 				FOREIGN KEY (CoCode)
 					REFERENCES tbCo(CoCode),

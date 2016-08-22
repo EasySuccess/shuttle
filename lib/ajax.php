@@ -7,20 +7,26 @@ if (isset($_POST['action'])) {
 	$param = $_POST['param'];
 	
     switch ($_POST['action']) {
+		case 'reset':
+			resetStuStatus();
+			break;
         case 'wait':
             updateWait($param);
             break;
+		case 'immediate':
+            updateImmed($param);
+            break;
+		case 'on':
+			updateOn($param);
+			break;
 		case 'done':
             updateDone($param);
             break;
-        case 'immediate':
-            updateImmed($param);
-            break;
+		case 'leave':
+			updateLeave($param);
+			break;
 		case 'off':
 			updateOff($param);
-			break;
-		case 'on':
-			updateOn($param);
 			break;
 		case 'checkCardId':
 			checkCard($param);
@@ -28,36 +34,15 @@ if (isset($_POST['action'])) {
     }
 }
 
-function updateDone($stuCode) {
-    DB::update('tbStuStatus', array(
-	  'stuStatus' => 'done',
-	  'stuArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateWait($stuCode) {
-    DB::update('tbStuStatus', array(
-	  'stuStatus' => 'wait',
-	  'stuArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateImmed($stuCode) {
-    DB::update('tbStuStatus', array(
-	  'stuStatus' => 'immediate',
-	  'stuArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateOff($stuCode) {
-    DB::update('tbStuStatus', array(
+function resetStuStatus(){
+	DB::update('tbStuStatus', array(
 	  'stuStatus' => 'off',
-	  'stuArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
+	  'stuArriveTime' => NULL,
+	  'stuPickupStatus' => NULL,
+	  'stuPickupArriveTime' => NULL,
+	  'stuLeaveTime' => NULL
+	  ), "coCode=%s", DB::$coCode);
+	exit;
 }
 
 function updateOn($stuCode) {
@@ -67,6 +52,46 @@ function updateOn($stuCode) {
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
+
+function updateDone($stuCode) {
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'done'
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    exit;
+}
+
+function updateLeave($stuCode) {
+    DB::update('tbStuStatus', array(
+	  'stuStatus' => 'leave',
+	  'stuLeaveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    exit;
+}
+
+// function updateOff($stuCode) {
+    // DB::update('tbStuStatus', array(
+	  // 'stuStatus' => 'off',
+	  // 'stuArriveTime' => date("Y-m-d H:i:s")
+	  // ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    // exit;
+// }
+
+function updateWait($stuCode) {
+    DB::update('tbStuStatus', array(
+	  'stuPickupStatus' => 'wait',
+	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    exit;
+}
+
+function updateImmed($stuCode) {
+    DB::update('tbStuStatus', array(
+	  'stuPickupStatus' => 'immediate',
+	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    exit;
+}
+
 
 function checkCard($cardId) {
 	$results = DB::query('SELECT * 
