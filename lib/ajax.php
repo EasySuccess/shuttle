@@ -4,20 +4,23 @@ require_once('config.php');
 
 if (isset($_POST['action'])) {
 
-	$stuCode = $_POST['stuCode'];
+	$param = $_POST['param'];
 	
     switch ($_POST['action']) {
         case 'wait':
-            updateWait($stuCode);
+            updateWait($param);
             break;
         case 'immediate':
-            updateImmed($stuCode);
+            updateImmed($param);
             break;
 		case 'off':
-			updateOff($stuCode);
+			updateOff($param);
 			break;
 		case 'on':
-			updateOn($stuCode);
+			updateOn($param);
+			break;
+		case 'checkCardId':
+			checkCard($param);
 			break;
     }
 }
@@ -52,5 +55,13 @@ function updateOn($stuCode) {
 	  'stuArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
+}
+
+function checkCard($cardId) {
+	$results = DB::query('SELECT * 
+	FROM tbCard INNER JOIN tbStudent ON tbCard.StuCode=tbStudent.StuCode INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
+	WHERE tbStudent.CoCode=%s and tbCard.CardId=%s', DB::$coCode, $cardId);
+	
+	print json_encode($results); ;
 }
 ?>

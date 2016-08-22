@@ -291,13 +291,15 @@ function showOffline(){
 				var action = $(this).val();
 				var stuCode = $('#modalStuName').attr("value");	
 				var ajaxurl = 'lib/ajax.php',
-				data =  {'action': action,'stuCode': stuCode};
+				data =  {'action': action,'param': stuCode};
 				$.ajaxSetup({async: false});
 				$.post(ajaxurl, data, function (data,status) {
 				}).always(function(){
 					//location.reload();
 				});
 			});
+			
+			setTimeout(function() { window.location=window.location;},10000);
 			
 		});
 	</script>

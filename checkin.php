@@ -1,3 +1,11 @@
+<?php	
+require_once('lib/meekrodb.2.3.class.php'); 
+require_once('lib/config.php'); 
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -52,7 +60,8 @@
 		<div class="container">
 		<input type="text" class="form-control" id="checkInID" autofocus>
 		<div class="button-wrapper">
-		<a href="#" data-toggle="modal" data-target="#onClassModal" id="checkInBtn" class="btn theme-btn-3">Get in touch</a>
+		<a href="#" data-toggle="modal" data-target="#checkInModal" id="checkInBtn" class="btn theme-btn-3">Get in touch</a>
+		<!--<button id="checkInBtn" class="btn theme-btn-3">Get in touch</button>-->
 		</div>
 		</div>
 		</section>
@@ -76,8 +85,8 @@
 		</div>
 		</footer>
 		</div>
-		<!--onClassModal-->
-		<div class="modal fade" id="onClassModal" tabindex="-1" role="dialog">
+		<!--checkInModal-->
+		<div class="modal fade" id="checkInModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog big" role="document" style="margin-top: 100px;">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -92,22 +101,22 @@
 							<div class="form-group">
 								<div class="onclass-from">
 									<div class="onclass" id="">
-										<p><span>上課時間：<span class="sum" id="cart-balance">2016-10-10 10:00</span></span></p>
-										<p><span>現在時間：<span class="sum" id="cart-balance-after">2016-10-10 10:00</span></span></p>
-										<p><span>備註:<span class="sum" id="cart-balance-after">  </span></span></p>
+										<p><span>上課時間：<span class="sum" id="inTime">2016-10-10 10:00</span></span></p>
+										<!-- <p><span>現在時間：<span class="sum" id="pickUpTime">2016-10-10 10:00</span></span></p> -->
+										<p><span>狀況:<span class="sum" id="status"></span></span></p>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer  form-group">
-							<button type="submit" class="btn theme-btn-2 cricle">等一下</button>
-							<button type="close" class="btn theme-btn-2 cricle" data-dismiss="modal">立即接走</button>
+							<button id="pickWait" type="submit" class="btn theme-btn-2 cricle hide" value="wait">等一下</button>
+							<button id="pickNow" type="submit" class="btn theme-btn-2 cricle  hide" value="immediate">立即接走</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<!--[end]onClassModal-->
+		<!--[end]checkInModal-->
 	</body>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
@@ -116,12 +125,54 @@
 	<script>
 		$(document).ready(function() {
 			
-			$('#checkInBtn').click(function () {
-				var stuId = $("#checkInID").val();
-				
-				
-				
+			$('#checkInBtn').click(function (e) {
+			
+				$.ajaxSetup({async: false});
+				data =  {'action': 'checkCardId','param': $("#checkInID").val()};
+				$.post('lib/ajax.php', data, function (response,status) {
+					var rows = $.parseJSON(response);
+					
+					if(rows.length > 1){
+						//handle the error
+					}else{
+						var row = rows[0];
+						console.log(row);
+						$("#checkInModal h1").html(row["StuName"]);
+						$("#checkInModal h1").attr("value", row["StuCode"]);
+						$("#inTime").html(row["StuArriveTime"]);
+						switch(row["StuStatus"]){
+							case "done":
+								$("#status").html("已完成作業");
+								$("#pickNow").removeClass("hide");
+								break;
+							case "on":
+								$("#status").html("上課中");
+								$("#pickWait").removeClass("hide");
+								$("#pickNow").removeClass("hide");
+								break;
+							case "off":
+								$("#status").html("已下課");
+								break;
+							default:
+								$("#status").html("請聯絡職員");
+								break;
+						}
+					}
+				});
 			});
+			
+			$('button[type="submit"]').click(function(){
+				var action = $(this).val();
+				var stuCode = $("#checkInModal h1").attr("value");
+				var ajaxurl = 'lib/ajax.php',
+				data =  {'action': action,'param': stuCode};
+				$.ajaxSetup({async: false});
+				$.post(ajaxurl, data, function (data,status) {
+				}).always(function(){
+				});
+			});
+			
+			
 		});
 	</script>
 </html>
