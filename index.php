@@ -5,14 +5,15 @@ require_once('lib/config.php');
 function showOn(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="on"', DB::$coCode);
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="1"
+	ORDER BY tbStuStatus.StuPickupStatus', DB::$coCode);
 	
 	foreach ($results as $row) {
 	
 		$remark="";
-		if($row["StuPickupStatus"] == "immediate"){
+		if($row["StuPickupStatus"] == "1"){
 			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
-		}else if($row["StuPickupStatus"] == "wait"){
+		}else if($row["StuPickupStatus"] == "2"){
 			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
 		}
 		
@@ -32,18 +33,18 @@ function showOn(){
 function showDone(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="done"', DB::$coCode);
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="2"
+	ORDER BY tbStuStatus.StuPickupStatus', DB::$coCode);
 		
 	foreach ($results as $row) {
 	
 		$remark="";
-		if($row["StuPickupStatus"] == "immediate"){
+		if($row["StuPickupStatus"] == "1"){
 			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
-		}else if($row["StuPickupStatus"] == "wait"){
+		}else if($row["StuPickupStatus"] == "2"){
 			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
 		}
 		
-
 		echo '<li class="">'.
 			'<a data-toggle="modal" data-target="#onClassModal" id="doneModal">'.
 			'<span class="">'.
@@ -60,9 +61,17 @@ function showDone(){
 function showLeave(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="leave"', DB::$coCode);
-	
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="3"', DB::$coCode);
+
 	foreach ($results as $row) {
+				
+		$remark="";
+		if($row["StuPickupStatus"] == "1"){
+			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
+		}else if($row["StuPickupStatus"] == "2"){
+			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
+		}
+		
 		echo '<li>' .
 			'<a data-toggle="modal" data-target="#onClassModal" id="leaveModal">' .
 			'<span class="">' .
@@ -70,7 +79,7 @@ function showLeave(){
 			'<span class="circle_in_blue"></span>' .
 			'</span>' .
 			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">下課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuLeaveTime"])).'</span></span>'.
+			'<span class="title-2"><span class="title-main">下課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuLeaveTime"])).'</span></span>'.$remark.
 			'</a>' .
 		'</li>';
 	} 
@@ -79,7 +88,7 @@ function showLeave(){
 function showOff(){
 	$results = DB::query('SELECT * 
 	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="off"', DB::$coCode);
+	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="4"', DB::$coCode);
 	
 	foreach ($results as $row) {
 		echo '<li>' .
@@ -314,7 +323,7 @@ function showOff(){
 			});
 			
 			//Setup autorefresh every 10s
-			setTimeout(function() { window.location=window.location;},30000);
+			setTimeout(function() { window.location=window.location;},10000);
 			
 		});
 	</script>

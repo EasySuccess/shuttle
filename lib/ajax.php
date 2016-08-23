@@ -34,11 +34,28 @@ if (isset($_POST['action'])) {
     }
 }
 
+/*
+
+StuStatus
+1 - on
+2 - done
+3 - leave
+4 - off
+
+StuPickupStatus
+1 - immediate
+2 - wait
+other - 99
+
+*/
+
+
+
 function resetStuStatus(){
 	DB::update('tbStuStatus', array(
-	  'stuStatus' => 'off',
+	  'stuStatus' => 4,
 	  'stuArriveTime' => NULL,
-	  'stuPickupStatus' => NULL,
+	  'stuPickupStatus' => 99,
 	  'stuPickupArriveTime' => NULL,
 	  'stuLeaveTime' => NULL
 	  ), "coCode=%s", DB::$coCode);
@@ -47,7 +64,7 @@ function resetStuStatus(){
 
 function updateOn($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 'on',
+	  'stuStatus' => 1,
 	  'stuArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
@@ -55,43 +72,34 @@ function updateOn($stuCode) {
 
 function updateDone($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 'done'
+	  'stuStatus' => 2,
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateLeave($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 'leave',
+	  'stuStatus' => 3,
 	  'stuLeaveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-// function updateOff($stuCode) {
-    // DB::update('tbStuStatus', array(
-	  // 'stuStatus' => 'off',
-	  // 'stuArriveTime' => date("Y-m-d H:i:s")
-	  // ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    // exit;
-// }
-
-function updateWait($stuCode) {
-    DB::update('tbStuStatus', array(
-	  'stuPickupStatus' => 'wait',
-	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateImmed($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuPickupStatus' => 'immediate',
+	  'stuPickupStatus' => 1,
 	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
+function updateWait($stuCode) {
+    DB::update('tbStuStatus', array(
+	  'stuPickupStatus' => 2,
+	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
+	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
+    exit;
+}
 
 function checkCard($cardId) {
 	$results = DB::query('SELECT * 

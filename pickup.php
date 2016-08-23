@@ -153,28 +153,28 @@ require_once('lib/config.php');
 						$("#onTime .sum").html(row["StuArriveTime"]);
 						$("#leaveTime .sum").html(row["StuLeaveTime"]);
 						switch(row["StuStatus"]){
-							case "on":
+							case "1":
 								$("#status").html("上課中");
 								$("#pickWait").removeClass("hide");
 								$("#pickNow").removeClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;
-							case "done":
+							case "2":
 								$("#status").html("已完成作業");
 								$("#pickWait").addClass("hide");
 								$("#pickNow").removeClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;
-							case "leave":
+							case "3":
 								$("#status").html("已下課");
 								$("#pickWait").addClass("hide");
 								$("#pickNow").addClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").removeClass("hide");
 								break;
-							case "off":
+							case "4":
 								$("#status").html("未上課");
 								$("#pickWait").addClass("hide");
 								$("#pickNow").addClass("hide");
