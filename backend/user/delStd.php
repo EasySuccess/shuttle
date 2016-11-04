@@ -1,4 +1,4 @@
-<?php require_once('../Connections/cardsystem.php'); ?>
+<?php require_once('../../lib/config.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -80,8 +80,8 @@ if ((isset($_GET['StuCode'])) && ($_GET['StuCode'] != "")) {
   $deleteSQL = sprintf("DELETE FROM tbstudent WHERE StuCode=%s",
                        GetSQLValueString($_GET['StuCode'], "int"));
 
-  mysql_select_db($database_cardsystem, $cardsystem);
-  $Result1 = mysql_query($deleteSQL, $cardsystem) or die(mysql_error());
+  mysql_select_db($database, $connection);
+  $Result1 = mysql_query($deleteSQL, $connection) or die(mysql_error());
 
   $deleteGoTo = "listAllStd.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -135,7 +135,7 @@ if ((isset($_GET['StuCode'])) && ($_GET['StuCode'] != "")) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Card System</a>
+          <a class="navbar-brand" href="#">補習社後台登入</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">

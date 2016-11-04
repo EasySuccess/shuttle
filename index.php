@@ -1,5 +1,4 @@
 <?php	
-require_once('lib/meekrodb.2.3.class.php'); 
 require_once('lib/config.php'); 
 	
 function showOn(){

@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>FCT內部系統</title>
+    <title>管理介面</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,18 +36,17 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="coll<script type="text/tcl" src="bootstrap-tpl.csn"></script>
-apse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="coll<script type="text/tcl" src="bootstrap-tpl.csn">
           <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">CardSystem</a>
+          <a class="navbar-brand" href="#">補習社後台登入</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <!--li class="active"><a href="index.php">Home</a></li>
+            <!--li class="active"><a href="index.php">主頁</a></li>
             <li><a href="login.php">登入</a></li-->
          </ul>
 
@@ -61,13 +60,12 @@ apse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 		<div class="row">
 		  <div class="col-md-4 col-md-offset-4">
 			<div class="thumbnail">
-			<legend>歡迎使用CardSystem</legend>
-			  <img src="images/logo.jpg" alt="...">
+			<legend>歡迎使用管理介面</legend>
+			  <!-- <img src="images/logo.jpg" alt="..."> -->
 			  <div class="caption">
 					<p><a id="" name="" class="btn btn-primary"  href="login.php" >登入</a>
-					<a id="" name="" class="btn btn-danger" href="register.php">申請帳號</a>
-					<a id="" name="" class="btn btn" href="forgotPassword.php">忘記密碼?</a><p>
-
+					<!-- <a id="" name="" class="btn btn-danger" href="register.php">申請帳號</a> -->
+					<!-- <a id="" name="" class="btn btn" href="forgotPassword.php">忘記密碼?</a><p> -->
 				</div>
 			  </div>
 			</div>

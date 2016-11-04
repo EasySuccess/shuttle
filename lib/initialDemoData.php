@@ -9,185 +9,216 @@
 	
 	//Company
 	DB::insert("tbCo", array(
-		'CoCode' => 'c001',
+		'CoCode' => 1,
 		'CoFullName' => 'company1',
 		'CoName' => 'company1',
+		'Created' => NULL,
 	));
 	
 	//Student
 	DB::insert("tbStudent", array(
-		'StuCode' => 's001',
-		'CoCode' => 'c001',
+		'StuCode' => 1,
+		'CoCode' => 1,
 		'StuName' => 'student1',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's002',
-		'CoCode' => 'c001',
+		'StuCode' => 2,
+		'CoCode' => 1,
 		'StuName' => 'student2',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's003',
-		'CoCode' => 'c001',
+		'StuCode' => 3,
+		'CoCode' => 1,
 		'StuName' => 'student3',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's004',
-		'CoCode' => 'c001',
+		'StuCode' => 4,
+		'CoCode' => 1,
 		'StuName' => 'student4',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's005',
-		'CoCode' => 'c001',
+		'StuCode' => 5,
+		'CoCode' => 1,
 		'StuName' => 'student5',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's006',
-		'CoCode' => 'c001',
+		'StuCode' => 6,
+		'CoCode' => 1,
 		'StuName' => 'student6',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's007',
-		'CoCode' => 'c001',
+		'StuCode' => 7,
+		'CoCode' => 1,
 		'StuName' => 'student7',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's008',
-		'CoCode' => 'c001',
+		'StuCode' => 8,
+		'CoCode' => 1,
 		'StuName' => 'student8',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's009',
-		'CoCode' => 'c001',
+		'StuCode' => 9,
+		'CoCode' => 1,
 		'StuName' => 'student9',
+		'Created' => NULL,
 	));
 	DB::insert("tbStudent", array(
-		'StuCode' => 's010',
-		'CoCode' => 'c001',
+		'StuCode' => 10,
+		'CoCode' => 1,
 		'StuName' => 'student10',
+		'Created' => NULL,
 	));
 	
 	//Student Status
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's001',
-		'CoCode' => 'c001',
+		'StuCode' => 1,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's002',
-		'CoCode' => 'c001',
+		'StuCode' => 2,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's003',
-		'CoCode' => 'c001',
+		'StuCode' => 3,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's004',
-		'CoCode' => 'c001',
+		'StuCode' => 4,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's005',
-		'CoCode' => 'c001',
+		'StuCode' => 5,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's006',
-		'CoCode' => 'c001',
+		'StuCode' => 6,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's007',
-		'CoCode' => 'c001',
+		'StuCode' => 7,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's008',
-		'CoCode' => 'c001',
+		'StuCode' => 8,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's009',
-		'CoCode' => 'c001',
+		'StuCode' => 9,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	DB::insert("tbStuStatus", array(
-		'StuCode' => 's010',
-		'CoCode' => 'c001',
+		'StuCode' => 10,
+		'CoCode' => 1,
 		'StuStatus' => '4',
 		'StuPickupStatus' => '99',
 		'stuarrivetime' => date("Y-m-d H:i:s"),
+		'Created' => NULL,
 	));
 	
 	//Card
 	DB::insert("tbCard", array(
-		'StuCode' => 's001',
-		'CoCode' => 'c001',
+		'StuCode' => 1,
+		'CoCode' => 1,
 		'CardId' => '1',
+		'Created' => NULL,
 	));
 		DB::insert("tbCard", array(
-		'StuCode' => 's002',
-		'CoCode' => 'c002',
+		'StuCode' => 2,
+		'CoCode' => 1,
 		'CardId' => '2',
+		'Created' => NULL,
 	));
 		DB::insert("tbCard", array(
-		'StuCode' => 's003',
-		'CoCode' => 'c003',
+		'StuCode' => 3,
+		'CoCode' => 1,
 		'CardId' => '3',
+		'Created' => NULL,
 	));	
 	DB::insert("tbCard", array(
-		'StuCode' => 's004',
-		'CoCode' => 'c004',
+		'StuCode' => 4,
+		'CoCode' => 1,
 		'CardId' => '4',
+		'Created' => NULL,
 	));	
 	DB::insert("tbCard", array(
-		'StuCode' => 's005',
-		'CoCode' => 'c005',
+		'StuCode' => 5,
+		'CoCode' => 1,
 		'CardId' => '5',
+		'Created' => NULL,
 	));
 		DB::insert("tbCard", array(
-		'StuCode' => 's006',
-		'CoCode' => 'c006',
+		'StuCode' => 6,
+		'CoCode' => 1,
 		'CardId' => '6',
+		'Created' => NULL,
 	));
 		DB::insert("tbCard", array(
-		'StuCode' => 's007',
-		'CoCode' => 'c007',
+		'StuCode' => 7,
+		'CoCode' => 1,
 		'CardId' => '7',
+		'Created' => NULL,
 	));
 		DB::insert("tbCard", array(
-		'StuCode' => 's008',
-		'CoCode' => 'c008',
+		'StuCode' => 8,
+		'CoCode' => 1,
 		'CardId' => '8',
+		'Created' => NULL,
 	));
 		DB::insert("tbCard", array(
-		'StuCode' => 's009',
-		'CoCode' => 'c009',
+		'StuCode' => 9,
+		'CoCode' => 1,
 		'CardId' => '9',
+		'Created' => NULL,
 	));	
 	DB::insert("tbCard", array(
-		'StuCode' => 's010',
-		'CoCode' => 'c010',
+		'StuCode' => 10,
+		'CoCode' => 1,
 		'CardId' => '10',
+		'Created' => NULL,
 	));
 	
 ?>

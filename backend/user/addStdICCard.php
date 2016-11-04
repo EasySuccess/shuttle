@@ -1,4 +1,4 @@
-<?php require_once('../Connections/cardsystem.php'); ?>
+<?php require_once('../../lib/config.php'); ?>
 <?php include("../config.php"); ?>
 <?php
 if (!isset($_SESSION)) {
@@ -87,9 +87,9 @@ $colname_RecordsetICCard = "-1";
 if (isset($_GET['StuCode'])) {
   $colname_RecordsetICCard = $_GET['StuCode'];
 }
-mysql_select_db($database_cardsystem, $cardsystem);
+mysql_select_db($database, $connection);
 $query_RecordsetICCard = sprintf("SELECT * FROM tbcard WHERE StuCode = %s", GetSQLValueString($colname_RecordsetICCard, "int"));
-$RecordsetICCard = mysql_query($query_RecordsetICCard, $cardsystem) or die(mysql_error());
+$RecordsetICCard = mysql_query($query_RecordsetICCard, $connection) or die(mysql_error());
 $row_RecordsetICCard = mysql_fetch_assoc($RecordsetICCard);
 $totalRows_RecordsetICCard = mysql_num_rows($RecordsetICCard);
 $this_STD_IC_total = $totalRows_RecordsetICCard;
@@ -101,9 +101,9 @@ $colname_RecordsetStd = "-1";
 if (isset($_GET['StuCode'])) {
   $colname_RecordsetStd = $_GET['StuCode'];
 }
-mysql_select_db($database_cardsystem, $cardsystem);
+mysql_select_db($database, $connection);
 $query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE StuCode = %s", GetSQLValueString($colname_RecordsetStd, "int"));
-$RecordsetStd = mysql_query($query_RecordsetStd, $cardsystem) or die(mysql_error());
+$RecordsetStd = mysql_query($query_RecordsetStd, $connection) or die(mysql_error());
 $row_RecordsetStd = mysql_fetch_assoc($RecordsetStd);
 $totalRows_RecordsetStd = mysql_num_rows($RecordsetStd);
 
@@ -113,9 +113,9 @@ $colname_RecordsetThisCardTotal = "-1";
 if (isset($_POST['CardId'])) {
   $colname_RecordsetThisCardTotal = $_POST['CardId'];
 }
-mysql_select_db($database_cardsystem, $cardsystem);
+mysql_select_db($database, $connection);
 $query_RecordsetThisCardTotal = sprintf("SELECT * FROM tbcard WHERE CardId = %s", GetSQLValueString($colname_RecordsetThisCardTotal, "text"));
-$RecordsetThisCardTotal = mysql_query($query_RecordsetThisCardTotal, $cardsystem) or die(mysql_error());
+$RecordsetThisCardTotal = mysql_query($query_RecordsetThisCardTotal, $connection) or die(mysql_error());
 $row_RecordsetThisCardTotal = mysql_fetch_assoc($RecordsetThisCardTotal);
 $totalRows_RecordsetThisCardTotal = mysql_num_rows($RecordsetThisCardTotal);
 $this_IC_total = $totalRows_RecordsetThisCardTotal;//該卡號的使用次數
@@ -130,8 +130,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 							   GetSQLValueString($_POST['CoCode'], "int"),
 							   GetSQLValueString($_POST['StuCode'], "int"));
 		
-		  mysql_select_db($database_cardsystem, $cardsystem);
-		  $Result1 = mysql_query($insertSQL, $cardsystem) or die(mysql_error());
+		  mysql_select_db($database, $connection);
+		  $Result1 = mysql_query($insertSQL, $connection) or die(mysql_error());
 		
 		  $insertGoTo = "addStdICCardOK.php";
 		  if (isset($_SERVER['QUERY_STRING'])) {
@@ -188,7 +188,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Card System</a>
+          <a class="navbar-brand" href="#">補習社後台登入</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -226,7 +226,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="textinput">CoCode:</label>  
               <div class="col-md-4">
-              <input id="textinput" name="CoCode" type="text" value="<?php echo $_SESSION['CoCode']; ?>" class="form-control input-md" readonly>
+              <input id="textinput" name="CoCode" type="text" value="<?php echo $_SESSION['MM_CoCode']; ?>" class="form-control input-md" readonly>
               </div>
             </div>
             

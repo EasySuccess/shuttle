@@ -46,7 +46,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Home</a></li>
+            <li class="active"><a href="index.php">主頁</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -59,9 +59,9 @@
         
       
         <div class="col-sm-10">
-          <button type="submit" id="button" class="btn btn-primary">確定</button>
-          <a type="button" class="btn btn-danger" href="register.php" class="btn">申請帳號</a>
-          <a type="button" href="forgotPassword.php" class="btn">忘記密碼?</a>
+          <!-- <button type="submit" id="button" class="btn btn-primary">確定</button> -->
+          <!-- <a type="button" class="btn btn-danger" href="register.php" class="btn">申請帳號</a> -->
+          <!-- <a type="button" href="forgotPassword.php" class="btn">忘記密碼?</a> -->
           </div>
           </div>
            
