@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_RecordsetStd" value="name:StuCode;datatype:int,name:CoCode;datatype:int,name:StuName;datatype:string,name:StuSex;datatype:string,name:StuBirth;datatype:date,name:StuAddress;datatype:string,name:StuFather;datatype:string,name:StuFatherTel;datatype:string,name:StuMum;datatype:string,name:StuMumTel;datatype:string,name:StuContact;datatype:string,name:StuContactTel;datatype:string,name:StuRemark;datatype:string,name:StuGrad;datatype:string,name:StuPic;datatype:string,name:creatTime;datatype:datetime,name:updateTime;datatype:timestamp" />
+	<infoitem key="UD_RecordsetICCard" value="name:CardId;datatype:string,name:CoCode;datatype:int,name:StuCode;datatype:int,name:creatTime;datatype:timestamp" />
+	<infoitem key="UD_RecordsetThisCardTotal" value="name:CardId;datatype:string,name:CoCode;datatype:int,name:StuCode;datatype:int,name:creatTime;datatype:timestamp" />
+</info>
