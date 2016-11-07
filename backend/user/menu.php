@@ -23,6 +23,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	header("Location: " . $MM_restrictGoTo);
 	exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,8 +87,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
                      </h3>
                   </div>
                   <div class="panel-body">
-                     <a type="button" class="btn btn-md" aria-label="Left Align" href="addStd.php" >新增學生</a><br>
-                     <a type="button" class="btn btn-md" aria-label="Left Align" href="listAllStd.php" >學生列表</a>
+                     <a type="button" class="btn btn-md" aria-label="Left Align" href="listStudent.php" >學生列表</a>
+                     <a type="button" class="btn btn-md" aria-label="Left Align" href="addStudent.php" >新增學生</a><br>
                   </div>
                </div>
             </div>
@@ -100,8 +101,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
                      </h3>
                   </div>
                   <div class="panel-body">
-                     <a type="button" class="btn btn-md" aria-label="Left Align" href=".php" >查詢IC卡</a><br>
-                     <a type="button" class="btn btn-md" aria-label="Left Align" href=".php" >IC卡列表</a>
+                     <a type="button" class="btn btn-md" aria-label="Left Align" href="listCard.php" >IC卡列表</a>
+                     <a type="button" class="btn btn-md" aria-label="Left Align" href="addCard.php" >新增IC卡</a><br>
                   </div>
                </div>
             </div>

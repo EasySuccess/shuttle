@@ -1,60 +1,66 @@
 <?php
+require_once('../../lib/config.php');
 
-	require_once('../../lib/config.php'); 
+if (!isset($_SESSION)) {
+    session_start();
+}
+$MM_authorizedUsers  = "admin,company,staff";
+$MM_donotCheckaccess = "false";
+
+$MM_restrictGoTo = "../noPermission.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {
+    $MM_qsChar   = "?";
+    $MM_referrer = $_SERVER['PHP_SELF'];
+    if (strpos($MM_restrictGoTo, "?"))
+        $MM_qsChar = "&";
+    if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
+        $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+    $MM_restrictGoTo = $MM_restrictGoTo . $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+    header("Location: " . $MM_restrictGoTo);
+    exit;
+}
+
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	
-	if (!isset($_SESSION)) {
-	  session_start();
-	}
-	$MM_authorizedUsers = "admin,company,staff";
-	$MM_donotCheckaccess = "false";
+	DB::insert('tbStudent', array(
+		'CoCode' =>  GetSQLValueString($_POST['CoCode'], "int"),
+		'StuName' => GetSQLValueString($_POST['StuName'], "text"),
+		'StuSex' => GetSQLValueString($_POST['StuSex'], "text"),
+		'StuBirth' => GetSQLValueString($_POST['StuBirth'], "date"),
+		'StuAddress' => GetSQLValueString($_POST['StuAddress'], "text"),
+		'StuFather' => GetSQLValueString($_POST['StuFather'], "text"),
+		'StuFatherTel' => GetSQLValueString($_POST['StuFatherTel'], "text"),
+		'StuMum' => GetSQLValueString($_POST['StuMum'], "text"),
+		'StuMumTel' => GetSQLValueString($_POST['StuMumTel'], "text"),
+		'StuContact' => GetSQLValueString($_POST['StuContact'], "text"),
+		'StuContactTel' => GetSQLValueString($_POST['StuContactTel'], "text"),
+		'StuRemark' => GetSQLValueString($_POST['StuRemark'], "text"),
+		'StuGrad' =>  GetSQLValueString($_POST['StuGrad'], "text"),
+		'Created' => NULL
+	));
 	
-	$MM_restrictGoTo = "../noPermission.php";
-	if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
-	  $MM_qsChar = "?";
-	  $MM_referrer = $_SERVER['PHP_SELF'];
-	  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-	  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
-	  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
-	  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-	  header("Location: ". $MM_restrictGoTo); 
-	  exit;
-	}
-	
-	$editFormAction = $_SERVER['PHP_SELF'];
-	if (isset($_SERVER['QUERY_STRING'])) {
-	  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-	}
-	
-	if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-	  $insertSQL = sprintf("INSERT INTO tbstudent (StuCode, CoCode, StuName, StuSex, StuBirth, StuAddress, StuFather, StuFatherTel, StuMum, StuMumTel, StuContact, StuContactTel, StuRemark, StuGrad, StuPic, updateTime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-	                       GetSQLValueString($_POST['StuCode'], "text"),
-	                       GetSQLValueString($_POST['CoCode'], "text"),
-	                       GetSQLValueString($_POST['StuName'], "text"),
-	                       GetSQLValueString($_POST['StuSex'], "text"),
-	                       GetSQLValueString($_POST['StuBirth'], "date"),
-	                       GetSQLValueString($_POST['StuAddress'], "text"),
-	                       GetSQLValueString($_POST['StuFather'], "text"),
-	                       GetSQLValueString($_POST['StuFatherTel'], "text"),
-	                       GetSQLValueString($_POST['StuMum'], "text"),
-	                       GetSQLValueString($_POST['StuMumTel'], "text"),
-	                       GetSQLValueString($_POST['StuContact'], "text"),
-	                       GetSQLValueString($_POST['StuContactTel'], "text"),
-	                       GetSQLValueString($_POST['StuRemark'], "text"),
-	                       GetSQLValueString($_POST['StuGrad'], "text"),
-	                       GetSQLValueString($_POST['StuPic'], "text"),
-	                       GetSQLValueString($_POST['updateTime'], "date"));
-	
-	  mysql_select_db($database, $connection);
-	  $Result1 = mysql_query($insertSQL, $connection) or die(mysql_error());
-	
-	  $insertGoTo = "addStdOK.php";
-	  if (isset($_SERVER['QUERY_STRING'])) {
-	    $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
-	    $insertGoTo .= $_SERVER['QUERY_STRING'];
-	  }
-	  header(sprintf("Location: %s", $insertGoTo));
-	}
-	?>
+	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbStudent ORDER By Created Desc");
+	DB::insert("tbStuStatus", array(
+		'StuCode' => GetSQLValueString($result['StuCode'], "int"),
+		'CoCode' => GetSQLValueString($result['CoCode'], "int"),
+		'StuStatus' => '4',
+		'StuPickupStatus' => '99',
+		'Created' => NULL
+	));
+
+    $insertGoTo = "addStudentSuccess.php";
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
+        $insertGoTo .= $_SERVER['QUERY_STRING'];
+    }
+    header(sprintf("Location: %s", $insertGoTo));
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -95,7 +101,8 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="menu.php">返回</a></li>
+						<li class="active"><a href="menu.php">主選單</a></li>
+						<li><a href="../login.php">登出</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -109,7 +116,7 @@
 						<!-- Form Name -->
 						<legend>新增學生</legend>
 						<!-- Text input-->
-						<div class="form-group">
+						<div class="form-group hidden">
 							<label class="col-md-4 control-label" for="textinput">CoCode:</label>  
 							<div class="col-md-4">
 								<input id="textinput" name="CoCode" type="text" value="<?php echo $_SESSION['MM_CoCode']; ?>" class="form-control input-md" readonly>
@@ -196,18 +203,16 @@
 							<div class="col-md-4">
 								<input id="textinput" name="StuPic" type="text" value="" class="form-control input-md">
 							</div>
-						</div> -->
+							</div> -->
 						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
-								<input type="submit" class="btn btn-primary" value="插入記錄">
+								<input type="submit" class="btn btn-primary" value="新增學生">
 								<a type="button"  class="btn btn-default" href="menu.php">返回</a>
 							</div>
 						</div>
 					</fieldset>
-					<input type="hidden" name="StuCode" value="" size="32" />
-					<input type="hidden" name="updateTime" value="">
 					<input type="hidden" name="MM_insert" value="form1">
 				</form>
 			</div>

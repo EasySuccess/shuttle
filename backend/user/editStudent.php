@@ -1,31 +1,52 @@
-<?php require_once('../../lib/config.php'); ?>
-<?php
-	if (!isset($_SESSION)) {
-	  session_start();
-	}
-	$MM_authorizedUsers = "admin,company,staff";
-	$MM_donotCheckaccess = "false";
+<?php require_once('../../lib/config.php');
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "admin,company,staff";
+$MM_donotCheckaccess = "false";
+
+$MM_restrictGoTo = "../noPermission.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+
+$colname_RecordsetStd = "-1";
+if (isset($_GET['StuCode'])) {
+  $colname_RecordsetStd = $_GET['StuCode'];
+}
+$RecordsetStd = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode = %s", GetSQLValueString($colname_RecordsetStd, "int"));
+
+
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_POST['StuName'])) {
+
+	DB::update('tbStudent', array(
+		'StuName' => GetSQLValueString($_POST['StuName'], "text"),
+		'StuSex' => GetSQLValueString($_POST['StuSex'], "text"),
+		'StuBirth' => GetSQLValueString($_POST['StuBirth'], "date"),
+		'StuAddress' => GetSQLValueString($_POST['StuAddress'], "text"),
+		'StuFather' => GetSQLValueString($_POST['StuFather'], "text"),
+		'StuFatherTel' => GetSQLValueString($_POST['StuFatherTel'], "text"),
+		'StuMum' => GetSQLValueString($_POST['StuMum'], "text"),
+		'StuMumTel' => GetSQLValueString($_POST['StuMumTel'], "text"),
+		'StuContact' => GetSQLValueString($_POST['StuContact'], "text"),
+		'StuContactTel' => GetSQLValueString($_POST['StuContactTel'], "text"),
+		'StuRemark' => GetSQLValueString($_POST['StuRemark'], "text"),
+		'StuGrad' =>  GetSQLValueString($_POST['StuGrad'], "text")
+	), "StuCode=%s and CoCode=%s", $_POST['StuCode'], $_POST['CoCode']);
 	
-	$MM_restrictGoTo = "../noPermission.php";
-	if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
-	  $MM_qsChar = "?";
-	  $MM_referrer = $_SERVER['PHP_SELF'];
-	  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-	  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
-	  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
-	  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-	  header("Location: ". $MM_restrictGoTo); 
-	  exit;
-	}
-	
-	$colname_RecordsetStd = "-1";
-	if (isset($_GET['StuCode'])) {
-	  $colname_RecordsetStd = $_GET['StuCode'];
-	}
-	$query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE StuCode = %s", GetSQLValueString($colname_RecordsetStd, "int"));
-	$RecordsetStd = DB::queryFirstRow($query_RecordsetStd);
-	
-	?>
+	$goTo = "editStudent.php?StuCode=".$_POST['StuCode'];
+	header(sprintf("Location: %s", $goTo));
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -67,6 +88,7 @@
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="menu.php">主選單</a></li>
+						<li><a href="../login.php">登出</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -74,15 +96,22 @@
 		</nav>
 		<div class="container">
 			<div class="starter-template">
-				<h1>學生詳細資料</h1>
 				<p class="lead"></p>
 				<form method="post" name="form1" action="<?php echo $editFormAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Text input-->
+						<legend>學生詳細資料</legend>
 						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput">學生編號:</label>  
+							<div class="col-md-4">
+								<input id="textinput" name="StuCode" type="text" value="<?php echo $RecordsetStd['StuCode']; ?>" class="form-control input-md" readonly>
+							</div>
+						</div>
+						<!-- Text input-->
+						<div class="form-group hidden">
 							<label class="col-md-4 control-label" for="textinput">CoCode:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="CoCode" type="text" value="<?php echo $_SESSION['MM_CoCode']; ?>" class="form-control input-md" readonly>
+								<input id="textinput" name="CoCode" type="text" value="<?php echo $RecordsetStd['CoCode']; ?>" class="form-control input-md" readonly>
 							</div>
 						</div>
 						<!-- Text input-->
@@ -140,7 +169,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">緊急聯絡人:</label>  
 							<div class="col-md-2">
-								<input id="textinput" name="StuContact" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="StuContact" type="text" value="<?php echo $RecordsetStd['StuContact']; ?>" class="form-control input-md">
 							</div>
 							<div class="col-md-2">
 								<input id="textinput" name="StuContactTel" type="text"  placeholder="聯絡電話" value="<?php echo $RecordsetStd['StuContactTel']; ?>" class="form-control input-md">
@@ -165,13 +194,10 @@
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="更新記錄">
-								<a type="button"  class="btn btn-default" href="menu.php">返回</a>
+								<a type="button"  class="btn btn-default" href="listAllStd.php">返回</a>
 							</div>
 						</div>
 					</fieldset>
-					<input type="hidden" name="StuCode" value="" size="32" />
-					<input type="hidden" name="updateTime" value="">
-					<input type="hidden" name="MM_insert" value="form1">
 				</form>
 			</div>
 			<div class="row">

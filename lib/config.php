@@ -11,6 +11,8 @@
 	DB::$coCode = "1";
 	date_default_timezone_set("Asia/Hong_Kong");
 	
+	// Backend Parameters
+	$STD_IC_CARD_TOTAL = 2;  //Maximum IC Cards per student
 
 	// // Backend Parameters
 	// $hostname = "localhost";

@@ -20,7 +20,7 @@ if (isset($_POST['username'])) {
 	$MM_redirectLoginFailed  = "loginFailed.php";
 	$MM_redirecttoReferrer   = false;
 	
-	$LoginRS = DB::queryFirstRow(sprintf("SELECT UserName, UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s AND UserPw=%s", GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text")));
+	$LoginRS = DB::queryFirstRow("SELECT UserName, UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s AND UserPw=%s", GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text"));
 	$loginFoundUser = count($LoginRS);
 		
 	if ($loginFoundUser) {
@@ -82,9 +82,7 @@ if (isset($_POST['username'])) {
          <!-- /.login-logo -->
          <div class="login-box-body">
             <p class="login-box-msg">請輸入登入資訊</p>
-            <form ACTION="<?php
-echo $loginFormAction;
-?>" name="formLogin" method="POST">
+            <form ACTION="<?php echo $loginFormAction;?>" name="formLogin" method="POST">
                <div class="form-group has-feedback">
                   <input type="text" class="form-control" id="username" name="username" placeholder="username">
                   <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

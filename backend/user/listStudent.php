@@ -63,7 +63,8 @@
 		}
 	}
 	$queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
-	?>
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -117,11 +118,11 @@
 				<p class="lead"></p>
 			</div>
 			<div class="row">
-				<ul class="nav nav-tabs">
+				<!-- <ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">home</a></li>
 					<li role="presentation"><a href="#">Profile</a></li>
 					<li role="presentation"><a href="#">Messages</a></li>
-				</ul>
+				</ul> -->
 				<div class="col-md-12">
 					<?php if ($totalRows_RecordsetStd > 0) { // Show if recordset not empty ?>
 					<table class="table table-striped">
@@ -161,15 +162,9 @@
 									?>
 							</td>
 							<td>
-								<a class="btn btn-default" href="addStdICCard.php?StuCode=<?php
-									echo $row_RecordsetStd['StuCode'];
-									?>">加入IC卡</a>
-								<a class="btn btn-info" href="stdDetail.php?StuCode=<?php
-									echo $row_RecordsetStd['StuCode'];
-									?>">詳細</a>
-								<a class="btn btn-danger" href="delStd.php?StuCode=<?php
-									echo $row_RecordsetStd['StuCode'];
-									?>">刪除</a>
+								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">分配IC卡</a>
+								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">詳細</a>
+								<a class="btn btn-danger" href="delStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a>
 							</td>
 						</tr>
 						<?php
@@ -244,5 +239,18 @@
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#deleteStudent').click(function(){
+					var ajaxurl = 'lib/ajax.php';
+					data =  {'CoCode': $_SESSION['MM_CoCode'], 'StuCode': $('#deleteStudent').attr("stuCode");};
+					$.ajaxSetup({async: false});
+					$.post(ajaxurl, data, function (response,status) {
+					}).always(function(){
+						location.reload();
+					});
+				});
+			});
+		</script>
 	</body>
 </html>

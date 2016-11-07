@@ -5,7 +5,7 @@ GRANT ALL PRIVILEGES ON education . * TO 'sqluser'@'localhost';
 
 //Run in DB
 CREATE TABLE tbCo (
-				CoCode INT(10) NOT NULL UNIQUE PRIMARY KEY,
+				CoCode INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				CoFullName VARCHAR(50),
 				CoName VARCHAR(50),
 				CoAddress VARCHAR(50),
@@ -19,8 +19,8 @@ CREATE TABLE tbCo (
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 
 CREATE TABLE tbStudent (
-				StuCode INT(10),
-				CoCode INT(10),
+				StuCode INT(10) NOT NULL AUTO_INCREMENT,
+				CoCode INT(10) NOT NULL,
 				StuName VARCHAR(10),
 				StuSex VARCHAR(6),
 				StuBirth DATE,
@@ -71,7 +71,7 @@ CREATE TABLE tbAttend (
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 			
 CREATE TABLE tbStuStatus (
-				StuCode	INT(10), 
+				StuCode INT(10), 
 				CoCode INT(10), 
 				StuStatus VARCHAR(10), 
 				StuArriveTime DATETIME,
