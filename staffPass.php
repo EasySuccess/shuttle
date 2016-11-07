@@ -65,9 +65,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 		<div class="content-wrapper">
 		<!-- Hero Section -->
 		<section class="section-hero">
-		<div class="hero-content pi-page">
+		<div class="hero-content pi-page-2">
 		<div class="container">
-		<h1 class="heading">家長拍卡介面</h1>
+		<h1 class="heading">員工拍卡介面</h1>
 		</div>
 		</div>
 		</section>
@@ -125,7 +125,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 							</div>
 						</div>
 						<div class="modal-footer  form-group">
-							<button id="actionBtn" type="submit" class="btn theme-btn-2 cricle" value="">上課</button>
+							<button id="actionBtn" type="submit" class="btn theme-btn-2 cricle" value="on">上課</button>
+							<button id="actionBtn2" type="submit" class="btn theme-btn-2 cricle" value="leave">下課</button>
 							<button type="close" class="btn theme-btn-2 cricle">返回</button>
 						</div>
 					</form>
@@ -170,21 +171,24 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 						switch(row["StuStatus"]){
 							case "on":
 								$("#status").html("上課中");
-								$("#actionBtn").attr("value", "leave");
-								$("#actionBtn").html("下課");
+								$("#actionBtn").attr("value", "done");
+								$("#actionBtn").html("完成作業");
+								$("#actionBtn").removeClass("hide");
+								$("#actionBtn2").removeClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;
 							case "done":
 								$("#status").html("已完成作業");
-								$("#actionBtn").attr("value", "leave");
-								$("#actionBtn").html("下課");
+								$("#actionBtn").addClass("hide");
+								$("#actionBtn2").removeClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;
 							case "leave":
 								$("#status").html("已下課");
 								$("#actionBtn").addClass("hide");
+								$("#actionBtn2").addClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").removeClass("hide");
 								break;
@@ -192,6 +196,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								$("#status").html("未上課");
 								$("#actionBtn").attr("value", "on");
 								$("#actionBtn").html("上課");
+								$("#actionBtn").removeClass("hide");
+								$("#actionBtn2").addClass("hide");
 								$("#onTime").addClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;

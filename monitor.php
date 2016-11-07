@@ -127,7 +127,7 @@ function showOff(){
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Tuition</title>
+		<title>補習社接送系統</title>
 		<meta name="description" content="補習社接送系統" />
 		<meta name="author" content="補習社接送系統" />
 		<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
