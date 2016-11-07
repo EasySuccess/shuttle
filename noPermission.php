@@ -7,9 +7,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="../favicon.ico">
 
-    <title>管理介面</title>
+    <title>補習社接送系統</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,8 +36,8 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="coll<script type="text/tcl" src="bootstrap-tpl.csn">
-          <span class="sr-only">Toggle navigation</span>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -46,33 +46,18 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <!--li class="active"><a href="index.php">主頁</a></li>
-            <li><a href="login.php">登入</a></li-->
-         </ul>
-
+            <li class="active"><a href="index.php">主頁</a></li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
-		<!-- Form Name -->
-		<p>
-		<div class="row">
-		  <div class="col-md-4 col-md-offset-4">
-			<div class="thumbnail">
-			<legend>歡迎使用管理介面</legend>
-			  <!-- <img src="images/logo.jpg" alt="..."> -->
-			  <div class="caption">
-					<p><a id="" name="" class="btn btn-primary"  href="login.php" >登入</a>
-					<!-- <a id="" name="" class="btn btn-danger" href="register.php">申請帳號</a> -->
-					<!-- <a id="" name="" class="btn btn" href="forgotPassword.php">忘記密碼?</a><p> -->
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	
-	
+
+      <div class="starter-template">
+        <h1>對不起, 您沒有權限存取頁面.</h1>
+        
+      </div>
     </div><!-- /.container -->
 
 

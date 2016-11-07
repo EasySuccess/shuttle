@@ -22,6 +22,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup)
 		if (($strUsers == "") && false) {
 			$isValid = true;
 		}
+
 	}
 	return $isValid;
 }

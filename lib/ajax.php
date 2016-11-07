@@ -53,9 +53,9 @@ other - 99
 
 function resetStuStatus(){
 	DB::update('tbStuStatus', array(
-	  'stuStatus' => 4,
+	  'stuStatus' => 'off',
 	  'stuArriveTime' => NULL,
-	  'stuPickupStatus' => 99,
+	  'stuPickupStatus' => NULL,
 	  'stuPickupArriveTime' => NULL,
 	  'stuLeaveTime' => NULL
 	  ), "coCode=%s", DB::$coCode);
@@ -64,7 +64,7 @@ function resetStuStatus(){
 
 function updateOn($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 1,
+	  'stuStatus' => 'on',
 	  'stuArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
@@ -72,14 +72,14 @@ function updateOn($stuCode) {
 
 function updateDone($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 2,
+	  'stuStatus' => 'done',
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateLeave($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuStatus' => 3,
+	  'stuStatus' => 'leave',
 	  'stuLeaveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
@@ -87,7 +87,7 @@ function updateLeave($stuCode) {
 
 function updateImmed($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuPickupStatus' => 1,
+	  'stuPickupStatus' => 'immediate',
 	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
@@ -95,7 +95,7 @@ function updateImmed($stuCode) {
 
 function updateWait($stuCode) {
     DB::update('tbStuStatus', array(
-	  'stuPickupStatus' => 2,
+	  'stuPickupStatus' => 'wait',
 	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
