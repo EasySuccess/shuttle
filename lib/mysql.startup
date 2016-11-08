@@ -4,7 +4,7 @@ CREATE USER 'sqluser'@'localhost' IDENTIFIED BY 'sqluser';
 GRANT ALL PRIVILEGES ON education . * TO 'sqluser'@'localhost';
 
 //Run in DB
-CREATE TABLE tbCo (
+CREATE TABLE tbco (
 				CoCode INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				CoFullName VARCHAR(50),
 				CoName VARCHAR(50),
@@ -18,7 +18,7 @@ CREATE TABLE tbCo (
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 
-CREATE TABLE tbStudent (
+CREATE TABLE tbstudent (
 				StuCode INT(10) NOT NULL AUTO_INCREMENT,
 				CoCode INT(10) NOT NULL,
 				StuName VARCHAR(10),
@@ -38,23 +38,23 @@ CREATE TABLE tbStudent (
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				PRIMARY KEY (StuCode, CoCode),
 				FOREIGN KEY (CoCode)
-					REFERENCES tbCo(CoCode)
+					REFERENCES tbco(CoCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 			
 			
-CREATE TABLE tbCard (
+CREATE TABLE tbcard (
 				CardId VARCHAR(10) NOT NULL PRIMARY KEY,
 				CoCode INT(10),
 				StuCode INT(10),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				FOREIGN KEY (CoCode)
-					REFERENCES tbCo(CoCode),
+					REFERENCES tbco(CoCode),
 				FOREIGN KEY (StuCode)
-					REFERENCES tbStudent(StuCode)
+					REFERENCES tbstudent(StuCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 			
-CREATE TABLE tbAttend (
+CREATE TABLE tbattend (
 				AttId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				AttDate DATETIME,
 				CardId VARCHAR(10),
@@ -63,14 +63,14 @@ CREATE TABLE tbAttend (
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				FOREIGN KEY (CardId)
-					REFERENCES tbCard(CardId),
+					REFERENCES tbcard(CardId),
 				FOREIGN KEY (CoCode)
-					REFERENCES tbCo(CoCode),
+					REFERENCES tbco(CoCode),
 				FOREIGN KEY (StuCode)
-					REFERENCES tbStudent(StuCode)
+					REFERENCES tbstudent(StuCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 			
-CREATE TABLE tbStuStatus (
+CREATE TABLE tbstustatus (
 				StuCode INT(10), 
 				CoCode INT(10), 
 				StuStatus VARCHAR(10), 
@@ -82,23 +82,23 @@ CREATE TABLE tbStuStatus (
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				PRIMARY KEY (StuCode, CoCode),
 				FOREIGN KEY (CoCode)
-					REFERENCES tbCo(CoCode),
+					REFERENCES tbco(CoCode),
 				FOREIGN KEY (StuCode)
-					REFERENCES tbStudent(StuCode)
+					REFERENCES tbstudent(StuCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 			
-CREATE TABLE tbAudit (
+CREATE TABLE tbaudit (
 				AuditId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				StuCode	INT(10), 
+				StuCode INT(10), 
 				CoCode INT(10), 
 				AuditDate DATETIME,
 				AuditRec VARCHAR(50),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				FOREIGN KEY (CoCode)
-					REFERENCES tbCo(CoCode),
+					REFERENCES tbco(CoCode),
 				FOREIGN KEY (StuCode)
-					REFERENCES tbStudent(StuCode)
+					REFERENCES tbstudent(StuCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
 			
 CREATE TABLE tbuser (
@@ -110,5 +110,5 @@ CREATE TABLE tbuser (
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				FOREIGN KEY (CoCode)
-					REFERENCES tbCo(CoCode)
+					REFERENCES tbco(CoCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 

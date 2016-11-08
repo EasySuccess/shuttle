@@ -29,7 +29,7 @@ if (isset($_GET['StuCode'])) {
 
 if ((isset($_POST["MM_editStudent"])) && ($_POST["MM_editStudent"] == "form1")) {
 	
-	DB::update('tbStudent', array(
+	DB::update('tbstudent', array(
 		'StuName' => GetSQLValueString($_POST['StuName'], "text"),
 		'StuSex' => GetSQLValueString($_POST['StuSex'], "text"),
 		'StuBirth' => GetSQLValueString($_POST['StuBirth'], "date"),
@@ -88,7 +88,7 @@ if ((isset($_POST["MM_editStudent"])) && ($_POST["MM_editStudent"] == "form1")) 
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>

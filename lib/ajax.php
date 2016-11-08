@@ -52,7 +52,7 @@ other - 99
 
 
 function resetStuStatus(){
-	DB::update('tbStuStatus', array(
+	DB::update('tbstustatus', array(
 	  'stuStatus' => 'off',
 	  'stuArriveTime' => NULL,
 	  'stuPickupStatus' => NULL,
@@ -63,7 +63,7 @@ function resetStuStatus(){
 }
 
 function updateOn($stuCode) {
-    DB::update('tbStuStatus', array(
+    DB::update('tbstustatus', array(
 	  'stuStatus' => 'on',
 	  'stuArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
@@ -71,14 +71,14 @@ function updateOn($stuCode) {
 }
 
 function updateDone($stuCode) {
-    DB::update('tbStuStatus', array(
+    DB::update('tbstustatus', array(
 	  'stuStatus' => 'done',
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
     exit;
 }
 
 function updateLeave($stuCode) {
-    DB::update('tbStuStatus', array(
+    DB::update('tbstustatus', array(
 	  'stuStatus' => 'leave',
 	  'stuLeaveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
@@ -86,7 +86,7 @@ function updateLeave($stuCode) {
 }
 
 function updateImmed($stuCode) {
-    DB::update('tbStuStatus', array(
+    DB::update('tbstustatus', array(
 	  'stuPickupStatus' => 'immediate',
 	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
@@ -94,7 +94,7 @@ function updateImmed($stuCode) {
 }
 
 function updateWait($stuCode) {
-    DB::update('tbStuStatus', array(
+    DB::update('tbstustatus', array(
 	  'stuPickupStatus' => 'wait',
 	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
 	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
@@ -103,8 +103,8 @@ function updateWait($stuCode) {
 
 function checkCard($cardId) {
 	$results = DB::query('SELECT * 
-	FROM tbCard INNER JOIN tbStudent ON tbCard.StuCode=tbStudent.StuCode INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbCard.CardId=%s', DB::$coCode, $cardId);
+	FROM tbcard INNER JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbcard.CardId=%s', DB::$coCode, $cardId);
 	
 	print json_encode($results); ;
 }

@@ -61,7 +61,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>
@@ -77,7 +77,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 					<button type="button" class="btn btn-primary">新增IC卡</button>
 					<a href="listCard.php">
 					<button type="button" class="btn btn-primary">IC卡列表</button>
-					<a href="../menu.php">
+					<a href="../index.php">
 					<button type="button" class="btn btn-info">返回</button>					
 					</a>
 				</div>

@@ -105,7 +105,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>

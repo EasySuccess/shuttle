@@ -35,7 +35,7 @@ if (isset($_SESSION['MM_CoCode'])) {
 	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
 }
 
-$query_RecordsetStd = sprintf("SELECT tbCard.StuCode, tbCard.CardId, tbCard.Created, tbCard.Modified, tbStudent.StuName FROM tbCard LEFT JOIN tbStudent ON tbCard.StuCode=tbStudent.StuCode WHERE tbCard.CoCode = %s ORDER BY tbCard.CardId", GetSQLValueString($colname_RecordsetStd, "int"));
+$query_RecordsetStd = sprintf("SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM tbcard LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId", GetSQLValueString($colname_RecordsetStd, "int"));
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd = DB::query($query_limit_RecordsetStd);
 
@@ -104,7 +104,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>

@@ -28,7 +28,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	
-	DB::insert('tbStudent', array(
+	DB::insert('tbstudent', array(
 		'CoCode' =>  GetSQLValueString($_POST['CoCode'], "int"),
 		'StuName' => GetSQLValueString($_POST['StuName'], "text"),
 		'StuSex' => GetSQLValueString($_POST['StuSex'], "text"),
@@ -45,8 +45,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		'Created' => NULL
 	));
 	
-	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbStudent ORDER By Created Desc");
-	DB::insert("tbStuStatus", array(
+	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbstudent ORDER By Created Desc");
+	DB::insert("tbstustatus", array(
 		'StuCode' => GetSQLValueString($result['StuCode'], "int"),
 		'CoCode' => GetSQLValueString($result['CoCode'], "int"),
 		'StuStatus' => 'off',
@@ -97,7 +97,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>
@@ -205,7 +205,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="新增學生">
-								<a type="button"  class="btn btn-default" href="../menu.php">返回</a>
+								<a type="button"  class="btn btn-default" href="../index.php">返回</a>
 							</div>
 						</div>
 					</fieldset>

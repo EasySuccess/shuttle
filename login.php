@@ -15,7 +15,7 @@ if (isset($_POST['username'])) {
 	$loginUsername           = $_POST['username'];
 	$password                = $_POST['pwd'];
 	$MM_fldUserAuthorization = "UserRole";
-	$MM_redirectLoginSuccess = "menu.php";
+	$MM_redirectLoginSuccess = "index.php";
 	$MM_redirectLoginFailed  = "loginFailed.php";
 	$MM_redirecttoReferrer   = false;
 	
@@ -93,9 +93,9 @@ if (isset($_POST['username'])) {
                <div class="row">
                   <div class="col-xs-8">
                      <div class="checkbox icheck">
-                        <label>
+                        <!-- <label>
                         <input type="checkbox"> 記住
-                        </label>
+                        </label> -->
                      </div>
                   </div>
                   <!-- /.col -->
@@ -113,8 +113,8 @@ if (isset($_POST['username'])) {
                  Google+</a>
                </div-->
             <!-- /.social-auth-links -->
-            <a href="#">忘記密碼</a><br>
-            <a href="register.html" class="text-center">註冊</a>
+            <!-- <a href="#">忘記密碼</a><br>
+            <a href="register.html" class="text-center">註冊</a> -->
          </div>
          <!-- /.login-box-body -->
       </div>

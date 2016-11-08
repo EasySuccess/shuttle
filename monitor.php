@@ -23,9 +23,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	
 function showOn(){
 	$results = DB::query('SELECT * 
-	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="on"
-	ORDER BY tbStuStatus.StuPickupStatus', DB::$coCode);
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="on"
+	ORDER BY tbstustatus.StuPickupStatus', DB::$coCode);
 	
 	foreach ($results as $row) {
 	
@@ -51,9 +51,9 @@ function showOn(){
 
 function showDone(){
 	$results = DB::query('SELECT * 
-	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="done"
-	ORDER BY tbStuStatus.StuPickupStatus', DB::$coCode);
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="done"
+	ORDER BY tbstustatus.StuPickupStatus', DB::$coCode);
 		
 	foreach ($results as $row) {
 	
@@ -79,8 +79,8 @@ function showDone(){
 
 function showLeave(){
 	$results = DB::query('SELECT * 
-	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="leave"', DB::$coCode);
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="leave"', DB::$coCode);
 
 	foreach ($results as $row) {				
 	
@@ -106,8 +106,8 @@ function showLeave(){
 
 function showOff(){
 	$results = DB::query('SELECT * 
-	FROM tbStudent INNER JOIN tbStuStatus ON tbStudent.StuCode=tbStuStatus.StuCode 
-	WHERE tbStudent.CoCode=%s and tbStuStatus.stuStatus="off"', DB::$coCode);
+	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="off"', DB::$coCode);
 	
 	foreach ($results as $row) {
 		echo '<li>' .

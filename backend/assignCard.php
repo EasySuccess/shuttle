@@ -44,7 +44,7 @@ $row_RecordsetStd = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode=%d 
 $totalRows_RecordsetStd = count($row_RecordsetStd);
 
 //Show available IC Card
-$row_RecordsetICCard=DB::query("SELECT * FROM tbCard WHERE StuCode IS NULL AND CoCode=%d ORDER BY CardId", $_SESSION['MM_CoCode']);
+$row_RecordsetICCard=DB::query("SELECT * FROM tbcard WHERE StuCode IS NULL AND CoCode=%d ORDER BY CardId", $_SESSION['MM_CoCode']);
 
 
 //插入資料
@@ -98,7 +98,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>

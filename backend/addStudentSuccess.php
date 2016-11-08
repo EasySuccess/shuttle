@@ -61,7 +61,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../menu.php">主選單</a></li>
+						<li class="active"><a href="../index.php">主選單</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>
@@ -81,7 +81,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 					<a href="listStudent.php">
 					<button type="button" class="btn btn-primary">學生列表</button>
 					</a>
-					<a href="../menu.php">
+					<a href="../index.php">
 					<button type="button" class="btn btn-info">返回主選單</button>
 					</a>		    
 				</div>

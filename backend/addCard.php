@@ -23,7 +23,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	
-	DB::insert('tbCard', array(
+	DB::insert('tbcard', array(
 		'CardId' =>  GetSQLValueString($_POST['CardId'], "int"),
 		'CoCode' =>  GetSQLValueString($_POST['CoCode'], "int"),
 		'Created' => NULL
@@ -72,7 +72,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-					  <li class="active"><a href="../menu.php">主選單</a></li>
+					  <li class="active"><a href="../index.php">主選單</a></li>
 					  <li><a href="../logout.php">登出</a></li>
 				   </ul>
 				</div>
@@ -104,7 +104,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="新增IC卡">
-								<a type="button"  class="btn btn-default" href="../menu.php">返回</a>
+								<a type="button"  class="btn btn-default" href="../index.php">返回</a>
 							</div>
 						</div>
 					</fieldset>
