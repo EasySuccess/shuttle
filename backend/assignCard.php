@@ -32,7 +32,7 @@ $colname_RecordsetICCard = "-1";
 if (isset($_GET['StuCode'])) {
     $colname_RecordsetICCard = $_GET['StuCode'];
 }
-$row_RecordsetStdICCard  = DB::query("SELECT * FROM tbcard WHERE StuCode=%d and CoCode=%d", GetSQLValueString($colname_RecordsetICCard, "int"), $_SESSION['MM_CoCode']);
+$row_RecordsetStdICCard  = DB::query("SELECT * FROM tbcard WHERE StuCode=%d and CoCode=%d", $colname_RecordsetICCard, $_SESSION['MM_CoCode']);
 $this_STD_IC_total = count($row_RecordsetStdICCard);
 
 //Get Student Details
@@ -40,7 +40,7 @@ $colname_RecordsetStd = "-1";
 if (isset($_GET['StuCode'])) {
     $colname_RecordsetStd = $_GET['StuCode'];
 }
-$row_RecordsetStd = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode=%d and CoCode=%d", GetSQLValueString($colname_RecordsetStd, "int"), $_SESSION['MM_CoCode']);
+$row_RecordsetStd = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode=%d and CoCode=%d", $colname_RecordsetStd, $_SESSION['MM_CoCode']);
 $totalRows_RecordsetStd = count($row_RecordsetStd);
 
 //Show available IC Card
@@ -51,8 +51,8 @@ $row_RecordsetICCard=DB::query("SELECT * FROM tbcard WHERE StuCode IS NULL AND C
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 	DB::update('tbcard', array(
-		'StuCode' =>  GetSQLValueString($_POST['StuCode'], "int")
-	), "CardId=%s and CoCode=%d", GetSQLValueString($_POST['CardId'], "text"), GetSQLValueString($_POST['CoCode'], "int"));
+		'StuCode' =>  $_POST['StuCode'],
+	), "CardId=%s and CoCode=%d", $_POST['CardId'], $_POST['CoCode']);
 	
 	header("Location: ". $_SERVER['HTTP_REFERER']);	
 }

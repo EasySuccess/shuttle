@@ -125,11 +125,11 @@ $recordSet = DB::queryFirstRow("SELECT CoFullName FROM tbco WHERE CoCode = %d", 
                   <div class="panel-heading">
                      <h3 class="panel-title">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                        日誌管理
+                        記錄管理
                      </h3>
                   </div>
                   <div class="panel-body">
-                     <!-- <a type="button" class="btn btn-md" aria-label="Left Align" href="listStudentRecord.php" >學生日誌</a> -->
+                     <a type="button" class="btn btn-md" aria-label="Left Align" href="backend/listAttendance.php" >出席記錄</a>
                   </div>
                </div>
             </div>

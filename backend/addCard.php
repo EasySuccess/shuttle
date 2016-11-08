@@ -24,8 +24,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	
 	DB::insert('tbcard', array(
-		'CardId' =>  GetSQLValueString($_POST['CardId'], "int"),
-		'CoCode' =>  GetSQLValueString($_POST['CoCode'], "int"),
+		'CardId' =>  $_POST['CardId'],
+		'CoCode' =>  $_POST['CoCode'],
 		'Created' => NULL
 	));
 

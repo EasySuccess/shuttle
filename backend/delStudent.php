@@ -25,10 +25,10 @@ if ((isset($_GET['StuCode'])) && ($_GET['StuCode'] != "")) {
 
 	DB::update('tbcard', array(
 		'StuCode' =>  NULL
-	), "StuCode=%s and CoCode=%s", GetSQLValueString($_GET['StuCode'], "int"), $_SESSION['MM_CoCode']);
+	), "StuCode=%s and CoCode=%s", $_GET['StuCode'], $_SESSION['MM_CoCode']);
 	
-	DB::delete('tbstustatus', "StuCode=%s and CoCode=%s", GetSQLValueString($_GET['StuCode'], "int"), $_SESSION['MM_CoCode']);
-	DB::delete('tbstudent', "StuCode=%s and CoCode=%s", GetSQLValueString($_GET['StuCode'], "int"), $_SESSION['MM_CoCode']);
+	DB::delete('tbstustatus', "StuCode=%s and CoCode=%s", $_GET['StuCode'], $_SESSION['MM_CoCode']);
+	DB::delete('tbstudent', "StuCode=%s and CoCode=%s", $_GET['StuCode'], $_SESSION['MM_CoCode']);
 
     header("Location: ". "listStudent.php");
 	

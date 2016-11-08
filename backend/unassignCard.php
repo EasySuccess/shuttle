@@ -25,7 +25,7 @@ if ((isset($_GET['CardId'])) && ($_GET['CardId'] != "")) {
 
 	DB::update('tbcard', array(
 		'StuCode' =>  NULL
-	), "CardId=%s and CoCode=%d", GetSQLValueString($_GET['CardId'], "text"), GetSQLValueString($_SESSION['MM_CoCode'], "int"));
+	), "CardId=%s and CoCode=%d", $_GET['CardId'], $_SESSION['MM_CoCode']);
 		
     header(sprintf("Location: %s", $_SERVER['HTTP_REFERER']));
 }

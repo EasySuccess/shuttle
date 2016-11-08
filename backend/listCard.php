@@ -35,7 +35,7 @@ if (isset($_SESSION['MM_CoCode'])) {
 	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
 }
 
-$query_RecordsetStd = sprintf("SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM tbcard LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId", GetSQLValueString($colname_RecordsetStd, "int"));
+$query_RecordsetStd = sprintf("SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM tbcard LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId", $colname_RecordsetStd);
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd = DB::query($query_limit_RecordsetStd);
 
@@ -126,7 +126,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 					<?php if ($totalRows_RecordsetStd > 0) { // Show if recordset not empty ?>
 					<table class="table table-striped">
 						<tr>
-							<td>卡號</td>
+							<td>IC卡編號</td>
 							<td>分配狀態</td>
 							<td>建立日期</td>
 							<td>更新日期</td>

@@ -22,7 +22,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 }
 
 if (isset($_GET['StuCode'])) {
-	$recordsetStudent = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode = %s", GetSQLValueString($_GET['StuCode'], "int"));
+	$recordsetStudent = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode = %s", $_GET['StuCode']);
 }else{
 	$recordsetStudent = NULL;
 }
@@ -30,21 +30,21 @@ if (isset($_GET['StuCode'])) {
 if ((isset($_POST["MM_editStudent"])) && ($_POST["MM_editStudent"] == "form1")) {
 	
 	DB::update('tbstudent', array(
-		'StuName' => GetSQLValueString($_POST['StuName'], "text"),
-		'StuSex' => GetSQLValueString($_POST['StuSex'], "text"),
-		'StuBirth' => GetSQLValueString($_POST['StuBirth'], "date"),
-		'StuAddress' => GetSQLValueString($_POST['StuAddress'], "text"),
-		'StuFather' => GetSQLValueString($_POST['StuFather'], "text"),
-		'StuFatherTel' => GetSQLValueString($_POST['StuFatherTel'], "text"),
-		'StuMum' => GetSQLValueString($_POST['StuMum'], "text"),
-		'StuMumTel' => GetSQLValueString($_POST['StuMumTel'], "text"),
-		'StuContact' => GetSQLValueString($_POST['StuContact'], "text"),
-		'StuContactTel' => GetSQLValueString($_POST['StuContactTel'], "text"),
-		'StuRemark' => GetSQLValueString($_POST['StuRemark'], "text"),
-		'StuGrad' => GetSQLValueString($_POST['StuGrad'], "text")
+		'StuName' => $_POST['StuName'],
+		'StuSex' => $_POST['StuSex'],
+		'StuBirth' => $_POST['StuBirth'],
+		'StuAddress' => $_POST['StuAddress'],
+		'StuFather' => $_POST['StuFather'],
+		'StuFatherTel' => $_POST['StuFatherTel'],
+		'StuMum' => $_POST['StuMum'],
+		'StuMumTel' => $_POST['StuMumTel'],
+		'StuContact' => $_POST['StuContact'],
+		'StuContactTel' => $_POST['StuContactTel'],
+		'StuRemark' => $_POST['StuRemark'],
+		'StuGrad' => $_POST['StuGrad']
 	), "StuCode=%s and CoCode=%s", $_POST['StuCode'], $_POST['CoCode']);
 	
-	header("Location: %s". $_SERVER['HTTP_REFERER']);
+	header("Location: ". $_SERVER['HTTP_REFERER']);
 }
 
 ?>
@@ -101,7 +101,7 @@ if ((isset($_POST["MM_editStudent"])) && ($_POST["MM_editStudent"] == "form1")) 
 				<form method="post" name="form1" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Text input-->
-						<legend><?php echo $recordsetStudent['StuName']; ?>詳細資料</legend>
+						<legend>詳細資料</legend>
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">學生編號:</label>  
 							<div class="col-md-4">

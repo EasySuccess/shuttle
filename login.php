@@ -19,7 +19,7 @@ if (isset($_POST['username'])) {
 	$MM_redirectLoginFailed  = "loginFailed.php";
 	$MM_redirecttoReferrer   = false;
 	
-	$LoginRS = DB::queryFirstRow("SELECT UserName, UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s AND UserPw=%s", GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text"));
+	$LoginRS = DB::queryFirstRow("SELECT UserName, UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s AND UserPw=%s", $loginUsername, $password);
 	$loginFoundUser = count($LoginRS);
 		
 	if ($loginFoundUser) {

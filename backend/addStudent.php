@@ -29,26 +29,26 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	
 	DB::insert('tbstudent', array(
-		'CoCode' =>  GetSQLValueString($_POST['CoCode'], "int"),
-		'StuName' => GetSQLValueString($_POST['StuName'], "text"),
-		'StuSex' => GetSQLValueString($_POST['StuSex'], "text"),
-		'StuBirth' => GetSQLValueString($_POST['StuBirth'], "date"),
-		'StuAddress' => GetSQLValueString($_POST['StuAddress'], "text"),
-		'StuFather' => GetSQLValueString($_POST['StuFather'], "text"),
-		'StuFatherTel' => GetSQLValueString($_POST['StuFatherTel'], "text"),
-		'StuMum' => GetSQLValueString($_POST['StuMum'], "text"),
-		'StuMumTel' => GetSQLValueString($_POST['StuMumTel'], "text"),
-		'StuContact' => GetSQLValueString($_POST['StuContact'], "text"),
-		'StuContactTel' => GetSQLValueString($_POST['StuContactTel'], "text"),
-		'StuRemark' => GetSQLValueString($_POST['StuRemark'], "text"),
-		'StuGrad' =>  GetSQLValueString($_POST['StuGrad'], "text"),
+		'CoCode' =>  $_POST['CoCode'],
+		'StuName' => $_POST['StuName'],
+		'StuSex' => $_POST['StuSex'],
+		'StuBirth' => $_POST['StuBirth'],
+		'StuAddress' => $_POST['StuAddress'],
+		'StuFather' => $_POST['StuFather'],
+		'StuFatherTel' => $_POST['StuFatherTel'],
+		'StuMum' => $_POST['StuMum'],
+		'StuMumTel' => $_POST['StuMumTel'],
+		'StuContact' => $_POST['StuContact'],
+		'StuContactTel' => $_POST['StuContactTel'],
+		'StuRemark' => $_POST['StuRemark'],
+		'StuGrad' =>  $_POST['StuGrad'],
 		'Created' => NULL
 	));
 	
 	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbstudent ORDER By Created Desc");
 	DB::insert("tbstustatus", array(
-		'StuCode' => GetSQLValueString($result['StuCode'], "int"),
-		'CoCode' => GetSQLValueString($result['CoCode'], "int"),
+		'StuCode' => $result['StuCode'],
+		'CoCode' => $result['CoCode'],
 		'StuStatus' => 'off',
 		'StuPickupStatus' => NULL,
 		'Created' => NULL

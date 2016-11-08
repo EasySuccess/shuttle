@@ -35,7 +35,7 @@ if (isset($_SESSION['MM_CoCode'])) {
 	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
 }
 
-$query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE CoCode = %s ORDER BY StuName", GetSQLValueString($colname_RecordsetStd, "int"));
+$query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd  = DB::query($query_limit_RecordsetStd);
 
@@ -129,10 +129,9 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 						?>
 					<table class="table table-striped">
 						<tr>
-							<td>ID</td>
+							<td>學生編號</td>
 							<td>姓名</td>
 							<td>性別</td>
-							<td>出生日期</td>
 							<td>建立日期</td>
 							<td>更新日期</td>
 							<td>操作</td>
@@ -144,7 +143,6 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							<td><?php echo $row_RecordsetStd['StuCode']; ?></td>
 							<td><?php echo $row_RecordsetStd['StuName']; ?></td>
 							<td><?php echo $row_RecordsetStd['StuSex']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuBirth']; ?></td>
 							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?><br>
 								<?php echo substr($row_RecordsetStd['Created'], 11, 15); ?>
 							</td>
