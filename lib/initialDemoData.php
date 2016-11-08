@@ -83,7 +83,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -91,7 +91,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -99,7 +99,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -107,7 +107,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -115,7 +115,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -123,7 +123,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -131,7 +131,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -139,7 +139,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -147,7 +147,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	// DB::insert("tbstustatus", array(
@@ -155,7 +155,7 @@
 		// 'CoCode' => 1,
 		// 'StuStatus' => '4',
 		// 'StuPickupStatus' => '99',
-		// 'stuarrivetime' => date("Y-m-d H:i:s"),
+		// 'StuArriveTime' => date("Y-m-d H:i:s"),
 		// 'Created' => NULL,
 	// ));
 	

@@ -25,7 +25,7 @@ class DB {
   public static $host = 'localhost';
   public static $port = null;
   public static $encoding = 'latin1';
-  public static $coCode = '';
+  public static $CoCode = '';
   
   // configure workings
   public static $param_char = '%';

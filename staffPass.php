@@ -1,6 +1,6 @@
 <?php	
 
-require_once('lib/config.php'); 
+require_once("lib/config.php"); 
 
 if (!isset($_SESSION)) {
     session_start();
@@ -142,18 +142,18 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	<script>
 		$(document).ready(function() {
 		
-			$('#checkInID').keydown(function(event) {
+			$("#checkInID").keydown(function(event) {
 				if (event.keyCode == 13) {
 					$("#checkInBtn").click();
 					return false;
 				 }
 			});
 			
-			$('#checkInBtn').click(function (e) {
+			$("#checkInBtn").click(function (e) {
 			
 				$.ajaxSetup({async: false});
-				data =  {'action': 'checkCardId','param': $("#checkInID").val()};
-				$.post('lib/ajax.php', data, function (response,status) {
+				data =  {"action": "checkCardId","cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#checkInID").val()};
+				$.post("lib/ajax.php", data, function (response,status) {
 					var rows = $.parseJSON(response);
 					
 					if(rows.length > 1){
@@ -164,11 +164,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 					}else{
 						var row = rows[0];
 						console.log(row);
-						$("#checkInModal h1").html(row["StuName"]);
-						$("#checkInModal h1").attr("value", row["StuCode"]);
-						$("#onTime .sum").html(row["StuArriveTime"]);
-						$("#leaveTime .sum").html(row["StuLeaveTime"]);
-						switch(row["StuStatus"]){
+						$("#checkInModal h1").html(row['StuName']);
+						$("#checkInModal h1").attr("value", row['StuCode']);
+						$("#onTime .sum").html(row['StuArriveTime']);
+						$("#leaveTime .sum").html(row['StuLeaveTime']);
+						switch(row['StuStatus']){
 							case "on":
 								$("#status").html("上課中");
 								$("#actionBtn").attr("value", "done");
@@ -209,18 +209,16 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				});
 			});
 			
-			$('button[type="submit"]').click(function(){
-				var action = $(this).val();
-				var stuCode = $("#checkInModal h1").attr("value");
-				var ajaxurl = 'lib/ajax.php',
-				data =  {'action': action,'param': stuCode};
+			$("button[type='submit']").click(function(){
+				var ajaxurl = "lib/ajax.php";
+				var data =  {"action": $(this).val(), "cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#checkInModal h1").attr("value")};
 				$.ajaxSetup({async: false});
 				$.post(ajaxurl, data, function (data,status) {
 				}).always(function(){
 				});
 			});
 			
-			$('button[type="close"]').click(function(){
+			$("button[type='close']").click(function(){
 					location.reload();
 			});
 		

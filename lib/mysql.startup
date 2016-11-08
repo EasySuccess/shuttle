@@ -8,11 +8,11 @@ CREATE TABLE tbco (
 				CoCode INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				CoFullName VARCHAR(50),
 				CoName VARCHAR(50),
-				CoAddress VARCHAR(50),
-				CoTel VARCHAR(30),
-				CoContact VARCHAR(30),
-				CoEmail VARCHAR(30),
-				CoFax VARCHAR(30),
+				CoAddress VARCHAR(255),
+				CoTel VARCHAR(50),
+				CoContact VARCHAR(50),
+				CoEmail VARCHAR(50),
+				CoFax VARCHAR(50),
 				CoStatus VARCHAR(10),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -21,17 +21,17 @@ CREATE TABLE tbco (
 CREATE TABLE tbstudent (
 				StuCode INT(10) NOT NULL AUTO_INCREMENT,
 				CoCode INT(10) NOT NULL,
-				StuName VARCHAR(10),
-				StuSex VARCHAR(6),
+				StuName VARCHAR(50),
+				StuSex VARCHAR(10),
 				StuBirth DATE,
-				StuAddress VARCHAR(100),
-				StuFather VARCHAR(30),
-				StuFatherTel VARCHAR(30),
-				StuMum VARCHAR(30),
-				StuMumTel VARCHAR(30),
-				StuContact VARCHAR(30),
-				StuContactTel VARCHAR(30),
-				StuRemark VARCHAR(300),
+				StuAddress VARCHAR(255),
+				StuFather VARCHAR(50),
+				StuFatherTel VARCHAR(50),
+				StuMum VARCHAR(50),
+				StuMumTel VARCHAR(50),
+				StuContact VARCHAR(50),
+				StuContactTel VARCHAR(50),
+				StuRemark VARCHAR(255),
 				StuGrad VARCHAR(10),
 				StuPic VARCHAR(50),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -43,7 +43,7 @@ CREATE TABLE tbstudent (
 			
 			
 CREATE TABLE tbcard (
-				CardId VARCHAR(10) NOT NULL PRIMARY KEY,
+				CardId VARCHAR(50) NOT NULL PRIMARY KEY,
 				CoCode INT(10),
 				StuCode INT(10),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -57,7 +57,7 @@ CREATE TABLE tbcard (
 CREATE TABLE tbattend (
 				AttId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				AttDate DATETIME,
-				CardId VARCHAR(10),
+				CardId VARCHAR(50),
 				StuCode INT(10), 
 				CoCode INT(10),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -75,7 +75,7 @@ CREATE TABLE tbstustatus (
 				CoCode INT(10), 
 				StuStatus VARCHAR(10), 
 				StuArriveTime DATETIME,
-				StuPickupStatus VARCHAR(10), 
+				StuPickupStatus VARCHAR(10),
 				StuPickupArriveTime DATETIME,
 				StuLeaveTime DATETIME,
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -89,8 +89,8 @@ CREATE TABLE tbstustatus (
 			
 CREATE TABLE tbaudit (
 				AuditId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				StuCode INT(10), 
-				CoCode INT(10), 
+				StuCode INT(10) NOT NULL, 
+				CoCode INT(10) NOT NULL, 
 				AuditDate DATETIME,
 				AuditRec VARCHAR(50),
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -103,12 +103,26 @@ CREATE TABLE tbaudit (
 			
 CREATE TABLE tbuser (
 				UserId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				UserName VARCHAR(30) NOT NULL,
-				UserPw VARCHAR(30) NOT NULL,
-				UserRole VARCHAR(30) NOT NULL DEFAULT 'USER',
+				UserName VARCHAR(50) NOT NULL,
+				UserPw VARCHAR(50) NOT NULL,
+				UserRole VARCHAR(10) NOT NULL DEFAULT 'staff',
 				CoCode INT(10) NOT NULL,
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+				FOREIGN KEY (CoCode)
+					REFERENCES tbco(CoCode)
+			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
+			
+			
+CREATE TABLE tblog (
+				LogId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				CoCode INT(10) NOT NULL,
+				StuCode INT(10) NOT NULL,
+				StuStatus VARCHAR(10) NOT NULL,
+				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+				FOREIGN KEY (StuCode)
+					REFERENCES tbstudent(StuCode),
 				FOREIGN KEY (CoCode)
 					REFERENCES tbco(CoCode)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 

@@ -8,7 +8,6 @@
 	DB::$password = "sqluser";
 	DB::$dbName = "education";
 	DB::$host = "localhost";
-	DB::$coCode = "1";
 	date_default_timezone_set("Asia/Hong_Kong");
 	
 	// Backend Parameters

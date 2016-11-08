@@ -1,111 +1,89 @@
 <?php
-require_once('meekrodb.2.3.class.php'); 
-require_once('config.php'); 
+require_once("meekrodb.2.3.class.php");
+require_once("config.php");
 
 if (isset($_POST['action'])) {
-
+	
+	$action = $_POST['action'];
+	$coCode = $_POST['cocode'];
 	$param = $_POST['param'];
 	
-    switch ($_POST['action']) {
-		case 'reset':
-			resetStuStatus();
+	switch ($action) {
+		case "reset":
+			resetStuStatus($coCode);
 			break;
-        case 'wait':
-            updateWait($param);
-            break;
-		case 'immediate':
-            updateImmed($param);
-            break;
-		case 'on':
-			updateOn($param);
+		case "wait":
+			updateParentStatus($action, $param, $coCode);
 			break;
-		case 'done':
-            updateDone($param);
-            break;
-		case 'leave':
-			updateLeave($param);
+		case "immediate":
+			updateParentStatus($action, $param, $coCode);
 			break;
-		case 'off':
-			updateOff($param);
+		case "on":
+			updateStuStatus($action, $param, $coCode);
 			break;
-		case 'checkCardId':
-			checkCard($param);
+		case "done":
+			updateStuStatus($action, $param, $coCode);
 			break;
-    }
+		case "leave":
+			updateStuStatus($action, $param, $coCode);
+			break;
+		case "off":
+			updateStuStatus($action, $param, $coCode);
+			break;
+		case "checkCardId":
+			checkCard($param, $coCode);
+			break;
+	}
 }
 
-/*
-
-StuStatus
-1 - on
-2 - done
-3 - leave
-4 - off
-
-StuPickupStatus
-1 - immediate
-2 - wait
-other - 99
-
-*/
-
-
-
-function resetStuStatus(){
-	DB::update('tbstustatus', array(
-	  'stuStatus' => 'off',
-	  'stuArriveTime' => NULL,
-	  'stuPickupStatus' => NULL,
-	  'stuPickupArriveTime' => NULL,
-	  'stuLeaveTime' => NULL
-	  ), "coCode=%s", DB::$coCode);
+function resetStuStatus($coCode)
+{
+	DB::update("tbstustatus", array(
+		"StuStatus" => "off",
+		"StuArriveTime" => NULL,
+		"StuPickupStatus" => NULL,
+		"StuPickupArriveTime" => NULL,
+		"StuLeaveTime" => NULL
+	), "CoCode=%s", $coCode);
+	
 	exit;
 }
 
-function updateOn($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stuStatus' => 'on',
-	  'stuArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateDone($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stuStatus' => 'done',
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateLeave($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stuStatus' => 'leave',
-	  'stuLeaveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateImmed($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stuPickupStatus' => 'immediate',
-	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function updateWait($stuCode) {
-    DB::update('tbstustatus', array(
-	  'stuPickupStatus' => 'wait',
-	  'stuPickupArriveTime' => date("Y-m-d H:i:s")
-	  ), "stuCode=%s and coCode=%s", $stuCode, DB::$coCode);
-    exit;
-}
-
-function checkCard($cardId) {
-	$results = DB::query('SELECT * 
-	FROM tbcard INNER JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbcard.CardId=%s', DB::$coCode, $cardId);
+function updateStuStatus($action, $stuCode, $coCode){
+	DB::update("tbstustatus", array(
+		"StuStatus" => $action,
+	), "StuCode=%s and CoCode=%s", $stuCode, $coCode);
 	
-	print json_encode($results); ;
+	DB::insert("tblog", array(
+		"StuStatus" => $action,
+		"StuCode" => $stuCode,
+		"CoCode" => $coCode,
+		"Created" => NULL,
+	));
+}
+
+function updateParentStatus($action, $stuCode, $coCode)
+{
+	DB::update("tbstustatus", array(
+		"StuPickupStatus" => $action,
+	), "StuCode=%s and CoCode=%s", $stuCode, $coCode);
+	
+	DB::insert("tblog", array(
+		"StuStatus" => $action,
+		"StuCode" => $stuCode,
+		"CoCode" => $coCode,
+		"Created" => NULL,
+	));
+}
+
+
+function checkCard($cardId, $coCode)
+{
+	$results = DB::query("SELECT * 
+	FROM tbcard INNER JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	WHERE tbstudent.CoCode=%s and tbcard.CardId=%s", $coCode, $cardId);
+	
+	print json_encode($results);
+	;
 }
 ?>

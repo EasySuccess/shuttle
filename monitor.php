@@ -1,11 +1,11 @@
 <?php	
 
-require_once('lib/config.php'); 
+require_once("lib/config.php"); 
 
 if (!isset($_SESSION)) {
     session_start();
 }
-$MM_authorizedUsers  = "admin,company,staff";
+$MM_authorizedUsers  = "	,company,staff";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo = "login.php";
@@ -20,107 +20,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     header("Location: " . $MM_restrictGoTo);
     exit;
 }	
-	
-function showOn(){
-	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="on"
-	ORDER BY tbstustatus.StuPickupStatus', DB::$coCode);
-	
-	foreach ($results as $row) {
-	
-		$remark="";
-		if(strcmp($row["StuPickupStatus"], "immediate") == 0){
-			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
-		}else if(strcmp($row["StuPickupStatus"], "wait") == 0){
-			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
-		}
-		
-		echo '<li class="">'.
-			'<a data-toggle="modal" data-target="#onClassModal" id="onModal">'.
-			'<span class="">'.
-			'<img src="img/student.png" alt="img" class="img-circle">'.
-			'<span class="circle_in_green"></span>'.
-			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">上課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.$remark.
-			'</a>'.
-		'</li>';
-	} 
-}
-
-function showDone(){
-	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="done"
-	ORDER BY tbstustatus.StuPickupStatus', DB::$coCode);
-		
-	foreach ($results as $row) {
-	
-		$remark="";
-		if(strcmp($row["StuPickupStatus"], "immediate") == 0){
-			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
-		}else if(strcmp($row["StuPickupStatus"], "wait") == 0){
-			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
-		}
-		
-		echo '<li class="">'.
-			'<a data-toggle="modal" data-target="#onClassModal" id="doneModal">'.
-			'<span class="">'.
-			'<img src="img/student.png" alt="img" class="img-circle">'.
-			'<span class="circle_in_yellow"></span>'.
-			'</span>'.
-			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">到達時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuArriveTime"])).'</span></span>'.$remark.
-			'</a>'.
-		'</li>';
-	} 
-}
-
-function showLeave(){
-	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="leave"', DB::$coCode);
-
-	foreach ($results as $row) {				
-	
-		$remark="";
-		if(strcmp($row["StuPickupStatus"], "immediate") == 0){
-			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長要求立即接走</span></span>';
-		}else if(strcmp($row["StuPickupStatus"], "wait") == 0){
-			$remark = '<span class="title-3"><span class="title-main">備註：</span><span class="title-sub">家長已到</span></span>';
-		}
-		
-		echo '<li>' .
-			'<a data-toggle="modal" data-target="#onClassModal" id="leaveModal">' .
-			'<span class="">' .
-			'<img src="img/student.png" alt="img" class="img-circle">'.
-			'<span class="circle_in_blue"></span>' .
-			'</span>' .
-			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'<span class="title-2"><span class="title-main">下課時間</span><span class="title-sub">'.date("H:i",strtotime($row["StuLeaveTime"])).'</span></span>'.$remark.
-			'</a>' .
-		'</li>';
-	} 
-}
-
-function showOff(){
-	$results = DB::query('SELECT * 
-	FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	WHERE tbstudent.CoCode=%s and tbstustatus.stuStatus="off"', DB::$coCode);
-	
-	foreach ($results as $row) {
-		echo '<li>' .
-			'<a data-toggle="modal" data-target="#onClassModal" id="offModal">' .
-			'<span class="">' .
-			'<img src="img/student.png" alt="img" class="img-circle">'.
-			'<span class="circle_in_blue"></span>' .
-			'</span>' .
-			'<span class="title-1"><span class="title-main">姓名</span><span class="title-sub" id="'.$row["StuCode"].'">'.$row["StuName"].'</span></span>'.
-			'</a>' .
-		'</li>';
-	} 
-}
 ?>
 
 <!DOCTYPE html>
@@ -150,7 +49,7 @@ function showOff(){
 							<a class="brand" href="monitor.php">
 								<!--<img src="img/identity.png" alt="logo-image" />-->
 								<h1>logo</h1>
-								<button class='btn btn theme-btn-2' type="submit" value="reset">重設</button>
+								<button class="btn btn theme-btn-2" type="submit" value="reset">重設</button>
 							</a>
 						</div>
 						<div class="col-xs-8 col-sm-10">
@@ -191,7 +90,51 @@ function showOff(){
 								<div class="links-box">
 									<h3 class="caption green">上課中學生</h3>
 									<ul class="links">
-										<?php showOn(); ?>
+										<?php 
+											$stuStatus = "on";
+											$coCode = $_SESSION['MM_CoCode'];
+											
+											$recordSetStudent = DB::query("SELECT * 
+												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
+												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+										
+											foreach ($recordSetStudent as $row) {
+												$recordSetLog = DB::queryFirstRow("SELECT * 
+													FROM tblog 
+													WHERE StuCode=%d AND CoCode=%d AND StuStatus=%s 
+													ORDER BY LogId DESC", $row['StuCode'], $coCode, $stuStatus);
+
+											?>
+										<li class="">
+											<a data-toggle="modal" data-target="#onClassModal" id="onModal">
+												<span class="">
+												<img src="img/student.png" alt="img" class="img-circle">
+												<span class="circle_in_green"></span>
+												</span>
+												<span class="title-1">
+													<span class="title-main">姓名</span>
+													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
+												</span>
+												<span class="title-2">
+													<span class="title-main">上課時間</span>
+													<span class="title-sub"><?php echo date("H:i",strtotime($recordSetLog["Created"])); ?></span>
+												</span>
+												<span class="title-3">
+													<span class="title-main">備註</span>
+													<span class="title-sub"><?php 
+														if(strcmp($row['StuPickupStatus'], "immediate") == 0){
+															echo "家長要求立即接走";
+														}else if(strcmp($row['StuPickupStatus'], "wait") == 0){
+															echo "家長已到";
+														}
+													?></span>
+												</span>
+											</a>
+										</li>
+										<?php 
+										}
+										?>
 									</ul>
 								</div>
 							</div>
@@ -200,7 +143,50 @@ function showOff(){
 								<div class="links-box" >
 									<h3 class="caption yellow">已完成作業學生</h3>
 									<ul class="links">
-										<?php showDone(); ?>
+										<?php 
+											$stuStatus = "done";
+											$coCode = $_SESSION['MM_CoCode'];
+											
+											$recordSetStudent = DB::query("SELECT * 
+												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
+												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+										
+											foreach ($recordSetStudent as $row) {
+												$recordSetLog = DB::queryFirstRow("SELECT * 
+													FROM tblog 
+													WHERE StuCode=%d AND CoCode=%d AND StuStatus=%s 
+													ORDER BY LogId DESC", $row['StuCode'], $coCode, $stuStatus);
+											?>
+										<li>
+											<a data-toggle="modal" data-target="#onClassModal" id="doneModal">
+												<span class="">
+													<img src="img/student.png" alt="img" class="img-circle">
+													<span class="circle_in_yellow"></span>
+												</span>
+												<span class="title-1">
+													<span class="title-main">姓名</span>
+													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
+												</span>
+												<span class="title-2">
+													<span class="title-main">完成時間</span>
+													<span class="title-sub"><?php echo date("H:i",strtotime($recordSetLog["Created"])); ?></span>
+												</span>
+												<span class="title-3">
+													<span class="title-main">備註</span>
+													<span class="title-sub"><?php 
+														if(strcmp($row['StuPickupStatus'], "immediate") == 0){
+															echo "家長要求立即接走";
+														}else if(strcmp($row['StuPickupStatus'], "wait") == 0){
+															echo "家長已到";
+														}
+													?></span>
+												</span>
+											</a>
+										</li><!--[end]li-->
+										<?php 
+										}
+										?>
 									</ul>
 								</div>
 							</div>
@@ -210,7 +196,50 @@ function showOff(){
 									<h3 class="caption red">已落課學生
 									</h3>
 									<ul class="links">
-										<?php showLeave(); ?>
+										<?php 
+											$stuStatus = "leave";
+											$coCode = $_SESSION['MM_CoCode'];
+											
+											$recordSetStudent = DB::query("SELECT * 
+												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
+												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+										
+											foreach ($recordSetStudent as $row) {
+												$recordSetLog = DB::queryFirstRow("SELECT * 
+													FROM tblog 
+													WHERE StuCode=%d AND CoCode=%d AND StuStatus=%s 
+													ORDER BY LogId DESC", $row['StuCode'], $coCode, $stuStatus);
+											?>
+										<li>
+											<a data-toggle="modal" data-target="#onClassModal" id="leaveModal">
+												<span class="">
+													<img src="img/student.png" alt="img" class="img-circle">
+													<span class="circle_in_red"></span>
+												</span>
+												<span class="title-1">
+													<span class="title-main">姓名</span>
+													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
+												</span>
+												<span class="title-2">
+													<span class="title-main">下課時間</span>
+													<span class="title-sub"><?php echo date("H:i",strtotime($recordSetLog["Created"])); ?></span>
+												</span>
+												<span class="title-3">
+													<span class="title-main">備註</span>
+													<span class="title-sub"><?php 
+														if(strcmp($row['StuPickupStatus'], "immediate") == 0){
+															echo "家長要求立即接走";
+														}else if(strcmp($row['StuPickupStatus'], "wait") == 0){
+															echo "家長已到";
+														}
+													?></span>
+												</span>
+											</a>
+										</li><!--[end]li-->
+										<?php 
+										}
+										?>
 									</ul>
 								</div>
 							</div>
@@ -219,7 +248,34 @@ function showOff(){
 								<div class="links-box">
 									<h3 class="caption blue">未上課學生</h3>
 									<ul class="links">
-										<?php showOff(); ?>
+										<?php 
+											$stuStatus = "off";
+											$coCode = $_SESSION['MM_CoCode'];
+											
+											$recordSetStudent = DB::query("SELECT * 
+												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
+												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+										
+											foreach ($recordSetStudent as $row) {
+												
+
+											?>
+										<li>
+											<a data-toggle="modal" data-target="#onClassModal" id="offModal">
+												<span class="">
+													<img src="img/student.png" alt="img" class="img-circle">
+													<span class="circle_in_blue"></span>
+												</span>
+												<span class="title-1">
+													<span class="title-main">姓名</span>
+													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
+												</span>
+											</a>
+										</li><!--[end]li-->
+										<?php 
+										}
+										?>
 									</ul>
 								</div>
 							</div>
@@ -290,12 +346,12 @@ function showOff(){
 	<script>
 		$(document).ready(function() {
 			
-			$('a[data-toggle="modal"], button[data-toggle="modal"]').click(function () {
+			$("a[data-toggle='modal'], button[data-toggle='modal']").click(function () {
 			
 				var stuName = $(this).find(".title-sub").html();
-				var stuCode = $(this).find(".title-sub").attr("id");
-				$('#modalStuName').html(stuName);
-				$('#modalStuName').attr("value", stuCode);				
+				var StuCode = $(this).find(".title-sub").attr("id");
+				$("#modalStuName").html(stuName);
+				$("#modalStuName").attr("value", StuCode);				
 				
 				switch($(this).attr("id")){
 					case "onModal":
@@ -329,11 +385,9 @@ function showOff(){
 				};
 			});
 			
-			$('button[type="submit"]').click(function(){
-				var action = $(this).val();
-				var param = $('#modalStuName').attr("value");
-				var ajaxurl = 'lib/ajax.php';
-				data =  {'action': action,'param': param};
+			$("button[type='submit']").click(function(){
+				var ajaxurl = "lib/ajax.php";
+				var data =  {"action": $(this).val(), "cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#modalStuName").attr("value")};
 				$.ajaxSetup({async: false});
 				$.post(ajaxurl, data, function (response,status) {
 				}).always(function(){
@@ -341,8 +395,8 @@ function showOff(){
 				});
 			});
 			
-			//Setup autorefresh every 10s
-			setTimeout(function() { window.location=window.location;},10000);
+			// Setup autorefresh every 30s
+			setTimeout(function() { window.location=window.location;},30000);
 			
 		});
 	</script>
