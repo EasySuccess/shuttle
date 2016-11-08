@@ -23,8 +23,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 
 $currentPage = $_SERVER["PHP_SELF"];
 
-
-
 $maxRows_RecordsetStd = 10;
 $pageNum_RecordsetStd = 0;
 if (isset($_GET['pageNum_RecordsetStd'])) {
@@ -32,26 +30,40 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-if ((isset($_GET["MM_search"])) && ($_GET["MM_search"] == "form1")) {
+if (((isset($_GET["MM_search"])) && ($_GET["MM_search"] == "form1")) ||  isset($_GET['StuCode'])){
 	
 	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%i_CoCode";
 	
 	$params=array();
 	$params['CoCode'] = $_SESSION['MM_CoCode'];
 	
-	if($_GET['StuName'] != NULL){
-		$query .= " AND tbstudent.StuName=%s_StuName";
-		$params['StuName'] = $_GET['StuName'];
+	if(isset($_GET['StuCode'])){
+		if( $_GET['StuCode'] != NULL){
+			$query .= " AND tbstudent.StuCode=%s_StuCode";
+			$params['StuCode'] = $_GET['StuCode'];
+		}
 	}
-	if($_GET['StuStatus'] != NULL){
-		$query .= " AND tblog.StuStatus=%s_StuStatus";
-		$params['StuStatus'] = $_GET['StuStatus'];
+	if(isset($_GET['StuName'])){
+		if($_GET['StuName'] != NULL){
+			$query .= " AND tbstudent.StuName=%s_StuName";
+			$params['StuName'] = $_GET['StuName'];
+		}
 	}
-	if($_GET['Created'] != NULL){
-		$query .= " AND tblog.Created=%t_Created";
-		$params['Created'] = $_GET['Created'];
+	if(isset($_GET['StuStatus'])){
+		if($_GET['StuStatus'] != NULL){
+			$query .= " AND tblog.StuStatus=%s_StuStatus";
+			$params['StuStatus'] = $_GET['StuStatus'];
+		}
 	}
-	
+	if(isset($_GET['Created'])){
+		if($_GET['Created'] != NULL){
+			$next_date = date('Y-m-d', strtotime($_GET['Created']  .' +1 day'));
+			$query .= " AND tblog.Created BETWEEN %t_date AND %t_nextDate";
+			$params['date'] = $_GET['Created'];
+			$params['nextDate'] = $next_date;
+		}
+	}
+
 	$query .= " ORDER BY tblog.Created DESC";
 	
 	if (isset($_GET['totalRows_RecordsetStd'])) {
@@ -156,18 +168,28 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" name="form1" class="form-horizontal">
 					<fieldset>
 						<div class="form-group">
-							<div class="col-md-2">
-								<input id="textinput" name="StuName" type="text" placeholder="學生姓名" value="<?php if(isset($_GET['StuName'])){echo $_GET['StuName'];} ?>" class="form-control input-md">
+							<div class="col-md-2 hidden">
+								<input id="textinput" name="StuCode" type="text" placeholder="學生編號" value="<?php echo isset($_GET['StuCode'])? $_GET['StuCode']:""; ?>" class="form-control input-md" readonly>
+							</div>
+							<div class="col-md-2 <?php echo isset($_GET['StuCode'])? (($_GET['StuCode']!=NULL)?hidden:"" ):"";?>">
+								<input id="textinput" name="StuName" type="text" placeholder="學生姓名" value="<?php echo isset($_GET['StuName'])? $_GET['StuName']:""; ?>" class="form-control input-md">
 							</div>
 							<div class="col-md-2">
-								<input id="textinput" name="StuStatus" type="text" placeholder="狀態" value="<?php if(isset($_GET['StuName'])){echo $_GET['StuStatus'];} ?>" class="form-control input-md">
+								<select id="CardId" name="StuStatus" class="form-control input-md">
+									<option></option>
+									<option value="on" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "on"))) {echo "SELECTED";}}  ?>>上課</option>
+									<option value="leave" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "leave"))) {echo "SELECTED";}}  ?>>離開</option>
+									<option value="done"  <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "done"))) {echo "SELECTED";}}  ?>>完成作業</option>
+									<option value="1" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "1"))) {echo "SELECTED";}}  ?>>家長到達等候</option>
+									<option value="99" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "99"))) {echo "SELECTED";}}  ?>>家長要求立刻接走</option>
+								</select>
 							</div>
 							<div class="col-md-2">
-								<input id="textinput" name="Created" type="text" placeholder="時間" value="<?php if(isset($_GET['StuName'])){echo $_GET['Created'];} ?>" class="form-control input-md">
+								<input id="textinput" name="Created" type="date" value="<?php if(isset($_GET['Created'])){echo $_GET['Created'];} ?>" class="form-control input-md">
 							</div>
 							<div class="col-md-2">
 								<input type="submit" class="btn btn-primary" value="搜尋">
-								<a type="button"  class="btn btn-default" href="listAttendance.php">重置</a>
+								<a type="button"  class="btn btn-default" href="listAttendance.php<?php echo isset($_GET['StuCode'])? (($_GET['StuCode']!=NULL)?"?StuCode=".$_GET['StuCode']:"" ):"";?>">重置</a>
 							</div>
 						</div>	
 					</fieldset>
@@ -190,7 +212,6 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							<td>姓名</td>
 							<td>狀態</td>
 							<td>時間</td>
-							<td>操作</td>
 						</tr>
 						<?php 
 							foreach ($RecordsetStd as $row_RecordsetStd) {
@@ -210,7 +231,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 											echo "離開";
 											break;
 										case "99":
-											echo "家長到達，要求立刻接走";
+											echo "家長要求立刻接走";
 											break;
 										case "1":
 											echo "家長到達等候";
@@ -220,9 +241,6 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 									}
 								?></td>
 							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10)." ".substr($row_RecordsetStd['Created'], 11, 15); ?>
-							</td>
-							<td>
-								<!-- <a class="btn btn-danger" href="delAttendance.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a> -->
 							</td>
 						</tr>
 						<?php

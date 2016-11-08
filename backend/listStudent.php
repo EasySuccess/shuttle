@@ -152,7 +152,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							</td>
 							<td>
 								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">分配IC卡</a>
-								<a class="btn btn-primary" href="attendance.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">出席記錄</a>
+								<a class="btn btn-primary" href="listAttendance.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">出席記錄</a>
 								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">修改資料</a>
 								<a class="btn btn-danger" href="delStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a>
 							</td>

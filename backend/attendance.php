@@ -30,19 +30,59 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$query_RecordsetStd =  sprintf("SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s and tblog.StuCode=%s ORDER BY tblog.Created DESC", $_SESSION['MM_CoCode'], $_GET['StuCode']);
-// $query_RecordsetStd =  sprintf("SELECT * FROM tblog WHERE CoCode=%s and StuCode=%s ORDER BY Created DESC", $_SESSION['MM_CoCode'], $_GET['StuCode']);
-$query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
-$RecordsetStd  = DB::query($query_limit_RecordsetStd);
 
-if (isset($_GET['totalRows_RecordsetStd'])) {
-	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
-} else {
-	$all_RecordsetStd = DB::query($query_RecordsetStd);
+if ((isset($_GET["MM_search"])) && ($_GET["MM_search"] == "form1")) {
 	
-	$totalRows_RecordsetStd = count($all_RecordsetStd);
+	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%i_CoCode and tblog.StuCode=%i_StuCode";
+	
+	$params=array();
+	$params['CoCode'] = $_SESSION['MM_CoCode'];
+	$params['StuCode'] = $_GET['StuCode'];
+
+	if($_GET['StuStatus'] != NULL){
+		$query .= " AND tblog.StuStatus=%s_StuStatus";
+		$params['StuStatus'] = $_GET['StuStatus'];
+	}
+	if($_GET['Created'] != NULL){
+		$next_date = date('Y-m-d', strtotime($_GET['Created']  .' +1 day'));
+		$query .= " AND tblog.Created BETWEEN %t_date AND %t_nextDate";
+		$params['date'] = $_GET['Created'];
+		$params['nextDate'] = $next_date;
+	}
+
+	$query .= " ORDER BY tblog.Created DESC";
+	
+	if (isset($_GET['totalRows_RecordsetStd'])) {
+		$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
+	} else {
+		$all_RecordsetStd = DB::query($query, $params);
+		
+		$totalRows_RecordsetStd = count($all_RecordsetStd);
+	}
+	$totalPages_RecordsetStd = ceil($totalRows_RecordsetStd / $maxRows_RecordsetStd) - 1;
+	
+	$query .= " LIMIT %d_startRow, %d_maxRows";
+	$params['startRow'] = $startRow_RecordsetStd;
+	$params['maxRows'] = $maxRows_RecordsetStd;
+	
+	$RecordsetStd  = DB::query($query, $params);
+
+}else{		
+
+	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s and tblog.StuCode=%i";
+	
+	if (isset($_GET['totalRows_RecordsetStd'])) {
+		$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
+	} else {
+		$all_RecordsetStd = DB::query($query, $_SESSION['MM_CoCode'],  $_GET['StuCode']);
+		
+		$totalRows_RecordsetStd = count($all_RecordsetStd);
+	}
+	$totalPages_RecordsetStd = ceil($totalRows_RecordsetStd / $maxRows_RecordsetStd) - 1;
+	
+	$RecordsetStd  = DB::query($query." LIMIT %d, %d", $_SESSION['MM_CoCode'], $_GET['StuCode'], $startRow_RecordsetStd, $maxRows_RecordsetStd);
+	
 }
-$totalPages_RecordsetStd = ceil($totalRows_RecordsetStd / $maxRows_RecordsetStd) - 1;
 
 $queryString_RecordsetStd = "";
 if (!empty($_SERVER['QUERY_STRING'])) {
@@ -111,6 +151,30 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 			<div class="starter-template">
 				<p class="lead"></p>
 				<legend>出席記錄</legend>
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" name="form1" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<div class="col-md-2">
+								<select id="CardId" name="StuStatus" class="form-control input-md">
+									<option></option>
+									<option value="on" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "on"))) {echo "SELECTED";}}  ?>>上課</option>
+									<option value="leave" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "leave"))) {echo "SELECTED";}}  ?>>離開</option>
+									<option value="done"  <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "done"))) {echo "SELECTED";}}  ?>>完成作業</option>
+									<option value="1" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "1"))) {echo "SELECTED";}}  ?>>家長到達等候</option>
+									<option value="99" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "99"))) {echo "SELECTED";}}  ?>>家長要求立刻接走</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<input id="textinput" name="Created" type="date" value="<?php if(isset($_GET['Created'])){echo $_GET['Created'];} ?>" class="form-control input-md">
+							</div>
+							<div class="col-md-2">
+								<input type="submit" class="btn btn-primary" value="搜尋">
+								<a type="button"  class="btn btn-default" href="listAttendance.php">重置</a>
+							</div>
+						</div>	
+					</fieldset>
+					<input type="hidden" name="MM_search" value="form1">
+				</form>
 			</div>
 			<div class="row">
 				<!-- <ul class="nav nav-tabs">
