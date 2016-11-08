@@ -12,10 +12,10 @@ if (isset($_POST['action'])) {
 		case "reset":
 			resetStuStatus($coCode);
 			break;
-		case "wait":
+		case "1":
 			updateParentStatus($action, $param, $coCode);
 			break;
-		case "immediate":
+		case "99":
 			updateParentStatus($action, $param, $coCode);
 			break;
 		case "on":

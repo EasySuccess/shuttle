@@ -97,7 +97,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 											$recordSetStudent = DB::query("SELECT * 
 												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
 												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
-												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+												ORDER BY tbstustatus.StuPickupStatus DESC",  $coCode, $stuStatus);
 										
 											foreach ($recordSetStudent as $row) {
 												$recordSetLog = DB::queryFirstRow("SELECT * 
@@ -123,9 +123,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 												<span class="title-3">
 													<span class="title-main">備註</span>
 													<span class="title-sub"><?php 
-														if(strcmp($row['StuPickupStatus'], "immediate") == 0){
+														if($row['StuPickupStatus'] == 99){
 															echo "家長要求立即接走";
-														}else if(strcmp($row['StuPickupStatus'], "wait") == 0){
+														}else if($row['StuPickupStatus'] == 1){
 															echo "家長已到";
 														}
 													?></span>
@@ -150,7 +150,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 											$recordSetStudent = DB::query("SELECT * 
 												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
 												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
-												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+												ORDER BY tbstustatus.StuPickupStatus DESC",  $coCode, $stuStatus);
 										
 											foreach ($recordSetStudent as $row) {
 												$recordSetLog = DB::queryFirstRow("SELECT * 
@@ -175,9 +175,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 												<span class="title-3">
 													<span class="title-main">備註</span>
 													<span class="title-sub"><?php 
-														if(strcmp($row['StuPickupStatus'], "immediate") == 0){
+														if($row['StuPickupStatus'] == 99){
 															echo "家長要求立即接走";
-														}else if(strcmp($row['StuPickupStatus'], "wait") == 0){
+														}else if($row['StuPickupStatus'] == 1){
 															echo "家長已到";
 														}
 													?></span>
@@ -203,7 +203,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 											$recordSetStudent = DB::query("SELECT * 
 												FROM tbstudent INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
 												WHERE tbstudent.CoCode=%d and tbstustatus.StuStatus=%s
-												ORDER BY tbstustatus.StuPickupStatus",  $coCode, $stuStatus);
+												ORDER BY tbstustatus.StuPickupStatus DESC",  $coCode, $stuStatus);
 										
 											foreach ($recordSetStudent as $row) {
 												$recordSetLog = DB::queryFirstRow("SELECT * 
@@ -228,9 +228,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 												<span class="title-3">
 													<span class="title-main">備註</span>
 													<span class="title-sub"><?php 
-														if(strcmp($row['StuPickupStatus'], "immediate") == 0){
+														if($row['StuPickupStatus'] == 99){
 															echo "家長要求立即接走";
-														}else if(strcmp($row['StuPickupStatus'], "wait") == 0){
+														}else if($row['StuPickupStatus'] == 1){
 															echo "家長已到";
 														}
 													?></span>

@@ -101,7 +101,7 @@ if ((isset($_POST["MM_editStudent"])) && ($_POST["MM_editStudent"] == "form1")) 
 				<form method="post" name="form1" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Text input-->
-						<legend>學生詳細資料</legend>
+						<legend><?php echo $recordsetStudent['StuName']; ?>詳細資料</legend>
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">學生編號:</label>  
 							<div class="col-md-4">

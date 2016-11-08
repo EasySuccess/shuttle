@@ -126,8 +126,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 							</div>
 						</div>
 						<div class="modal-footer  form-group">
-							<button id="pickWait" type="submit" class="btn theme-btn-2 cricle hide" value="wait">等一下</button>
-							<button id="pickNow" type="submit" class="btn theme-btn-2 cricle hide" value="immediate">立即接走</button>
+							<button id="pickWait" type="submit" class="btn theme-btn-2 cricle hide" value="1">等一下</button>
+							<button id="pickNow" type="submit" class="btn theme-btn-2 cricle hide" value="99">立即接走</button>
 							<button type="close" class="btn theme-btn-2 cricle">返回</button>
 						</div>
 					</form>

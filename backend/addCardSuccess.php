@@ -74,7 +74,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 			<div class="row">
 				<div class="col-md-12">
 					<a href="addCard.php">
-					<button type="button" class="btn btn-primary">新增IC卡</button>
+					<button type="button" class="btn btn-primary">繼續新增IC卡</button>
 					<a href="listCard.php">
 					<button type="button" class="btn btn-primary">IC卡列表</button>
 					<a href="../index.php">

@@ -30,15 +30,9 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$colname_RecordsetStd = "-1";
-if (isset($_SESSION['MM_CoCode'])) {
-	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
-}
-
-$query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE CoCode = %s ORDER BY StuName", GetSQLValueString($colname_RecordsetStd, "int"));
+$query_RecordsetStd =  sprintf("SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s and tblog.StuCode=%s ORDER BY tblog.Created DESC", GetSQLValueString($_SESSION['MM_CoCode'], "int"), GetSQLValueString($_GET['StuCode'], "int"));
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd  = DB::query($query_limit_RecordsetStd);
-
 
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
@@ -63,6 +57,8 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 	}
 }
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
+
+$stuName = array_values($RecordsetStd)[0]['StuName'];
 ?>
 
 <!DOCTYPE html>
@@ -114,8 +110,8 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		</nav>
 		<div class="container">
 			<div class="starter-template">
-				<h1>學生列表</h1>
 				<p class="lead"></p>
+				<legend><?php echo $stuName ?>出席記錄</legend>
 			</div>
 			<div class="row">
 				<!-- <ul class="nav nav-tabs">
@@ -130,33 +126,40 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 					<table class="table table-striped">
 						<tr>
 							<td>ID</td>
-							<td>姓名</td>
-							<td>性別</td>
-							<td>出生日期</td>
-							<td>建立日期</td>
-							<td>更新日期</td>
+							<td>狀態</td>
+							<td>時間</td>
 							<td>操作</td>
 						</tr>
 						<?php 
 							foreach ($RecordsetStd as $row_RecordsetStd) {
 							?>
 						<tr>
-							<td><?php echo $row_RecordsetStd['StuCode']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuName']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuSex']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuBirth']; ?></td>
-							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Created'], 11, 15); ?>
+							<td><?php echo $row_RecordsetStd['LogId']; ?></td>
+							<td><?php 
+									switch($row_RecordsetStd['StuStatus']){
+										case "on":
+											echo "上課";
+											break;
+										case "done":
+											echo "完作作業";
+											break;
+										case "leave":
+											echo "離開";
+											break;
+										case "99":
+											echo "家長到達，要求立刻接走";
+											break;
+										case "1":
+											echo "家長到達等候";
+											break;
+										default:
+											break;
+									}
+								?></td>
+							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10)." ".substr($row_RecordsetStd['Created'], 11, 15); ?>
 							</td>
 							<td>
-								<?php echo substr($row_RecordsetStd['Modified'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Modified'], 11, 15); ?>
-							</td>
-							<td>
-								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">分配IC卡</a>
-								<a class="btn btn-primary" href="attendance.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">出席記錄</a>
-								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">修改資料</a>
-								<a class="btn btn-danger" href="delStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a>
+								<!-- <a class="btn btn-danger" href="delAttendance.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a> -->
 							</td>
 						</tr>
 						<?php
