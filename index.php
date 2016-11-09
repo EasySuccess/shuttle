@@ -158,7 +158,9 @@ $recordSet = DB::queryFirstRow("SELECT CoFullName FROM tbco WHERE CoCode = %d", 
 					</div>
 					<div class="panel-body">
 						<a type="button" class="btn btn-md" aria-label="Left Align" href="admin/listUser.php" >用戶管理</a>
+						<a type="button" class="btn btn-md" aria-label="Left Align" href="admin/addUser.php" >新增用戶</a>
 						<a type="button" class="btn btn-md" aria-label="Left Align" href="admin/listCompany.php" >公司管理</a>
+						<a type="button" class="btn btn-md" aria-label="Left Align" href="admin/addCompany.php" >新增公司</a>
 					</div>
 				</div>
 			</div>

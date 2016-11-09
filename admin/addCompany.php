@@ -26,35 +26,22 @@ if (isset($_SERVER['QUERY_STRING'])) {
     $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
+$tableName = "tbco";
+$nextUrl = "listCompany.php";
+$prevUrl = $_SERVER['HTTP_REFERER'];
+
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 	
-	DB::insert("tbstudent", array(
-		"CoCode" =>  $_POST['CoCode'],
-		"StuName" => $_POST['StuName'],
-		"StuSex" => $_POST['StuSex'],
-		"StuBirth" => $_POST['StuBirth'],
-		"StuAddress" => $_POST['StuAddress'],
-		"StuFather" => $_POST['StuFather'],
-		"StuFatherTel" => $_POST['StuFatherTel'],
-		"StuMum" => $_POST['StuMum'],
-		"StuMumTel" => $_POST['StuMumTel'],
-		"StuContact" => $_POST['StuContact'],
-		"StuContactTel" => $_POST['StuContactTel'],
-		"StuRemark" => $_POST['StuRemark'],
-		"StuGrad" =>  $_POST['StuGrad'],
-		"Created" => NULL
-	));
-	
-	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbstudent ORDER By Created Desc");
-	DB::insert("tbstustatus", array(
-		"StuCode" => $result['StuCode'],
-		"CoCode" => $result['CoCode'],
-		"StuStatus" => "off",
-		"StuPickupStatus" => NULL,
+	DB::insert($tableName, array(
+		"CoName" =>  $_POST['CoName'],
+		"CoAddress" => $_POST['CoAddress'],
+		"CoTel" => $_POST['CoTel'],
+		"CoContact" => $_POST['CoContact'],
+		"CoEmail" => $_POST['CoEmail'],
 		"Created" => NULL
 	));
 
-    header("Location: ". "addStudentSuccess.php");
+    header("Location: ". $nextUrl);
 }
 ?>
 <!DOCTYPE html>
@@ -112,100 +99,45 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 						<!-- Form Name -->
 						<legend>新增公司</legend>
 						<!-- Text input-->
-						<div class="form-group hidden">
-							<label class="col-md-4 control-label" for="textinput">CoCode:</label>  
-							<div class="col-md-4">
-								<input id="textinput" name="CoCode" type="text" value="<?php echo $_SESSION['MM_CoCode']; ?>" class="form-control input-md" readonly>
-							</div>
-						</div>
-						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">學生姓名:</label>  
+							<label class="col-md-4 control-label" for="textinput">公司名稱:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="StuName" type="text" value="" class="form-control input-md">
-							</div>
-						</div>
-						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">性別:</label>  
-							<div class="col-md-4">
-								<select name="StuSex">
-									<option value="男" <?php if (!(strcmp("男", "男"))) {echo "SELECTED";} ?>>男</option>
-									<option value="女" <?php if (!(strcmp("女", "男"))) {echo "SELECTED";} ?>>女</option>
-								</select>
-							</div>
-						</div>
-						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">出生日期:</label>  
-							<div class="col-md-4">
-								<input id="textinput" name="StuBirth" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="CoName" type="text" value="" class="form-control input-md">
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">地址:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="StuAddress" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="CoAddress" type="text" value="" class="form-control input-md">
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">父親名字:</label>  
-							<div class="col-md-2">
-								<input id="textinput" name="StuFather" type="text" value="" class="form-control input-md">
-							</div>
-							<div class="col-md-2">
-								<input id="textinput" name="StuFatherTel" type="text"  placeholder="聯絡電話" value="" class="form-control input-md">
-							</div>
-						</div>
-						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">母親名字:</label>  
-							<div class="col-md-2">
-								<input id="textinput" name="StuMum" type="text" value="" class="form-control input-md">
-							</div>
-							<div class="col-md-2">
-								<input id="textinput" name="StuMumTel" type="text"  placeholder="聯絡電話" value="" class="form-control input-md">
-							</div>
-						</div>
-						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">緊急聯絡人:</label>  
-							<div class="col-md-2">
-								<input id="textinput" name="StuContact" type="text" value="" class="form-control input-md">
-							</div>
-							<div class="col-md-2">
-								<input id="textinput" name="StuContactTel" type="text"  placeholder="聯絡電話" value="" class="form-control input-md">
-							</div>
-						</div>
-						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">備註:</label>  
+							<label class="col-md-4 control-label" for="textinput">電話:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="StuRemark" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="CoTel" type="text" value="" class="form-control input-md">
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">年級:</label>  
-							<div class="col-md-4">
-								<input id="textinput" name="StuGrad" type="text" value="" class="form-control input-md">
+							<label class="col-md-4 control-label" for="textinput">聯絡:</label>  
+							<div class="col-md-2">
+								<input id="textinput" name="CoContact" type="text" value="" class="form-control input-md">
 							</div>
 						</div>
 						<!-- Text input-->
-						<!-- <div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">圖片:</label>  
-							<div class="col-md-4">
-								<input id="textinput" name="StuPic" type="text" value="" class="form-control input-md">
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput">電郵:</label>  
+							<div class="col-md-2">
+								<input id="textinput" name="CoEmail" type="text" value="" class="form-control input-md">
 							</div>
-							</div> -->
-						<!-- Text input-->
+						</div>
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
-								<input type="submit" class="btn btn-primary" value="新增學生">
-								<a type="button"  class="btn btn-default" href="../index.php">返回</a>
+								<input type="submit" class="btn btn-primary" value="新增">
+								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl; ?>">返回</a>
 							</div>
 						</div>
 					</fieldset>

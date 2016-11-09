@@ -56,6 +56,12 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 	}
 }
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
+
+if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+	if($_POST['action'] == "delUser"){
+		DB::delete("tbuser", "UserId=%s", $_POST['UserId']);
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -145,7 +151,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							</td>
 							<td>
 								<a class="btn btn-primary" href="changePassword.php?UserId=<?php echo $row_RecordsetStd['UserId']; ?>">修改密碼</a>
-								<a class="btn btn-danger" href="delUser.php?UserId=<?php echo $row_RecordsetStd['UserId']; ?>">刪除</a>
+								<button type="submit" class="btn btn-danger" name="delUser" value="<?php echo $row_RecordsetStd['UserId']; ?>">刪除</button>
 							</td>
 						</tr>
 						<?php
@@ -220,5 +226,18 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("button[type='submit']").click(function(){
+						var ajaxurl = "listUser.php";
+						var data =  {"action": $(this).attr("name"), "UserId": $(this).val()};
+						$.ajaxSetup({async: false});
+						$.post(ajaxurl, data, function (data,status) {
+						}).always(function(){
+							location.reload();
+						});
+					});
+				});
+		</script>
 	</body>
 </html>

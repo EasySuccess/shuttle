@@ -32,7 +32,8 @@ if (isset($_POST['username'])) {
 			$loginStrGroup = $loginRS['UserRole'];
 			$loginCoCode = $loginRS['CoCode'];
 			
-			if( ($loginCoCode != NULL) && ($loginCoCode != "") ){
+			// Redirect to Index for Admin or User with company 
+			if( (strcmp($loginStrGroup,"admin") == 0) || (($loginCoCode != NULL) && ($loginCoCode != "")) ){
 							
 				if (PHP_VERSION >= 5.1) {
 					session_regenerate_id(true);
