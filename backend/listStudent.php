@@ -21,7 +21,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$tableName = "tbstudent";
+$currentPage = $_SERVER['PHP_SELF'];
+$homeUrl = "../index.php";
+$nextUrl = "listStudent.php";
+$prevUrl = $homeUrl;
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
@@ -35,7 +39,7 @@ if (isset($_SESSION['MM_CoCode'])) {
 	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
 }
 
-$query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
+$query_RecordsetStd = sprintf("SELECT * FROM $tableName WHERE CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd  = DB::query($query_limit_RecordsetStd);
 
@@ -63,6 +67,19 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 	}
 }
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
+
+if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+
+	if($_POST['action'] == "delStudent"){
+		DB::update("tbcard", array(
+			"StuCode" =>  NULL
+		), "StuCode=%s and CoCode=%s", $_POST['param'], $_SESSION['MM_CoCode']);
+		
+		DB::delete("tbstustatus", "StuCode=%s and CoCode=%s", $_POST['param'], $_SESSION['MM_CoCode']);
+		DB::delete($tableName, "StuCode=%s and CoCode=%s", $_POST['param'], $_SESSION['MM_CoCode']);
+	}
+	
+}
 ?>
 
 <!DOCTYPE html>
@@ -137,24 +154,24 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							<td>操作</td>
 						</tr>
 						<?php 
-							foreach ($RecordsetStd as $row_RecordsetStd) {
+							foreach ($RecordsetStd as $row) {
 							?>
 						<tr>
-							<td><?php echo $row_RecordsetStd['StuCode']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuName']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuSex']; ?></td>
-							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Created'], 11, 15); ?>
+							<td><?php echo $row['StuCode']; ?></td>
+							<td><?php echo $row['StuName']; ?></td>
+							<td><?php echo $row['StuSex']; ?></td>
+							<td><?php echo substr($row['Created'], 0, 10); ?><br>
+								<?php echo substr($row['Created'], 11, 15); ?>
 							</td>
 							<td>
-								<?php echo substr($row_RecordsetStd['Modified'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Modified'], 11, 15); ?>
+								<?php echo substr($row['Modified'], 0, 10); ?><br>
+								<?php echo substr($row['Modified'], 11, 15); ?>
 							</td>
 							<td>
-								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">分配IC卡</a>
-								<a class="btn btn-primary" href="listAttendance.php?RefUrl=1&StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>&StuName=<?php echo $row_RecordsetStd['StuName']; ?>">出席記錄</a>
-								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">修改資料</a>
-								<a class="btn btn-danger" href="delStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a>
+								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row['StuCode']; ?>">分配IC卡</a>
+								<a class="btn btn-primary" href="listAttendance.php?RefUrl=1&StuCode=<?php echo $row['StuCode']; ?>&StuName=<?php echo $row['StuName']; ?>">出席記錄</a>
+								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row['StuCode']; ?>">修改資料</a>
+								<button type="submit" class="btn btn-danger" name="delStudent" value="<?php echo $row['StuCode']; ?>">刪除</button>
 							</td>
 						</tr>
 						<?php
@@ -229,5 +246,18 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("button[type='submit']").click(function(){
+						var ajaxurl = "<?php echo $currentPage; ?>";
+						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
+						$.ajaxSetup({async: false});
+						$.post(ajaxurl, data, function (data,status) {
+						}).always(function(){
+							location.reload();
+						});
+					});
+				});
+		</script>
 	</body>
 </html>

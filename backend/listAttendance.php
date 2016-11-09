@@ -21,7 +21,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$tableName = "tblog";
+$currentPage = $_SERVER['PHP_SELF'];
+$homeUrl = "../index.php";
+$nextUrl = $homeUrl ;
+$prevUrl = $homeUrl ;
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
@@ -32,7 +36,7 @@ $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
 if (((isset($_GET["MM_search"])) && ($_GET["MM_search"] == "form1")) ||  isset($_GET['StuCode'])){
 	
-	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%i_CoCode";
+	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM $tableName INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%i_CoCode";
 	
 	$params=array();
 	$params['CoCode'] = $_SESSION['MM_CoCode'];
@@ -83,7 +87,7 @@ if (((isset($_GET["MM_search"])) && ($_GET["MM_search"] == "form1")) ||  isset($
 
 }else{		
 
-	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s  ORDER BY tblog.Created DESC";
+	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM $tableName INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s  ORDER BY tblog.Created DESC";
 	
 	if (isset($_GET['totalRows_RecordsetStd'])) {
 		$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
@@ -112,6 +116,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 	}
 }
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
+
 ?>
 
 <!DOCTYPE html>

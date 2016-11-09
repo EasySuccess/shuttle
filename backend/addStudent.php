@@ -21,14 +21,19 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     exit;
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$formAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
-    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
+$tableName = "tbstudent";
+$currentPage = $_SERVER['PHP_SELF'];
+$homeUrl = "../index.php";
+$nextUrl = "addStudentSuccess.php";
+$prevUrl = $homeUrl;
 
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 	
-	DB::insert("tbstudent", array(
+	DB::insert($tableName, array(
 		"CoCode" =>  $_POST['CoCode'],
 		"StuName" => $_POST['StuName'],
 		"StuSex" => $_POST['StuSex'],
@@ -45,7 +50,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		"Created" => NULL
 	));
 	
-	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbstudent ORDER By Created Desc");
+	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM $tableName ORDER By Created Desc");
 	DB::insert("tbstustatus", array(
 		"StuCode" => $result['StuCode'],
 		"CoCode" => $result['CoCode'],
@@ -54,7 +59,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		"Created" => NULL
 	));
 
-    header("Location: ". "addStudentSuccess.php");
+    header("Location: $nextUrl ");
 }
 ?>
 <!DOCTYPE html>
@@ -107,7 +112,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form method="post" name="form1" action="<?php echo $editFormAction; ?>" class="form-horizontal">
+				<form method="post" name="form1" action="<?php echo $formAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>新增學生</legend>
@@ -205,7 +210,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="新增學生">
-								<a type="button"  class="btn btn-default" href="../index.php">返回</a>
+								<a type="button"  class="btn btn-default" href="<?php echo prevUrl ?>">返回</a>
 							</div>
 						</div>
 					</fieldset>

@@ -21,15 +21,21 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
+$tableName = "tbstudent";
+$currentPage = $_SERVER['PHP_SELF'];
+$homeUrl = "../index.php";
+$nextUrl = "listStudent.php";
+$prevUrl = "listStudent.php";
+
 if (isset($_GET['StuCode'])) {
-	$recordsetStudent = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode = %s", $_GET['StuCode']);
+	$recordsetStudent = DB::queryFirstRow("SELECT * FROM $tableName WHERE StuCode = %s", $_GET['StuCode']);
 }else{
 	$recordsetStudent = NULL;
 }
 
 if ((isset($_POST['MM_editStudent'])) && ($_POST['MM_editStudent'] == "form1")) {
 	
-	DB::update("tbstudent", array(
+	DB::update($tableName, array(
 		"StuName" => $_POST['StuName'],
 		"StuSex" => $_POST['StuSex'],
 		"StuBirth" => $_POST['StuBirth'],
@@ -44,7 +50,8 @@ if ((isset($_POST['MM_editStudent'])) && ($_POST['MM_editStudent'] == "form1")) 
 		"StuGrad" => $_POST['StuGrad']
 	), "StuCode=%s and CoCode=%s", $_POST['StuCode'], $_POST['CoCode']);
 	
-	header("Location: ". $_SERVER['HTTP_REFERER']);
+	$goto = $_SERVER['HTTP_REFERER'];
+	header("Location: $goto");
 }
 
 ?>
@@ -195,7 +202,7 @@ if ((isset($_POST['MM_editStudent'])) && ($_POST['MM_editStudent'] == "form1")) 
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="更新記錄">
-								<a type="button"  class="btn btn-default" href="listStudent.php">返回</a>
+								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl ?>">返回</a>
 							</div>
 						</div>
 						<input type="hidden" name="MM_editStudent" value="form1">

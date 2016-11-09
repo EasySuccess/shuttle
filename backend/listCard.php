@@ -21,7 +21,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$tableName = "tbcard";
+$currentPage = $_SERVER['PHP_SELF'];
+$homeUrl = "../index.php";
+$nextUrl = "listCard.php";
+$prevUrl = $homeUrl;
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
@@ -30,7 +34,7 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$query = "SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM tbcard LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId";
+$query = "SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM $tableName LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId";
 
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
@@ -58,6 +62,14 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 	}
 }
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
+
+if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+
+	if($_POST['action'] == "delCard"){
+		DB::delete($tableName, "CardId=%s and CoCode=%d", $_POST['param'], $_SESSION['MM_CoCode']);
+	}
+	
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,23 +140,23 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							<td>操作</td>
 						</tr>
 						<?php
-							foreach ($RecordsetStd as $row_RecordsetStd) {
+							foreach ($RecordsetStd as $row) {
 							?>
 						<tr>
-							<td><?php echo $row_RecordsetStd['CardId']; ?></td>
+							<td><?php echo $row['CardId']; ?></td>
 							<td><?php 
-								if($row_RecordsetStd['StuCode'] == NULL){
+								if($row['StuCode'] == NULL){
 									echo "未分配";
 								}else{
-									echo $row_RecordsetStd['StuName'];
+									echo $row['StuName'];
 								}
 								?></td>
-							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?></td>
-							<td><?php echo substr($row_RecordsetStd['Modified'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Modified'], 11, 15); ?>
+							<td><?php echo substr($row['Created'], 0, 10); ?></td>
+							<td><?php echo substr($row['Modified'], 0, 10); ?><br>
+								<?php echo substr($row['Modified'], 11, 15); ?>
 							</td>
 							<td>
-								<a class="btn btn-danger" href="delCard.php?CardId=<?php echo $row_RecordsetStd['CardId']; ?>">刪除</a>
+								<button type="submit" class="btn btn-danger" name="delCard" value="<?php echo $row['CardId']; ?>">刪除</button>
 							</td>
 						</tr>
 						<?php
@@ -219,5 +231,18 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("button[type='submit']").click(function(){
+						var ajaxurl = "<?php echo $currentPage; ?>";
+						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
+						$.ajaxSetup({async: false});
+						$.post(ajaxurl, data, function (data,status) {
+						}).always(function(){
+							location.reload();
+						});
+					});
+				});
+		</script>
 	</body>
 </html>

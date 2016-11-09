@@ -22,17 +22,22 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     exit;
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$formAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
-    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
+$tableName = "tbcard";
+$currentPage = $_SERVER['PHP_SELF'];
+$homeUrl = "../index.php";
+$nextUrl = "listStudent.php";
+$prevUrl = $homeUrl;
 
 //該學生的IC卡總數
 $colname_RecordsetICCard = "-1";
 if (isset($_GET['StuCode'])) {
     $colname_RecordsetICCard = $_GET['StuCode'];
 }
-$row_RecordsetStdICCard  = DB::query("SELECT * FROM tbcard WHERE StuCode=%d and CoCode=%d", $colname_RecordsetICCard, $_SESSION['MM_CoCode']);
+$row_RecordsetStdICCard  = DB::query("SELECT * FROM $tableName WHERE StuCode=%d and CoCode=%d", $colname_RecordsetICCard, $_SESSION['MM_CoCode']);
 $this_STD_IC_total = count($row_RecordsetStdICCard);
 
 //Get Student Details
@@ -44,17 +49,26 @@ $row_RecordsetStd = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode=%d 
 $totalRows_RecordsetStd = count($row_RecordsetStd);
 
 //Show available IC Card
-$row_RecordsetICCard=DB::query("SELECT * FROM tbcard WHERE StuCode IS NULL AND CoCode=%d ORDER BY CardId", $_SESSION['MM_CoCode']);
+$row_RecordsetICCard=DB::query("SELECT * FROM $tableName WHERE StuCode IS NULL AND CoCode=%d ORDER BY CardId", $_SESSION['MM_CoCode']);
 
 
-//插入資料
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 
-	DB::update("tbcard", array(
+	DB::update($tableName, array(
 		"StuCode" =>  $_POST['StuCode'],
 	), "CardId=%s and CoCode=%d", $_POST['CardId'], $_POST['CoCode']);
 	
 	header("Location: ". $_SERVER['HTTP_REFERER']);	
+}
+
+if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+
+	if($_POST['action'] == "unassignCard"){
+		DB::update($tableName, array(
+		"StuCode" =>  NULL
+		), "CardId=%s and CoCode=%d", $_POST['param'], $_SESSION['MM_CoCode']);
+	}
+	
 }
 
 ?>
@@ -108,7 +122,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form action="<?php echo $editFormAction; ?>" method="POST" name="form1" class="form-horizontal">
+				<form action="<?php echo $formAction; ?>" method="POST" name="form1" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>分配IC卡</legend>
@@ -176,7 +190,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 								<td><?php echo $row['CardId']; ?></td>
 								<td><?php echo $row['Modified']; ?></td>
 								<td>
-									<a class="btn btn-danger" href="UnassignCard.php?CardId=<?php echo $row['CardId']; ?>">刪除</a>
+									<button type="submit" class="btn btn-danger" name="unassignCard" value="<?php echo $row['CardId']; ?>">刪除</button>
 								</td>
 							</tr>
 							<?php } ?>
@@ -194,10 +208,18 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("button[type='submit']").click(function(){
+						var ajaxurl = "<?php echo $currentPage; ?>";
+						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
+						$.ajaxSetup({async: false});
+						$.post(ajaxurl, data, function (data,status) {
+						}).always(function(){
+							location.reload();
+						});
+					});
+				});
+		</script>
 	</body>
 </html>
-<script>
-	$( document ).ready(function() {
-	  $( "#CardId" ).focus();
-	});
-</script>
