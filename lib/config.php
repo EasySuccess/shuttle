@@ -11,7 +11,8 @@
 	date_default_timezone_set("Asia/Hong_Kong");
 	
 	// Backend Parameters
-	$STD_IC_CARD_TOTAL = 2;  //Maximum IC Cards per student
+	$MAX_ASSIGNED_IC = 2;  //Max IC Cards per student
+	$MAX_ROWS_PAGES = 10;  //Max Rows per Pages
 
 	// // Backend Parameters
 	// $hostname = "localhost";

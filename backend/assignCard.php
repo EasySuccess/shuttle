@@ -48,10 +48,10 @@ $row_RecordsetICCard=DB::query("SELECT * FROM tbcard WHERE StuCode IS NULL AND C
 
 
 //插入資料
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
+if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 
-	DB::update('tbcard', array(
-		'StuCode' =>  $_POST['StuCode'],
+	DB::update("tbcard", array(
+		"StuCode" =>  $_POST['StuCode'],
 	), "CardId=%s and CoCode=%d", $_POST['CardId'], $_POST['CoCode']);
 	
 	header("Location: ". $_SERVER['HTTP_REFERER']);	
@@ -112,9 +112,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 					<fieldset>
 						<!-- Form Name -->
 						<legend>分配IC卡</legend>
-						<?php if($this_STD_IC_total>= $STD_IC_CARD_TOTAL){?>
+						<?php if($this_STD_IC_total>= $MAX_ASSIGNED_IC){?>
 						<div class="form-group">
-							<div class="alert alert-danger" role="alert"><b>警告</b>:每個學生只限<?php echo $STD_IC_CARD_TOTAL;?>張卡數，請刪除原來的卡片才能增加！</div>
+							<div class="alert alert-danger" role="alert"><b>警告</b>:每個學生只限<?php echo $MAX_ASSIGNED_IC;?>張卡數，請刪除原來的卡片才能增加！</div>
 						</div>
 						<?php }?>
 						<!-- Text input-->
@@ -137,7 +137,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 								<input id="textinput" name="StuName" type="text" value="<?php echo $row_RecordsetStd['StuName']; ?>" class="form-control input-md" readonly>
 							</div>
 						</div>
-						<?php if($this_STD_IC_total < $STD_IC_CARD_TOTAL){//該學生超出卡片數則不能增加?>
+						<?php if($this_STD_IC_total < $MAX_ASSIGNED_IC){//該學生超出卡片數則不能增加?>
 						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">IC卡號:</label>  

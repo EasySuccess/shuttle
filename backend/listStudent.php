@@ -23,7 +23,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 
 $currentPage = $_SERVER["PHP_SELF"];
 
-$maxRows_RecordsetStd = 10;
+$maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
 if (isset($_GET['pageNum_RecordsetStd'])) {
 	$pageNum_RecordsetStd = $_GET['pageNum_RecordsetStd'];

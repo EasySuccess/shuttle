@@ -1,6 +1,6 @@
 <?php
 
-require_once('../lib/config.php');
+require_once("../lib/config.php");
 
 if (!isset($_SESSION)) {
     session_start();
@@ -26,32 +26,32 @@ if (isset($_SERVER['QUERY_STRING'])) {
     $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
+if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 	
-	DB::insert('tbstudent', array(
-		'CoCode' =>  $_POST['CoCode'],
-		'StuName' => $_POST['StuName'],
-		'StuSex' => $_POST['StuSex'],
-		'StuBirth' => $_POST['StuBirth'],
-		'StuAddress' => $_POST['StuAddress'],
-		'StuFather' => $_POST['StuFather'],
-		'StuFatherTel' => $_POST['StuFatherTel'],
-		'StuMum' => $_POST['StuMum'],
-		'StuMumTel' => $_POST['StuMumTel'],
-		'StuContact' => $_POST['StuContact'],
-		'StuContactTel' => $_POST['StuContactTel'],
-		'StuRemark' => $_POST['StuRemark'],
-		'StuGrad' =>  $_POST['StuGrad'],
-		'Created' => NULL
+	DB::insert("tbstudent", array(
+		"CoCode" =>  $_POST['CoCode'],
+		"StuName" => $_POST['StuName'],
+		"StuSex" => $_POST['StuSex'],
+		"StuBirth" => $_POST['StuBirth'],
+		"StuAddress" => $_POST['StuAddress'],
+		"StuFather" => $_POST['StuFather'],
+		"StuFatherTel" => $_POST['StuFatherTel'],
+		"StuMum" => $_POST['StuMum'],
+		"StuMumTel" => $_POST['StuMumTel'],
+		"StuContact" => $_POST['StuContact'],
+		"StuContactTel" => $_POST['StuContactTel'],
+		"StuRemark" => $_POST['StuRemark'],
+		"StuGrad" =>  $_POST['StuGrad'],
+		"Created" => NULL
 	));
 	
 	$result = DB::queryFirstRow("SELECT StuCode, CoCode FROM tbstudent ORDER By Created Desc");
 	DB::insert("tbstustatus", array(
-		'StuCode' => $result['StuCode'],
-		'CoCode' => $result['CoCode'],
-		'StuStatus' => 'off',
-		'StuPickupStatus' => NULL,
-		'Created' => NULL
+		"StuCode" => $result['StuCode'],
+		"CoCode" => $result['CoCode'],
+		"StuStatus" => "off",
+		"StuPickupStatus" => NULL,
+		"Created" => NULL
 	));
 
     header("Location: ". "addStudentSuccess.php");
@@ -74,7 +74,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<link href="../css/starter-template.css" rel="stylesheet">
-		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+		<!-- Just for debugging purposes. Don"t actually copy these 2 lines! -->
 		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 		<script src="../js/ie-emulation-modes-warning.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -218,7 +218,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../js/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+		<script>window.jQuery || document.write("<script src="../js/jquery.min.js"><\/script>")</script>
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>

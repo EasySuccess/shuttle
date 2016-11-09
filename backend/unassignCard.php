@@ -1,6 +1,6 @@
 <?php
 
-require_once('../lib/config.php');
+require_once("../lib/config.php");
 
 if (!isset($_SESSION)) {
     session_start();
@@ -23,8 +23,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 
 if ((isset($_GET['CardId'])) && ($_GET['CardId'] != "")) {
 
-	DB::update('tbcard', array(
-		'StuCode' =>  NULL
+	DB::update("tbcard", array(
+		"StuCode" =>  NULL
 	), "CardId=%s and CoCode=%d", $_GET['CardId'], $_SESSION['MM_CoCode']);
 		
     header(sprintf("Location: %s", $_SERVER['HTTP_REFERER']));

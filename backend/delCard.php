@@ -23,7 +23,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 
 if ((isset($_GET['CardId'])) && ($_GET['CardId'] != "")) {
 
-	DB::delete('tbcard', "CardId=%s and CoCode=%d", $_GET['CardId'], $_SESSION['MM_CoCode']);
+	DB::delete("tbcard", "CardId=%s and CoCode=%d", $_GET['CardId'], $_SESSION['MM_CoCode']);
 
     header("Location: ". "listCard.php");	
 }

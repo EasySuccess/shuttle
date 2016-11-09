@@ -23,31 +23,26 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 
 $currentPage = $_SERVER["PHP_SELF"];
 
-$maxRows_RecordsetStd = 10;
+$maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
 if (isset($_GET['pageNum_RecordsetStd'])) {
 	$pageNum_RecordsetStd = $_GET['pageNum_RecordsetStd'];
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$colname_RecordsetStd = "-1";
-if (isset($_SESSION['MM_CoCode'])) {
-	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
-}
-
-$query_RecordsetStd = sprintf("SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM tbcard LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId", $colname_RecordsetStd);
-$query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
-$RecordsetStd = DB::query($query_limit_RecordsetStd);
-
+$query = "SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM tbcard LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId";
 
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
 } else {
-	$all_RecordsetStd = DB::query($query_RecordsetStd);
+	$all_RecordsetStd = DB::query($query,  $_SESSION['MM_CoCode']);
 	
 	$totalRows_RecordsetStd = count($all_RecordsetStd);
 }
 $totalPages_RecordsetStd = ceil($totalRows_RecordsetStd / $maxRows_RecordsetStd) - 1;
+
+$query_limit = $query." LIMIT %d, %d";
+$RecordsetStd = DB::query($query_limit, $_SESSION['MM_CoCode'], $startRow_RecordsetStd, $maxRows_RecordsetStd);
 
 $queryString_RecordsetStd = "";
 if (!empty($_SERVER['QUERY_STRING'])) {

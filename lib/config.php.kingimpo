@@ -24,7 +24,7 @@
 
 	// Backend Parameters
 
-	$STD_IC_CARD_TOTAL = 2;  //Maximum IC Cards per student
+	$MAX_ASSIGNED_IC = 2;  //Maximum IC Cards per student
 
 
 
