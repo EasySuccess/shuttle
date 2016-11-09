@@ -14,35 +14,43 @@ if (isset($_GET['accesscheck'])) {
 if (isset($_POST['username'])) {
 	$loginUsername           = $_POST['username'];
 	$password                = $_POST['pwd'];
+	
+	// echo password_hash($password, PASSWORD_DEFAULT);
+	// echo "Result:".password_verify("123456", '$2y$10$rXgkZC0j0lkrUt2gzZSMfOJZthYF1Obn4LcIxTIIcgHf2SK1KDHFy');
 	$MM_fldUserAuthorization = "UserRole";
 	$MM_redirectLoginSuccess = "index.php";
 	$MM_redirectLoginFailed  = "loginFailed.php";
 	$MM_redirecttoReferrer   = false;
 	
-	$LoginRS = DB::queryFirstRow("SELECT UserName, UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s AND UserPw=%s", $loginUsername, $password);
+	$LoginRS = DB::queryFirstRow("SELECT UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s", $loginUsername);
 	$loginFoundUser = count($LoginRS);
-		
+	
+	echo $loginFoundUser;
+	
 	if ($loginFoundUser) {
 		
-		$loginStrGroup = $LoginRS['UserRole'];
-		$loginCoCode = $LoginRS['CoCode'];
-					
-		if (PHP_VERSION >= 5.1) {
-			session_regenerate_id(true);
+		if(password_verify($password, $LoginRS['UserPw'])){
+			
+			$loginStrGroup = $LoginRS['UserRole'];
+			$loginCoCode = $LoginRS['CoCode'];
+						
+			if (PHP_VERSION >= 5.1) {
+				session_regenerate_id(true);
+			} else {
+				session_regenerate_id();
+			}
+			//declare session variables and assign them
+			$_SESSION['MM_Username']  = $loginUsername;
+			$_SESSION['MM_UserGroup'] = $loginStrGroup;
+			$_SESSION['MM_CoCode'] = $loginCoCode;
+						
+			if (isset($_SESSION['PrevUrl']) && false) {
+				$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
+			}
+			header("Location: " . $MM_redirectLoginSuccess);
 		} else {
-			session_regenerate_id();
+			header("Location: " . $MM_redirectLoginFailed);
 		}
-		//declare session variables and assign them
-		$_SESSION['MM_Username']  = $loginUsername;
-		$_SESSION['MM_UserGroup'] = $loginStrGroup;
-		$_SESSION['MM_CoCode'] = $loginCoCode;
-					
-		if (isset($_SESSION['PrevUrl']) && false) {
-			$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
-		}
-		header("Location: " . $MM_redirectLoginSuccess);
-	} else {
-		header("Location: " . $MM_redirectLoginFailed);
 	}
 }
 ?>
