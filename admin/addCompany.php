@@ -67,7 +67,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>補習社接送系統新增學生</title>
+		<title>補習社接送系統</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -110,7 +110,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 				<form method="post" name="form1" action="<?php echo $editFormAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
-						<legend>新增學生</legend>
+						<legend>新增公司</legend>
 						<!-- Text input-->
 						<div class="form-group hidden">
 							<label class="col-md-4 control-label" for="textinput">CoCode:</label>  

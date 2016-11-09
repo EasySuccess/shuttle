@@ -26,7 +26,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>員工拍卡介面</title>
+		<title>補習社接送系統</title>
 		<meta name="description" content="補習社接送系統" />
 		<meta name="author" content="補習社接送系統" />
 		<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />

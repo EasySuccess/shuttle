@@ -68,7 +68,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>分配IC卡</title>
+		<title>補習社接送系統</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

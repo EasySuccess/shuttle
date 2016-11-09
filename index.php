@@ -34,7 +34,7 @@ $recordSet = DB::queryFirstRow("SELECT CoFullName FROM tbco WHERE CoCode = %d", 
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>管理介面</title>
+		<title>補習社接送系統</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
