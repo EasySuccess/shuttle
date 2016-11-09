@@ -21,7 +21,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
+$tableName = "tbuser";
 $currentPage = $_SERVER["PHP_SELF"];
+$homeUrl = "../index.php";
+$nextUrl = "listUser.php";
+$prevUrl = $homeUrl;
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
@@ -30,7 +34,7 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$query = "SELECT tbuser.UserId, tbuser.UserName, tbuser.UserRole, tbco.CoName, tbuser.Created, tbuser.Modified FROM tbuser LEFT OUTER JOIN tbco on tbuser.CoCode=tbco.CoCode ORDER BY tbuser.UserId";
+$query = "SELECT tbuser.UserId, tbuser.UserName, tbuser.UserRole, tbco.CoName, tbuser.Created, tbuser.Modified FROM $tableName LEFT OUTER JOIN tbco on tbuser.CoCode=tbco.CoCode ORDER BY tbuser.UserId";
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
 } else {
@@ -58,9 +62,11 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
 
 if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+
 	if($_POST['action'] == "delUser"){
-		DB::delete("tbuser", "UserId=%s", $_POST['UserId']);
+		DB::delete($tableName, "UserId=%s", $_POST['param']);
 	}
+	
 }
 ?>
 
@@ -231,8 +237,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		<script>
 			$(document).ready(function() {
 				$("button[type='submit']").click(function(){
-						var ajaxurl = "listUser.php";
-						var data =  {"action": $(this).attr("name"), "UserId": $(this).val()};
+						var ajaxurl = "<?php echo $currentPage;?>";
+						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
 						$.ajaxSetup({async: false});
 						$.post(ajaxurl, data, function (data,status) {
 						}).always(function(){

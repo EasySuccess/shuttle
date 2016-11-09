@@ -21,6 +21,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
+
+$tableName = "tbco";
+$homeUrl = "../index.php";
+$nextUrl = "listCompany.php";
+$prevUrl = $homeUrl;
 $currentPage = $_SERVER["PHP_SELF"];
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
@@ -30,7 +35,7 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$query = "SELECT * FROM tbco ORDER BY CoCode";
+$query = "SELECT * FROM $tableName ORDER BY CoCode";
 
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
@@ -59,12 +64,15 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
 
 if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+
 	if($_POST['action'] == "delCompany"){
-		DB::delete("tbco", "CoCode=%i", $_POST['CoCode']);
+		DB::delete($tableName, "CoCode=%i", $_POST['CoCode']);
 	}
+	
 	if($_POST['action'] == "refCompany"){
 		$_SESSION['MM_CoCode'] = $_POST['CoCode'];
 	}
+	
 }
 ?>
 

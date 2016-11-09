@@ -21,13 +21,23 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     exit;
 }
 
+$formAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+    $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+$tableName = "tbuser";
+$homeUrl = "../index.php";
+$nextUrl = "listUser.php";
+$prevUrl = "listUser.php";
+
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	
-	DB::update('tbuser', array(
+	DB::update($tableName, array(
 		"UserPw" =>  password_hash($_POST['UserPw'], PASSWORD_DEFAULT),
 	), "UserId=%s", $_POST['UserId']);
 
-    header("Location: ". "listUser.php");
+    header("Location: $nextUrl");
 }
 ?>
 <!DOCTYPE html>
@@ -80,7 +90,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form method="post" name="form1" action="<?php echo $_SERVER['PHP_SELF'];; ?>" class="form-horizontal">
+				<form method="post" name="form1" action="<?php echo $formAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>修改密碼</legend>
@@ -101,7 +111,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="確認">
-								<a type="button"  class="btn btn-default" href="listUser.php">返回</a>
+								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl; ?>">返回</a>
 							</div>
 						</div>
 					</fieldset>

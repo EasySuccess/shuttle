@@ -6,18 +6,15 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
-$loginFormAction = $_SERVER['PHP_SELF'];
+$formAction = $_SERVER['PHP_SELF'];
 if (isset($_GET['accesscheck'])) {
 	$_SESSION['PrevUrl'] = $_GET['accesscheck'];
 }
 
 if (isset($_POST['username'])) {
-	$loginUsername           = $_POST['username'];
-	$password                = $_POST['pwd'];
+	$loginUsername = $_POST['username'];
+	$password = $_POST['pwd'];
 	
-	// echo password_hash($password, PASSWORD_DEFAULT);
-	// echo "Result:".password_verify("123456", '$2y$10$rXgkZC0j0lkrUt2gzZSMfOJZthYF1Obn4LcIxTIIcgHf2SK1KDHFy');
-	$MM_fldUserAuthorization = "UserRole";
 	$MM_redirectLoginSuccess = "index.php";
 	$MM_redirectLoginFailed  = "loginFailed.php";
 	$MM_redirectLoginNoPermission  = "noPermission.php";
@@ -45,7 +42,7 @@ if (isset($_POST['username'])) {
 				$_SESSION['MM_UserGroup'] = $loginStrGroup;
 				$_SESSION['MM_CoCode'] = $loginCoCode;
 							
-				if (isset($_SESSION['PrevUrl']) && false) {
+				if (isset($_SESSION['PrevUrl']) && $MM_redirecttoReferrer) {
 					$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
 				}
 				header("Location: " . $MM_redirectLoginSuccess);
@@ -98,7 +95,7 @@ if (isset($_POST['username'])) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form action="<?php echo $loginFormAction;?>" name="formLogin" method="POST">
+				<form action="<?php echo $formAction;?>" name="formLogin" method="POST">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>請輸入登入資訊</legend>
@@ -129,7 +126,7 @@ if (isset($_POST['username'])) {
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="js/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+		<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 		<script src="js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="js/ie10-viewport-bug-workaround.js"></script>

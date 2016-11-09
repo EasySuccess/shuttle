@@ -5,7 +5,7 @@ require_once("../lib/config.php");
 if (!isset($_SESSION)) {
     session_start();
 }
-$MM_authorizedUsers  = "admin,company,staff";
+$MM_authorizedUsers  = "admin";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo = "../noPermission.php";
@@ -21,14 +21,15 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     exit;
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$formAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
-    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
 $tableName = "tbco";
+$homeUrl = "../index.php";
 $nextUrl = "listCompany.php";
-$prevUrl = $_SERVER['HTTP_REFERER'];
+$prevUrl = $homeUrl;
 
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 	
@@ -41,7 +42,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		"Created" => NULL
 	));
 
-    header("Location: ". $nextUrl);
+    header("Location: $nextUrl");
 }
 ?>
 <!DOCTYPE html>
@@ -94,7 +95,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form method="post" name="form1" action="<?php echo $editFormAction; ?>" class="form-horizontal">
+				<form method="post" name="form1" action="<?php echo $formAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>新增公司</legend>

@@ -6,7 +6,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-$MM_authorizedUsers  = "admin,company,staff";
+$MM_authorizedUsers  = "admin";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo = "../noPermission.php";
@@ -22,25 +22,38 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     exit;
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$formAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
-    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-$row_RecordsetCurrentUser  = DB::query("SELECT * FROM tbuser WHERE CoCode=%d AND UserRole<>%s", $_GET['CoCode'], "admin");
+$tableName = "tbuser";
+$currentPage = $_SERVER["PHP_SELF"];
+$homeUrl = "../index.php";
+$nextUrl = "listCompany.php";
+$prevUrl = "listCompany.php";
 
-//Show available IC Card
-$row_RecordsetAvailUser=DB::query("SELECT * FROM tbuser WHERE CoCode IS NULL AND UserRole<>%s ORDER BY UserId", "admin");
+$row_RecordsetCurrentUser  = DB::query("SELECT * FROM $tableName WHERE CoCode=%d AND UserRole<>%s", $_GET['CoCode'], "admin");
+$row_RecordsetAvailUser = DB::query("SELECT * FROM $tableName WHERE CoCode IS NULL AND UserRole<>%s ORDER BY UserId", "admin");
 
-
-//插入資料
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 
-	DB::update("tbuser", array(
+	DB::update($tableName, array(
 		"CoCode" =>  $_POST['CoCode'],
 	), "UserId=%s", $_POST['UserId']);
 	
-	header("Location: ". $_SERVER['HTTP_REFERER']);	
+	$goto=$_SERVER['HTTP_REFERER'];
+	header("Location: $goto");	
+}
+
+if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+
+	if($_POST['action'] == "unassignUser"){
+		DB::update($tableName, array(
+		"CoCode" =>  NULL
+		), "UserId=%d", $_POST['param']);
+	}
+
 }
 
 ?>
@@ -94,7 +107,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form action="<?php echo $editFormAction; ?>" method="POST" name="form1" class="form-horizontal">
+				<form action="<?php echo $formAction; ?>" method="POST" name="form1" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>加入用戶</legend>
@@ -127,7 +140,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="新增">
-								<a type="button"  class="btn btn-default" href="listCompany.php">返回</a>
+								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl; ?>">返回</a>
 							</div>
 						</div>
 					</fieldset>
@@ -139,7 +152,8 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 						<legend>已加入的用戶</legend>
 						<table class="table table-striped">
 							<tr>
-								<td>卡號</td>
+								<td>用戶編號</td>
+								<td>用戶名稱</td>
 								<td>更新日期</td>
 								<td>操作</td>
 							</tr>
@@ -149,7 +163,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 								<td><?php echo $row['UserName']; ?></td>
 								<td><?php echo $row['Modified']; ?></td>
 								<td>
-									<a class="btn btn-danger" href="unassignUser.php?UserId=<?php echo $row['UserId']; ?>">刪除</a>
+									<button type="submit" class="btn btn-danger" name="unassignUser" value="<?php echo $row['UserId']; ?>">刪除</button>
 								</td>
 							</tr>
 							<?php } ?>
@@ -167,10 +181,18 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("button[type='submit']").click(function(){
+						var ajaxurl = "<?php echo $currentPage; ?>";
+						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
+						$.ajaxSetup({async: false});
+						$.post(ajaxurl, data, function (data,status) {
+						}).always(function(){
+							location.reload();
+						});
+					});
+				});
+		</script>
 	</body>
 </html>
-<script>
-	$( document ).ready(function() {
-	  $( "#CardId" ).focus();
-	});
-</script>
