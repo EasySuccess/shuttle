@@ -83,7 +83,7 @@ if (((isset($_GET["MM_search"])) && ($_GET["MM_search"] == "form1")) ||  isset($
 
 }else{		
 
-	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s";
+	$query =  "SELECT tblog.LogId, tblog.StuStatus, tblog.Created, tbstudent.StuCode, tbstudent.StuName FROM tblog INNER JOIN tbstudent ON tblog.StuCode=tbstudent.StuCode WHERE tblog.CoCode=%s  ORDER BY tblog.Created DESC";
 	
 	if (isset($_GET['totalRows_RecordsetStd'])) {
 		$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
@@ -168,20 +168,20 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" name="form1" class="form-horizontal">
 					<fieldset>
 						<div class="form-group">
-							<div class="col-md-2 hidden">
-								<input id="textinput" name="StuCode" type="text" placeholder="學生編號" value="<?php echo isset($_GET['StuCode'])? $_GET['StuCode']:""; ?>" class="form-control input-md" readonly>
+							<div class="col-md-2">
+								<input id="textinput" name="StuCode" type="text" placeholder="學生編號" value="<?php echo isset($_GET['StuCode'])? $_GET['StuCode']:""; ?>" class="form-control input-md" <?php echo  isset($_GET['RefUrl'])?(($_GET['RefUrl']=="1")?"readonly":""):"" ?>>
 							</div>
-							<div class="col-md-2 <?php echo isset($_GET['StuCode'])? (($_GET['StuCode']!=NULL)?hidden:"" ):"";?>">
-								<input id="textinput" name="StuName" type="text" placeholder="學生姓名" value="<?php echo isset($_GET['StuName'])? $_GET['StuName']:""; ?>" class="form-control input-md">
+							<div class="col-md-2">
+								<input id="textinput" name="StuName" type="text" placeholder="學生姓名" value="<?php echo isset($_GET['StuName'])? $_GET['StuName']:""; ?>" class="form-control input-md" <?php echo  isset($_GET['RefUrl'])?(($_GET['RefUrl']=="1")?"readonly":""):"" ?>>
 							</div>
 							<div class="col-md-2">
 								<select id="CardId" name="StuStatus" class="form-control input-md">
 									<option></option>
-									<option value="on" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "on"))) {echo "SELECTED";}}  ?>>上課</option>
-									<option value="leave" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "leave"))) {echo "SELECTED";}}  ?>>離開</option>
-									<option value="done"  <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "done"))) {echo "SELECTED";}}  ?>>完成作業</option>
-									<option value="1" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "1"))) {echo "SELECTED";}}  ?>>家長到達等候</option>
-									<option value="99" <?php if(isset($_GET['StuName'])){if (!(strcmp($_GET['StuStatus'], "99"))) {echo "SELECTED";}}  ?>>家長要求立刻接走</option>
+									<option value="on" <?php if(isset($_GET['StuStatus'])){if (!(strcmp($_GET['StuStatus'], "on"))) {echo "SELECTED";}}  ?>>上課</option>
+									<option value="leave" <?php if(isset($_GET['StuStatus'])){if (!(strcmp($_GET['StuStatus'], "leave"))) {echo "SELECTED";}}  ?>>離開</option>
+									<option value="done"  <?php if(isset($_GET['StuStatus'])){if (!(strcmp($_GET['StuStatus'], "done"))) {echo "SELECTED";}}  ?>>完成作業</option>
+									<option value="1" <?php if(isset($_GET['StuStatus'])){if (!(strcmp($_GET['StuStatus'], "1"))) {echo "SELECTED";}}  ?>>家長到達等候</option>
+									<option value="99" <?php if(isset($_GET['StuStatus'])){if (!(strcmp($_GET['StuStatus'], "99"))) {echo "SELECTED";}}  ?>>家長要求立刻接走</option>
 								</select>
 							</div>
 							<div class="col-md-2">
@@ -189,11 +189,18 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							</div>
 							<div class="col-md-2">
 								<input type="submit" class="btn btn-primary" value="搜尋">
-								<a type="button"  class="btn btn-default" href="listAttendance.php<?php echo isset($_GET['StuCode'])? (($_GET['StuCode']!=NULL)?"?StuCode=".$_GET['StuCode']:"" ):"";?>">重置</a>
+								<a type="button"  class="btn btn-default" href="listAttendance.php<?php 
+									if(isset($_GET['RefUrl'])){
+										if($_GET['RefUrl']=="1"){
+											echo sprintf("?RefUrl=%s&StuCode=%d&StuName=%s", $_GET['RefUrl'], $_GET['StuCode'], $_GET['StuName']);
+										}
+									}
+									?>">重置</a>
 							</div>
 						</div>	
 					</fieldset>
 					<input type="hidden" name="MM_search" value="form1">
+					<input type="hidden" name="RefUrl" value="<?php echo  isset($_GET['RefUrl'])?$_GET['RefUrl']:"" ?>">
 				</form>
 			</div>
 			<div class="row">
