@@ -5,7 +5,7 @@ require_once('../lib/config.php');
 if (!isset($_SESSION)) {
 	session_start();
 }
-$MM_authorizedUsers  = "admin,company,staff";
+$MM_authorizedUsers  = "admin";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo     = "../noPermission.php";
@@ -30,24 +30,18 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$colname_RecordsetStd = "-1";
-if (isset($_SESSION['MM_CoCode'])) {
-	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
-}
-
-$query_RecordsetStd = sprintf("SELECT * FROM tbstudent WHERE CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
-$query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
-$RecordsetStd  = DB::query($query_limit_RecordsetStd);
-
+$query = "SELECT * FROM tbco ORDER BY CoCode";
 
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
 } else {
-	$all_RecordsetStd = DB::query($query_RecordsetStd);
+	$all_RecordsetStd = DB::query($query);
 	
 	$totalRows_RecordsetStd = count($all_RecordsetStd);
 }
 $totalPages_RecordsetStd = ceil($totalRows_RecordsetStd / $maxRows_RecordsetStd) - 1;
+$query_limit = $query ." LIMIT %d, %d";
+$RecordsetStd  = DB::query($query_limit, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 
 $queryString_RecordsetStd = "";
 if (!empty($_SERVER['QUERY_STRING'])) {
@@ -75,7 +69,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>管理介面</title>
+		<title>補習社接送系統</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -114,7 +108,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		</nav>
 		<div class="container">
 			<div class="starter-template">
-				<h1>學生列表</h1>
+				<h1>公司列表</h1>
 				<p class="lead"></p>
 			</div>
 			<div class="row">
@@ -129,9 +123,8 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 						?>
 					<table class="table table-striped">
 						<tr>
-							<td>學生編號</td>
-							<td>姓名</td>
-							<td>性別</td>
+							<td>公司編號</td>
+							<td>公司名稱</td>
 							<td>建立日期</td>
 							<td>更新日期</td>
 							<td>操作</td>
@@ -140,9 +133,8 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							foreach ($RecordsetStd as $row_RecordsetStd) {
 							?>
 						<tr>
-							<td><?php echo $row_RecordsetStd['StuCode']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuName']; ?></td>
-							<td><?php echo $row_RecordsetStd['StuSex']; ?></td>
+							<td><?php echo $row_RecordsetStd['CoCode']; ?></td>
+							<td><?php echo $row_RecordsetStd['CoName']; ?></td>
 							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?><br>
 								<?php echo substr($row_RecordsetStd['Created'], 11, 15); ?>
 							</td>
@@ -151,10 +143,9 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 								<?php echo substr($row_RecordsetStd['Modified'], 11, 15); ?>
 							</td>
 							<td>
-								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">分配IC卡</a>
-								<a class="btn btn-primary" href="listAttendance.php?RefUrl=1&StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>&StuName=<?php echo $row_RecordsetStd['StuName']; ?>">出席記錄</a>
-								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">修改資料</a>
-								<a class="btn btn-danger" href="delStudent.php?StuCode=<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</a>
+								<a class="btn btn-default" href="assignUser.php?<?php echo sprintf("CoCode=%d&CoName=%s", $row_RecordsetStd['CoCode'], $row_RecordsetStd['CoName']); ?>">加入用戶</a>
+								<a class="btn btn-info" href="editCompany.php?CoCode=<?php echo $row_RecordsetStd['CoCode']; ?>">修改資料</a>
+								<a class="btn btn-danger" href="delCompany.php?CoCode=<?php echo $row_RecordsetStd['CoCode']; ?>">刪除</a>
 							</td>
 						</tr>
 						<?php

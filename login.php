@@ -20,38 +20,38 @@ if (isset($_POST['username'])) {
 	$MM_fldUserAuthorization = "UserRole";
 	$MM_redirectLoginSuccess = "index.php";
 	$MM_redirectLoginFailed  = "loginFailed.php";
+	$MM_redirectLoginNoPermission  = "noPermission.php";
 	$MM_redirecttoReferrer   = false;
 	
-	$LoginRS = DB::queryFirstRow("SELECT UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s", $loginUsername);
-	$loginFoundUser = count($LoginRS);
+	$loginRS = DB::queryFirstRow("SELECT UserName, UserPw, UserRole, CoCode FROM tbuser WHERE UserName=%s", $loginUsername);
 	
-	echo $loginFoundUser;
+	if ($loginRS != NULL) {
 	
-	if ($loginFoundUser) {
+		if(password_verify($password, $loginRS['UserPw'])){
 		
-		if(password_verify($password, $LoginRS['UserPw'])){
+			$loginStrGroup = $loginRS['UserRole'];
+			$loginCoCode = $loginRS['CoCode'];
 			
-			$loginStrGroup = $LoginRS['UserRole'];
-			$loginCoCode = $LoginRS['CoCode'];
-						
-			if (PHP_VERSION >= 5.1) {
-				session_regenerate_id(true);
-			} else {
-				session_regenerate_id();
-			}
-			//declare session variables and assign them
-			$_SESSION['MM_Username']  = $loginUsername;
-			$_SESSION['MM_UserGroup'] = $loginStrGroup;
-			$_SESSION['MM_CoCode'] = $loginCoCode;
-						
-			if (isset($_SESSION['PrevUrl']) && false) {
-				$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
-			}
-			header("Location: " . $MM_redirectLoginSuccess);
-		} else {
-			header("Location: " . $MM_redirectLoginFailed);
-		}
-	}
+			if( ($loginCoCode != NULL) && ($loginCoCode != "") ){
+							
+				if (PHP_VERSION >= 5.1) {
+					session_regenerate_id(true);
+				} else {
+					session_regenerate_id();
+				}
+				//declare session variables and assign them
+				$_SESSION['MM_Username']  = $loginUsername;
+				$_SESSION['MM_UserGroup'] = $loginStrGroup;
+				$_SESSION['MM_CoCode'] = $loginCoCode;
+							
+				if (isset($_SESSION['PrevUrl']) && false) {
+					$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
+				}
+				header("Location: " . $MM_redirectLoginSuccess);
+				
+			} else {header("Location: " . $MM_redirectLoginNoPermission);}
+		} else {echo "密碼不正確";}
+	} else {echo "找不到用戶名稱";}
 }
 ?>
 <!DOCTYPE html>
@@ -131,14 +131,5 @@ if (isset($_POST['username'])) {
       <script src="bootstrap/js/bootstrap.min.js"></script>
       <!-- iCheck -->
       <script src="plugins/iCheck/icheck.min.js"></script>
-      <script>
-         $(function () {
-           $('input').iCheck({
-             checkboxClass: 'icheckbox_square-blue',
-             radioClass: 'iradio_square-blue',
-             increaseArea: '20%' // optional
-           });
-         });
-      </script>
    </body>
 </html>

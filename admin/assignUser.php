@@ -5,7 +5,8 @@ require_once('../lib/config.php');
 if (!isset($_SESSION)) {
     session_start();
 }
-$MM_authorizedUsers  = "admin";
+
+$MM_authorizedUsers  = "admin,company,staff";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo = "../noPermission.php";
@@ -21,14 +22,27 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
     exit;
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-	
-	DB::update('tbuser', array(
-		'UserPw' =>  password_hash($_POST['UserPw'], PASSWORD_DEFAULT),
-	), "UserId=%s", $_POST['UserId']);
-
-    header("Location: ". "listUser.php");
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
+
+$row_RecordsetCurrentUser  = DB::query("SELECT * FROM tbuser WHERE CoCode=%d AND UserRole<>%s", $_GET['CoCode'], "admin");
+
+//Show available IC Card
+$row_RecordsetAvailUser=DB::query("SELECT * FROM tbuser WHERE CoCode IS NULL ORDER BY UserId");
+
+
+//插入資料
+if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
+
+	DB::update("tbuser", array(
+		"CoCode" =>  $_POST['CoCode'],
+	), "UserId=%s", $_POST['UserId']);
+	
+	header("Location: ". $_SERVER['HTTP_REFERER']);	
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +54,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>新增學生</title>
+		<title>補習社接送系統</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -70,9 +84,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-					  <li class="active"><a href="../index.php">主選單</a></li>
-					  <li><a href="../logout.php">登出</a></li>
-				   </ul>
+						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="../logout.php">登出</a></li>
+					</ul>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
@@ -80,33 +94,68 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form method="post" name="form1" action="<?php echo $_SERVER['PHP_SELF'];; ?>" class="form-horizontal">
+				<form action="<?php echo $editFormAction; ?>" method="POST" name="form1" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
-						<legend>修改密碼</legend>
-						<!-- Text input-->
-						<div class="form-group hidden">
-							<label class="col-md-4 control-label" for="textinput">UserId:</label>  
+						<legend>加入用戶</legend>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput">公司編號:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="UserId" type="text" value="<?php echo $_GET['UserId']; ?>" class="form-control input-md" readonly>
+								<input id="textinput" name="CoCode" type="text" value="<?php echo $_GET['CoCode']; ?>" class="form-control input-md" readonly>
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput">公司名稱:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="UserPw" type="text" placeholder="輸入新密碼" class="form-control input-md">
+								<input id="textinput" name="CoName" type="text" value="<?php echo $_GET['CoName']; ?>" class="form-control input-md" readonly>
 							</div>
 						</div>
+						<!-- Text input-->
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput">用戶名稱:</label>  
+							<div class="col-md-4">
+								<select id="UserId" name="UserId">
+									<?php foreach($row_RecordsetAvailUser as $row){ ?>
+									<option value=<?php echo $row['UserId'] ?>><?php echo $row['UserName'] ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
-								<input type="submit" class="btn btn-primary" value="確認">
-								<a type="button"  class="btn btn-default" href="listUser.php">返回</a>
+								<input type="submit" class="btn btn-primary" value="新增">
+								<a type="button"  class="btn btn-default" href="listCompany.php">返回</a>
 							</div>
 						</div>
 					</fieldset>
 					<input type="hidden" name="MM_insert" value="form1">
 				</form>
+				<div class="col-md-12">
+					<fieldset>
+						<!-- Form Name -->
+						<legend>已加入的用戶</legend>
+						<table class="table table-striped">
+							<tr>
+								<td>卡號</td>
+								<td>更新日期</td>
+								<td>操作</td>
+							</tr>
+							<?php foreach($row_RecordsetCurrentUser as $row) {?>
+							<tr>
+								<td><?php echo $row['UserId']; ?></td>
+								<td><?php echo $row['UserName']; ?></td>
+								<td><?php echo $row['Modified']; ?></td>
+								<td>
+									<a class="btn btn-danger" href="unassignUser.php?UserId=<?php echo $row['UserId']; ?>">刪除</a>
+								</td>
+							</tr>
+							<?php } ?>
+						</table>
+					</fieldset>
+				</div>
 			</div>
 		</div>
 		<!-- /.container -->
@@ -120,3 +169,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 	</body>
 </html>
+<script>
+	$( document ).ready(function() {
+	  $( "#CardId" ).focus();
+	});
+</script>

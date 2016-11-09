@@ -5,7 +5,7 @@ require_once('../lib/config.php');
 if (!isset($_SESSION)) {
 	session_start();
 }
-$MM_authorizedUsers  = "admin,company,staff";
+$MM_authorizedUsers  = "admin";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo     = "../noPermission.php";
