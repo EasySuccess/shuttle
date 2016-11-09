@@ -95,7 +95,7 @@ if (isset($_POST['username'])) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form action="<?php echo $formAction;?>" name="formLogin" method="POST">
+				<form action="<?php echo $formAction;?>" name="formLogin" method="POST" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
 						<legend>請輸入登入資訊</legend>
@@ -112,7 +112,6 @@ if (isset($_POST['username'])) {
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								 <button type="submit" class="btn btn-primary btn-block btn-flat">登入</button>
 							</div>
