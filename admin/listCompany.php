@@ -66,13 +66,21 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 
 	if($_POST['action'] == "delCompany"){
-		DB::delete($tableName, "CoCode=%i", $_POST['CoCode']);
+		
+		DB::$error_handler = false;
+		DB::$throw_exception_on_error = true;
+		try{
+			DB::delete($tableName, "CoCode=%d", $_POST['param']);
+		} catch(MeekroDBException $e){
+			echo json_encode(array('status' => 'failed'));
+		}
+		DB::$error_handler = 'meekrodb_error_handler';
+		DB::$throw_exception_on_error = false;
+		
+	}else if($_POST['action'] == "refCompany"){
+		$_SESSION['MM_CoCode'] = $_POST['param'];
 	}
-	
-	if($_POST['action'] == "refCompany"){
-		$_SESSION['MM_CoCode'] = $_POST['CoCode'];
-	}
-	
+		
 }
 ?>
 
@@ -147,23 +155,23 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							<td>操作</td>
 						</tr>
 						<?php 
-							foreach ($RecordsetStd as $row_RecordsetStd) {
+							foreach ($RecordsetStd as $row) {
 							?>
 						<tr>
-							<td><?php echo $row_RecordsetStd['CoCode']; ?></td>
-							<td><?php echo $row_RecordsetStd['CoName']; ?></td>
-							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Created'], 11, 15); ?>
+							<td><?php echo $row['CoCode']; ?></td>
+							<td><?php echo $row['CoName']; ?></td>
+							<td><?php echo substr($row['Created'], 0, 10); ?><br>
+								<?php echo substr($row['Created'], 11, 15); ?>
 							</td>
 							<td>
-								<?php echo substr($row_RecordsetStd['Modified'], 0, 10); ?><br>
-								<?php echo substr($row_RecordsetStd['Modified'], 11, 15); ?>
+								<?php echo substr($row['Modified'], 0, 10); ?><br>
+								<?php echo substr($row['Modified'], 11, 15); ?>
 							</td>
 							<td>
-								<a class="btn btn-default" href="assignUser.php?<?php echo sprintf("CoCode=%d&CoName=%s", $row_RecordsetStd['CoCode'], $row_RecordsetStd['CoName']); ?>">加入用戶</a>
-								<a class="btn btn-primary" href="editCompany.php?CoCode=<?php echo $row_RecordsetStd['CoCode']; ?>">修改資料</a>
-								<button type="submit" class="btn btn-success" name="refCompany" value="<?php echo $row_RecordsetStd['CoCode']; ?>">代入公司</button>
-								<button type="submit" class="btn btn-danger" name="delCompany" value="<?php echo $row_RecordsetStd['CoCode']; ?>">刪除</button>
+								<a class="btn btn-default" href="assignUser.php?<?php echo sprintf("CoCode=%d&CoName=%s", $row['CoCode'], $row['CoName']); ?>">加入用戶</a>
+								<a class="btn btn-primary" href="editCompany.php?CoCode=<?php echo $row['CoCode']; ?>">修改資料</a>
+								<button type="submit" class="btn btn-success" name="refCompany" value="<?php echo $row['CoCode']; ?>">代入公司</button>
+								<button type="submit" class="btn btn-danger" name="delCompany" value="<?php echo $row['CoCode']; ?>">刪除</button>
 							</td>
 						</tr>
 						<?php
@@ -242,11 +250,13 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 			$(document).ready(function() {
 				$("button[type='submit']").click(function(){
 						var ajaxurl = "listCompany.php";
-						var data =  {"action": $(this).attr("name"), "CoCode": $(this).val()};
+						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
 						$.ajaxSetup({async: false});
-						$.post(ajaxurl, data, function (data,status) {
+						$.post(ajaxurl, data, function (data, status) {
+							// var rows = $.parseJSON(data);
+							// alert(rows);
 						}).always(function(){
-							location.reload();
+				//			location.reload();
 						});
 					});
 				});

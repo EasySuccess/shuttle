@@ -84,6 +84,6 @@ function checkCard($cardId, $coCode)
 	WHERE tbstudent.CoCode=%s and tbcard.CardId=%s", $coCode, $cardId);
 	
 	print json_encode($results);
-	;
+
 }
 ?>
