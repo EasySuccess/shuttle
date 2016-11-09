@@ -57,6 +57,15 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 	}
 }
 $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_RecordsetStd, $queryString_RecordsetStd);
+
+if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
+	if($_POST['action'] == "delCompany"){
+		DB::delete("tbco", "CoCode=%i", $_POST['CoCode']);
+	}
+	if($_POST['action'] == "refCompany"){
+		$_SESSION['MM_CoCode'] = $_POST['CoCode'];
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -144,8 +153,9 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							</td>
 							<td>
 								<a class="btn btn-default" href="assignUser.php?<?php echo sprintf("CoCode=%d&CoName=%s", $row_RecordsetStd['CoCode'], $row_RecordsetStd['CoName']); ?>">加入用戶</a>
-								<a class="btn btn-info" href="editCompany.php?CoCode=<?php echo $row_RecordsetStd['CoCode']; ?>">修改資料</a>
-								<a class="btn btn-danger" href="delCompany.php?CoCode=<?php echo $row_RecordsetStd['CoCode']; ?>">刪除</a>
+								<a class="btn btn-primary" href="editCompany.php?CoCode=<?php echo $row_RecordsetStd['CoCode']; ?>">修改資料</a>
+								<button type="submit" class="btn btn-success" name="refCompany" value="<?php echo $row_RecordsetStd['CoCode']; ?>">代入公司</button>
+								<button type="submit" class="btn btn-danger" name="delCompany" value="<?php echo $row_RecordsetStd['CoCode']; ?>">刪除</button>
 							</td>
 						</tr>
 						<?php
@@ -220,5 +230,18 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+			<script>
+			$(document).ready(function() {
+				$("button[type='submit']").click(function(){
+						var ajaxurl = "listCompany.php";
+						var data =  {"action": $(this).attr("name"), "CoCode": $(this).val()};
+						$.ajaxSetup({async: false});
+						$.post(ajaxurl, data, function (data,status) {
+						}).always(function(){
+							location.reload();
+						});
+					});
+				});
+		</script>
 	</body>
 </html>

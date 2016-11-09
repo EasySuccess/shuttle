@@ -22,7 +22,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
-$recordSet = DB::queryFirstRow("SELECT CoFullName FROM tbco WHERE CoCode = %d", $_SESSION['MM_CoCode']);
+$recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SESSION['MM_CoCode']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +144,7 @@ $recordSet = DB::queryFirstRow("SELECT CoFullName FROM tbco WHERE CoCode = %d", 
 					</div>
 					<div class="panel-body">
 						<b>帳號</b>:<?php echo $_SESSION['MM_Username'] ;?><br>
-						<b>公司</b>:<?php echo $recordSet['CoFullName'] ;?><br>
+						<b>公司</b>:<?php echo $recordSet['CoName'] ;?><br>
 					</div>
 				</div>
 			</div>

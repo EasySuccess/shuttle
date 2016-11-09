@@ -30,7 +30,7 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$query = "SELECT * FROM tbuser ORDER BY UserId";
+$query = "SELECT tbuser.UserId, tbuser.UserName, tbuser.UserRole, tbco.CoName, tbuser.Created, tbuser.Modified FROM tbuser LEFT OUTER JOIN tbco on tbuser.CoCode=tbco.CoCode ORDER BY tbuser.UserId";
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
 } else {
@@ -130,6 +130,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						<tr>
 							<td>用戶編號</td>
 							<td>登入名稱</td>
+							<td>公司名稱</td>
 							<td>權限</td>
 							<td>建立日期</td>
 							<td>更新日期</td>
@@ -141,6 +142,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						<tr>
 							<td><?php echo $row_RecordsetStd['UserId']; ?></td>
 							<td><?php echo $row_RecordsetStd['UserName']; ?></td>
+							<td><?php echo ( isValid($row_RecordsetStd['CoName'])?$row_RecordsetStd['CoName']:"" ) ; ?></td>
 							<td><?php echo $row_RecordsetStd['UserRole']; ?></td>
 							<td><?php echo substr($row_RecordsetStd['Created'], 0, 10); ?><br>
 								<?php echo substr($row_RecordsetStd['Created'], 11, 15); ?>

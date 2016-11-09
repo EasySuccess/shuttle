@@ -30,7 +30,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 $row_RecordsetCurrentUser  = DB::query("SELECT * FROM tbuser WHERE CoCode=%d AND UserRole<>%s", $_GET['CoCode'], "admin");
 
 //Show available IC Card
-$row_RecordsetAvailUser=DB::query("SELECT * FROM tbuser WHERE CoCode IS NULL ORDER BY UserId");
+$row_RecordsetAvailUser=DB::query("SELECT * FROM tbuser WHERE CoCode IS NULL AND UserRole<>%s ORDER BY UserId", "admin");
 
 
 //插入資料

@@ -27,6 +27,16 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup)
 	return $isValid;
 }
 
+function isValid($arg)
+{
+	$isValid = false;
+	
+	if( isset($arg) && !empty($arg) ){
+		$isValid = true;
+	}
+	
+	return $isValid;
+}
 // MeekroDb have taken the following in consideration
 // function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 // {

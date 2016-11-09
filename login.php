@@ -56,81 +56,82 @@ if (isset($_POST['username'])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>補習社接送系統</title>
-      <!-- Tell the browser to be responsive to screen width -->
-      <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-      <!-- Bootstrap 3.3.6 -->
-      <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-      <!-- Font Awesome -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-      <!-- Ionicons -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-      <!-- Theme style -->
-      <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-      <!-- iCheck -->
-      <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
-      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
-   </head>
-   <body class="hold-transition login-page">
-      <div class="login-box">
-         <div class="login-logo">
-            <a href="index2.html"><b>Admin</b>BE</a>
-         </div>
-         <!-- /.login-logo -->
-         <div class="login-box-body">
-            <p class="login-box-msg">請輸入登入資訊</p>
-            <form ACTION="<?php echo $loginFormAction;?>" name="formLogin" method="POST">
-               <div class="form-group has-feedback">
-                  <input type="text" class="form-control" id="username" name="username" placeholder="username">
-                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-               </div>
-               <div class="form-group has-feedback">
-                  <input type="password" class="form-control" id="pwd" name="pwd" placeholder="password">
-                  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-               </div>
-               <div class="row">
-                  <div class="col-xs-8">
-                     <div class="checkbox icheck">
-                        <!-- <label>
-                        <input type="checkbox"> 記住
-                        </label> -->
-                     </div>
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-xs-4">
-                     <button type="submit" class="btn btn-primary btn-block btn-flat">登入</button>
-                  </div>
-                  <!-- /.col -->
-               </div>
-            </form>
-            <!--div class="social-auth-links text-center">
-               <p>- OR -</p>
-               <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-                 Facebook</a>
-               <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-                 Google+</a>
-               </div-->
-            <!-- /.social-auth-links -->
-            <!-- <a href="#">忘記密碼</a><br>
-            <a href="register.html" class="text-center">註冊</a> -->
-         </div>
-         <!-- /.login-box-body -->
-      </div>
-      <!-- /.login-box -->
-      <!-- jQuery 2.2.3 -->
-      <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-      <!-- Bootstrap 3.3.6 -->
-      <script src="bootstrap/js/bootstrap.min.js"></script>
-      <!-- iCheck -->
-      <script src="plugins/iCheck/icheck.min.js"></script>
-   </body>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../../../../favicon.ico">
+		<title>補習社接送系統</title>
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="css/starter-template.css" rel="stylesheet">
+		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+		<script src="js/ie-emulation-modes-warning.js"></script>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">補習社接送系統</a>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="starter-template">
+				<p class="lead"></p>
+				<form action="<?php echo $loginFormAction;?>" name="formLogin" method="POST">
+					<fieldset>
+						<!-- Form Name -->
+						<legend>請輸入登入資訊</legend>
+						<!-- Text input-->
+						<div class="form-group">
+							<div class="col-md-4">
+								<input type="text" class="form-control" id="username" name="username" placeholder="登入名稱">
+							</div>
+						</div>
+						<!-- Text input-->
+						<div class="form-group">
+							<div class="col-md-4">
+								<input type="password" class="form-control" id="pwd" name="pwd" placeholder="密碼">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput"></label>  
+							<div class="col-md-4">
+								 <button type="submit" class="btn btn-primary btn-block btn-flat">登入</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		<!-- /.container -->
+		<!-- Bootstrap core JavaScript
+			================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+		<script src="js/bootstrap.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="js/ie10-viewport-bug-workaround.js"></script>
+	</body>
 </html>
