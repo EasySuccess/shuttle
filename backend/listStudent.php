@@ -79,6 +79,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		DB::delete($tableName, "StuCode=%s and CoCode=%s", $_POST['param'], $_SESSION['MM_CoCode']);
 	}
 	
+	exit;
 }
 ?>
 

@@ -154,6 +154,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				$.ajaxSetup({async: false});
 				data =  {"action": "checkCardId","cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#checkInID").val()};
 				$.post("lib/ajax.php", data, function (response,status) {
+					console.log(response);
 					var rows = $.parseJSON(response);
 					
 					if(rows.length > 1){
@@ -213,9 +214,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				var ajaxurl = "lib/ajax.php";
 				var data =  {"action": $(this).val(), "cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#checkInModal h1").attr("value")};
 				$.ajaxSetup({async: false});
-				$.post(ajaxurl, data, function (data,status) {
-				}).always(function(){
-				});
+				$.post(ajaxurl, data, function (data,status) {});
 			});
 			
 			$("button[type='close']").click(function(){

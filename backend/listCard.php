@@ -69,6 +69,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		DB::delete($tableName, "CardId=%s and CoCode=%d", $_POST['param'], $_SESSION['MM_CoCode']);
 	}
 	
+	exit;
+	
 }
 ?>
 <!DOCTYPE html>

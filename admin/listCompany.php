@@ -66,20 +66,20 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 
 	if($_POST['action'] == "delCompany"){
-		
-		// DB::$error_handler = false;
-		// DB::$throw_exception_on_error = true;
-		try{
-			DB::delete($tableName, "CoCode=%d", $_POST['param']);
-		} catch(MeekroDBException $e){
-			// echo json_encode(array('status' => 'failed'));
+			
+		if(count(DB::query("SELECT cocode FROM `tbstudent` WHERE cocode=%i0 UNION SELECT cocode FROM tbcard WHERE cocode=%i0", $_POST['param'])) == 0){
+			DB::delete($tableName, "CoCode=%i", $_POST['param']);
+			echo json_encode(array("status" => true));
+		}else{
+			echo json_encode(array("status" => false));
 		}
-		// DB::$error_handler = 'meekrodb_error_handler';
-		// DB::$throw_exception_on_error = false;
 		
 	}else if($_POST['action'] == "refCompany"){
 		$_SESSION['MM_CoCode'] = $_POST['param'];
+		echo json_encode(array("status" => true));
 	}
+	
+	exit;
 		
 }
 ?>
@@ -133,7 +133,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		</nav>
 		<div class="container">
 			<div class="starter-template">
-				<h1>公司列表</h1>
+				<h1 id="test">公司列表</h1>
 				<p class="lead"></p>
 			</div>
 			<div class="row">
@@ -143,6 +143,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 					<li role="presentation"><a href="#">Messages</a></li>
 				</ul> -->
 				<div class="col-md-12">
+					<div id="warning" class="alert alert-danger hidden">警告：請先刪除相關資料</div>
 					<?php 
 						if ($totalRows_RecordsetStd > 0) {
 						?>
@@ -242,20 +243,40 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootbox.min.js"></script>
 		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 			<script>
 			$(document).ready(function() {
+			
+				bootbox.setLocale("zh_TW");
+				
 				$("button[type='submit']").click(function(){
+						var action = $(this).attr("name");
+						var param = $(this).val();
+						
 						var ajaxurl = "listCompany.php";
-						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
+						var data =  {"action": action, "param": param};
 						$.ajaxSetup({async: false});
-						$.post(ajaxurl, data, function (data, status) {
-						}).always(function(){
-							location.reload();
-						});
+						
+						if(action.indexOf("del") !== -1){
+							bootbox.confirm("確認刪除？", function(result){
+								if(result){
+									$.post(ajaxurl, data, function (data, status) {
+										var response = $.parseJSON(data);
+										response['status']?location.reload():$("#warning").removeClass("hidden");
+									});
+								}
+							});
+						}else{
+							$.post(ajaxurl, data, function (data, status) {
+								var response = $.parseJSON(data);
+								response['status']?bootbox.alert("代入成功"):"";
+							});
+						}			
+						
 					});
 				});
 		</script>

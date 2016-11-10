@@ -210,9 +210,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				var ajaxurl = "lib/ajax.php";
 				var data =  {"action": $(this).val(), "cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#checkInModal h1").attr("value")};
 				$.ajaxSetup({async: false});
-				$.post(ajaxurl, data, function (data,status) {
-				}).always(function(){
-				});
+				$.post(ajaxurl, data, function (data,status) {});
 			});
 			
 			$("button[type='close']").click(function(){
