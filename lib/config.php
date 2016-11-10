@@ -2,6 +2,7 @@
 		
 	require_once('meekrodb.2.3.class.php'); 
 	require_once('function.php');
+	require_once('PasswordHash.php');
 	
 	// Frontend Parameters
 	DB::$user = "sqluser";

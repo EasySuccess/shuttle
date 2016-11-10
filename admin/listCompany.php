@@ -67,15 +67,15 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 
 	if($_POST['action'] == "delCompany"){
 		
-		DB::$error_handler = false;
-		DB::$throw_exception_on_error = true;
+		// DB::$error_handler = false;
+		// DB::$throw_exception_on_error = true;
 		try{
 			DB::delete($tableName, "CoCode=%d", $_POST['param']);
 		} catch(MeekroDBException $e){
-			echo json_encode(array('status' => 'failed'));
+			// echo json_encode(array('status' => 'failed'));
 		}
-		DB::$error_handler = 'meekrodb_error_handler';
-		DB::$throw_exception_on_error = false;
+		// DB::$error_handler = 'meekrodb_error_handler';
+		// DB::$throw_exception_on_error = false;
 		
 	}else if($_POST['action'] == "refCompany"){
 		$_SESSION['MM_CoCode'] = $_POST['param'];
@@ -253,10 +253,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
 						$.ajaxSetup({async: false});
 						$.post(ajaxurl, data, function (data, status) {
-							// var rows = $.parseJSON(data);
-							// alert(rows);
 						}).always(function(){
-				//			location.reload();
+							location.reload();
 						});
 					});
 				});
