@@ -270,12 +270,14 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 									});
 								}
 							});
-						}else{
+						}else if(action.indexOf("refCompany") !== -1){
 							$.post(ajaxurl, data, function (data, status) {
 								var response = $.parseJSON(data);
 								response['status']?bootbox.alert("代入成功"):"";
 							});
-						}			
+						}else{
+							$.post(ajaxurl, data, function (data, status) {});
+						}
 						
 					});
 				});
