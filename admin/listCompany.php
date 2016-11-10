@@ -257,7 +257,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						var action = $(this).attr("name");
 						var param = $(this).val();
 						
-						var ajaxurl = "listCompany.php";
+						var ajaxurl = "<?php echo $currentPage; ?>";
 						var data =  {"action": action, "param": param};
 						$.ajaxSetup({async: false});
 						

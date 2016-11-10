@@ -229,20 +229,35 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootbox.min.js"></script>
 		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 		<script>
 			$(document).ready(function() {
-				$("button[type='submit']").click(function(){
+			
+				bootbox.setLocale("zh_TW");
+				
+				$("button[type='submit']").click(function(){					
+						var action = $(this).attr("name");
+						var param = $(this).val();
+						
 						var ajaxurl = "<?php echo $currentPage; ?>";
-						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
+						var data =  {"action": action, "param": param};
 						$.ajaxSetup({async: false});
-						$.post(ajaxurl, data, function (data,status) {
-						}).always(function(){
-							location.reload();
-						});
+						
+						if(action.indexOf("del") !== -1){
+							bootbox.confirm("確認刪除？", function(result){
+								if(result){
+									$.post(ajaxurl, data, function (data,status) {
+										location.reload()
+									});
+								}
+							});
+						}else{
+							$.post(ajaxurl, data, function (data,status) {});
+						}
 					});
 				});
 		</script>
