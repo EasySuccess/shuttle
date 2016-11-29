@@ -212,7 +212,7 @@ footer .copyrights p a:hover{color:#43b9c7}
 .section-404 .search-form .search-submit{position:absolute;-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);-ms-transform:translateX(-50%);-o-transform:translateX(-50%);transform:translateX(-50%);line-height:1em;left:50%;pointer-events:none;bottom:11px;-webkit-transition:all 0.24s ease-in-out;-moz-transition:all 0.24s ease-in-out;transition:all 0.24s ease-in-out}
 .section-404 .search-form .search-submit:hover{color:#37acba}
 .form-control{
-	margin: 0 10% 0 10%; width: 80%;
+	margin: 0 10% 0 10%; width: 70%;
 }
 @media (max-width: 768px){.section-404{padding:70px 0 60px}}.section-contact .contact-info-wrapper{position:relative}.section-contact .contact-info-wrapper .map-wrapper #map-canvas{width:100%;height:100%}
 @media (min-width: 992px){.section-contact .contact-info-wrapper .map-wrapper{position:absolute;padding-left:50px;padding-right:0;top:0;right:0;bottom:0}}@media (max-width: 992px){.section-contact .contact-info-wrapper .map-wrapper{height:350px;margin-bottom:75px}}@media (max-width: 400px){.section-contact .contact-info-wrapper .map-wrapper{height:275px}}.section-contact .contact-form{padding:100px 0 60px}.section-contact .contact-info-block{min-height:300px;padding:120px 30px;text-align:center;background:#f2f2f2}.section-contact .contact-info-block .block-meta{margin:0}.section-contact .contact-info-block .block-meta h4{margin:0 0 25px;color:#5a6a70;font-size:20px;line-height:1em;font-weight:700;letter-spacing:0.2em;text-transform:uppercase}.section-contact .contact-info-block .block-meta p{margin:0;color:#5a6a70;font-size:14px;line-height:1em;font-weight:400;letter-spacing:0.2em}.section-contact .contact-info-block .block-meta p a{color:inherit}.section-contact .contact-info-block .block-meta p a:hover{color:#43b9c7}
@@ -518,4 +518,10 @@ box-shadow: 5px 5px 5px 0px rgba(85,85,85,0.5);
 
 
 
-.btn.theme-btn-2.cricle{font-weight: bold;font-size: 20px;}
+.btn.theme-btn-2.cricle{font-weight: bold;font-size: 15px;margin-top: -12px;}
+.btn.theme-btn-2.model{margin-top: -12px;}
+.form-group .form-control{margin: 0;}
+
+
+
+

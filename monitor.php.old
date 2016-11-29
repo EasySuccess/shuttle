@@ -329,9 +329,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 							</div>
 						</div>
 						<div class="modal-footer form-group">
-							<button type="submit" class="btn theme-btn-2">Btn1</button>
-							<button type="submit" class="btn theme-btn-2 hide">Btn2</button>
-							<button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
+							<button type="submit" class="btn theme-btn-2 model">Btn1</button>
+							<button type="submit" class="btn theme-btn-2 model hide">Btn2</button>
+							<button type="close" class="btn theme-btn-2 model" data-dismiss="modal">取消</button>
 						</div>
 					</form>
 				</div>
