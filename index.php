@@ -77,22 +77,7 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 				<p class="lead"></p>
 			</div>
 			<div class="col-md-8">
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-								操作介面
-							</h3>
-						</div>
-						<div class="panel-body">
-							<a type="button" class="btn btn-md" aria-label="Left Align" href="monitor.php" >實時學生狀態介面</a>
-							<a type="button" class="btn btn-md" aria-label="Left Align" href="stuPass.php" >學生拍卡介面</a><br>
-							<a type="button" class="btn btn-md" aria-label="Left Align" href="parPass.php" >家長拍卡介面</a><br>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -106,7 +91,7 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -120,7 +105,7 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -130,6 +115,21 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 						</div>
 						<div class="panel-body">
 							<a type="button" class="btn btn-md" aria-label="Left Align" href="backend/listAttendance.php" >出席記錄</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+								前台介面
+							</h3>
+						</div>
+						<div class="panel-body">
+							<a type="button" class="btn btn-md" aria-label="Left Align" href="monitor.php" >實時學生狀態介面</a>
+							<a type="button" class="btn btn-md" aria-label="Left Align" href="stuPass.php" >學生拍卡介面</a><br>
+							<a type="button" class="btn btn-md" aria-label="Left Align" href="parPass.php" >家長拍卡介面</a><br>
 						</div>
 					</div>
 				</div>
