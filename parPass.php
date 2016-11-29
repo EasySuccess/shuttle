@@ -22,6 +22,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 }	
 
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -67,7 +68,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 		<section class="section-hero">
 		<div class="hero-content pi-page">
 		<div class="container">
-		<h1 class="heading">員工拍卡介面</h1>
+		<h1 class="heading">家長拍卡介面</h1>
 		</div>
 		</div>
 		</section>
@@ -87,12 +88,12 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 		<div class="container">
 		<div class="footer-wrapper">
 		<div class="main-area">
-		<div class="menu">
+		<!--<div class="menu">
 		<ul>
 		<li><a href="#">首頁</a></li>
 		<li><a href="#">聯絡我們</a></li>
 		</ul>
-		</div>
+		</div>-->
 		</div>
 		<div class="copyrights">
 		<p>Copyright 2016. Designed by <a href="#" target="blank">EasySuccess team</a></p>
@@ -117,17 +118,18 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 							<div class="form-group">
 								<div class="onclass-from">
 									<div class="onclass" id="">
-										<p id="onTime" class"hide"><span>學生上課時間：<span class="sum"></span></span></p>
-										<p id="leaveTime" class="hide"><span>學生下課時間：<span class="sum"></span></span></p>
-										<p><span>狀況:<span class="sum" id="status"></span></span></p>
+										<p><span>學生狀況：<span class="sum" id="status"></span></span></p>
+										<p id="onTime" class"hide"><span>上課時間：<span class="sum"></span></span></p>
+										<p id="leaveTime" class="hide"><span>下課時間：<span class="sum"></span></span></p>
+										<p><span>備註：<span class="sum" id="remark"></span></span></p>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer  form-group">
-							<button id="actionBtn" type="submit" class="btn theme-btn-2 cricle" value="on">上課</button>
-							<button id="actionBtn2" type="submit" class="btn theme-btn-2 cricle" value="leave">下課</button>
-							<button type="close" class="btn theme-btn-2 cricle">返回</button>
+							<button id="pickWait" type="submit" class="btn theme-btn-2 cricle hide" value="1">等一下</button>
+							<button id="pickNow" type="submit" class="btn theme-btn-2 cricle hide" value="99">立即接走</button>
+							<button type="close" class="btn theme-btn-2 cricle" data-dismiss="modal">返回</button>
 						</div>
 					</form>
 				</div>
@@ -154,51 +156,55 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				$.ajaxSetup({async: false});
 				data =  {"action": "checkCardId","cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#checkInID").val()};
 				$.post("lib/ajax.php", data, function (response,status) {
-					console.log(response);
-					var rows = $.parseJSON(response);
+					var row = $.parseJSON(response);
 					
-					if(rows.length > 1){
-						//handle the error
-					}else if (rows.length == 0){
+					if (row == null){
 						alert("找不到學生");
 						location.reload();
 					}else{
-						var row = rows[0];
 						console.log(row);
 						$("#checkInModal h1").html(row['StuName']);
 						$("#checkInModal h1").attr("value", row['StuCode']);
-						$("#onTime .sum").html(row['StuArriveTime']);
-						$("#leaveTime .sum").html(row['StuLeaveTime']);
+						$("#onTime .sum").html(row['Created']);
+						$("#leaveTime .sum").html(row['Created']);
+						
+						switch(row['StuPickupStatus']){
+							case "99":
+								$("#remark").html("家長要求立即接走");
+								break;
+							case "1":
+								$("#remark").html("家長等候中");
+								break;
+							default:
+								break;
+						}
+						
 						switch(row['StuStatus']){
 							case "on":
 								$("#status").html("上課中");
-								$("#actionBtn").attr("value", "done");
-								$("#actionBtn").html("完成作業");
-								$("#actionBtn").removeClass("hide");
-								$("#actionBtn2").removeClass("hide");
+								$("#pickWait").removeClass("hide");
+								$("#pickNow").removeClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;
 							case "done":
 								$("#status").html("已完成作業");
-								$("#actionBtn").addClass("hide");
-								$("#actionBtn2").removeClass("hide");
+								$("#pickWait").addClass("hide");
+								$("#pickNow").removeClass("hide");
 								$("#onTime").removeClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;
 							case "leave":
 								$("#status").html("已下課");
-								$("#actionBtn").addClass("hide");
-								$("#actionBtn2").addClass("hide");
-								$("#onTime").removeClass("hide");
+								$("#pickWait").addClass("hide");
+								$("#pickNow").addClass("hide");
+								$("#onTime").addClass("hide");
 								$("#leaveTime").removeClass("hide");
 								break;
 							case "off":
 								$("#status").html("未上課");
-								$("#actionBtn").attr("value", "on");
-								$("#actionBtn").html("上課");
-								$("#actionBtn").removeClass("hide");
-								$("#actionBtn2").addClass("hide");
+								$("#pickWait").addClass("hide");
+								$("#pickNow").addClass("hide");
 								$("#onTime").addClass("hide");
 								$("#leaveTime").addClass("hide");
 								break;

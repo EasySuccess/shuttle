@@ -45,23 +45,23 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 			<header>
 				<div class="container">
 					<div class="row">
-						<div class="col-xs-4 col-sm-2">
+						<!--<div class="col-xs-4 col-sm-2">
 							<a class="brand" href="monitor.php">
-								<!--<img src="img/identity.png" alt="logo-image" />-->
+								<!--<img src="img/identity.png" alt="logo-image" />--*>
 								<h1>logo</h1>
 								<button class="btn btn theme-btn-2" type="submit" value="reset">重設</button>
 							</a>
-						</div>
-						<div class="col-xs-8 col-sm-10">
+						</div>-->
+						<!--<div class="col-xs-8 col-sm-10">
 							<div class="action-bar" id="frontend-action-bar">
 								<span class="menu-toggle no-select">Menu
 								<span class="hamburger"><span class="menui top-menu"></span><span class="menui mid-menu"></span><span class="menui bottom-menu"></span></span>
 								</span>
 								<!--<span class="menu-toggleList" data-toggle="modal" data-target="#registerModal" id="actionBarSignUpBtn">註冊</span>
 									<span class="menu-toggleList" data-toggle="modal" data-target="#loginModal" id="actionBarLogInBtn">登入</span>
-									<a href="javascript:logOut()" class="menu-toggleList" id="actionBarLogOutBtn">登出</a>-->
+									<a href="javascript:logOut()" class="menu-toggleList" id="actionBarLogOutBtn">登出</a>--*>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 				<nav>
@@ -86,7 +86,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 				<div class="links-wrapper" style="margin: 20px;">
 					<div class="container">
 						<div class="row">
-							<div class="col-sm-6 col-md-3">
+							<div class="col-sm-6 col-md-6">
 								<div class="links-box">
 									<h3 class="caption green">上課中學生</h3>
 									<ul class="links">
@@ -108,30 +108,26 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 											?>
 										<li class="">
 											<a data-toggle="modal" data-target="#onClassModal" id="onModal">
-												<span class="">
-												<img src="img/student.png" alt="img" class="img-circle">
-												<span class="circle_in_green"></span>
-												</span>
-												<span class="title-1">
-													<span class="title-main">姓名</span>
+												<span class="title">
+													<span class="title-main">姓名：</span>
 													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
 												</span>
-												<span class="title-2">
-													<span class="title-main">上課時間</span>
+												<span class="title">
+													<span class="title-main">上課時間：</span>
 													<span class="title-sub"><?php echo date("H:i",strtotime($recordSetLog["Created"])); ?></span>
 												</span>
-												<span class="title-3">
-													<span class="title-main">備註</span>
+												<span class="title">
+													<span class="title-main">備註：</span>
 													<span class="title-sub"><?php 
 														if($row['StuPickupStatus'] == 99){
 															echo "家長要求立即接走";
 														}else if($row['StuPickupStatus'] == 1){
-															echo "家長已到";
+															echo "家長等候中";
 														}
 													?></span>
 												</span>
 											</a>
-										</li>
+										</li>										
 										<?php 
 										}
 										?>
@@ -139,7 +135,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								</div>
 							</div>
 							<!--[end]上課中學生-->	
-							<div class="col-sm-6 col-md-3" >
+							<div class="col-sm-6 col-md-6" >
 								<div class="links-box" >
 									<h3 class="caption yellow">已完成作業學生</h3>
 									<ul class="links">
@@ -158,32 +154,28 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 													WHERE StuCode=%d AND CoCode=%d AND StuStatus=%s 
 													ORDER BY LogId DESC", $row['StuCode'], $coCode, $stuStatus);
 											?>
-										<li>
+										<li class="">
 											<a data-toggle="modal" data-target="#onClassModal" id="doneModal">
-												<span class="">
-													<img src="img/student.png" alt="img" class="img-circle">
-													<span class="circle_in_yellow"></span>
-												</span>
-												<span class="title-1">
-													<span class="title-main">姓名</span>
+												<span class="title">
+													<span class="title-main">姓名：</span>
 													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
 												</span>
-												<span class="title-2">
-													<span class="title-main">完成時間</span>
+												<span class="title">
+													<span class="title-main">完成時間：</span>
 													<span class="title-sub"><?php echo date("H:i",strtotime($recordSetLog["Created"])); ?></span>
 												</span>
-												<span class="title-3">
-													<span class="title-main">備註</span>
+												<span class="title">
+													<span class="title-main">備註：</span>
 													<span class="title-sub"><?php 
 														if($row['StuPickupStatus'] == 99){
 															echo "家長要求立即接走";
 														}else if($row['StuPickupStatus'] == 1){
-															echo "家長已到";
+															echo "家長等候中";
 														}
 													?></span>
 												</span>
 											</a>
-										</li><!--[end]li-->
+										</li>
 										<?php 
 										}
 										?>
@@ -191,7 +183,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								</div>
 							</div>
 							<!--[end]已完成作業學生-->
-							<div class="col-sm-6 col-md-3">
+						</div>
+						<div class="row">
+							<div class="col-sm-6 col-md-6">
 								<div class="links-box">
 									<h3 class="caption red">已落課學生
 									</h3>
@@ -211,32 +205,28 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 													WHERE StuCode=%d AND CoCode=%d AND StuStatus=%s 
 													ORDER BY LogId DESC", $row['StuCode'], $coCode, $stuStatus);
 											?>
-										<li>
+										<li class="">
 											<a data-toggle="modal" data-target="#onClassModal" id="leaveModal">
-												<span class="">
-													<img src="img/student.png" alt="img" class="img-circle">
-													<span class="circle_in_red"></span>
-												</span>
-												<span class="title-1">
-													<span class="title-main">姓名</span>
+												<span class="title">
+													<span class="title-main">姓名：</span>
 													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
 												</span>
-												<span class="title-2">
-													<span class="title-main">下課時間</span>
+												<span class="title">
+													<span class="title-main">下課時間：</span>
 													<span class="title-sub"><?php echo date("H:i",strtotime($recordSetLog["Created"])); ?></span>
 												</span>
-												<span class="title-3">
-													<span class="title-main">備註</span>
+												<span class="title">
+													<span class="title-main">備註：</span>
 													<span class="title-sub"><?php 
 														if($row['StuPickupStatus'] == 99){
 															echo "家長要求立即接走";
 														}else if($row['StuPickupStatus'] == 1){
-															echo "家長已到";
+															echo "家長等候中";
 														}
 													?></span>
 												</span>
 											</a>
-										</li><!--[end]li-->
+										</li>
 										<?php 
 										}
 										?>
@@ -244,7 +234,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								</div>
 							</div>
 							<!--[end]立即落課學生-->	
-							<div class="col-sm-6 col-md-3">
+							<div class="col-sm-6 col-md-6">
 								<div class="links-box">
 									<h3 class="caption blue">未上課學生</h3>
 									<ul class="links">
@@ -263,16 +253,12 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 											?>
 										<li>
 											<a data-toggle="modal" data-target="#onClassModal" id="offModal">
-												<span class="">
-													<img src="img/student.png" alt="img" class="img-circle">
-													<span class="circle_in_blue"></span>
-												</span>
 												<span class="title-1">
 													<span class="title-main">姓名</span>
 													<span class="title-sub" id="<?php echo $row['StuCode']; ?>"><?php echo $row['StuName'];?></span>
 												</span>
 											</a>
-										</li><!--[end]li-->
+										</li>
 										<?php 
 										}
 										?>
@@ -280,7 +266,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								</div>
 							</div>
 							<!--[end]未上課學生-->	
-						</div>
+						</div><!-- row -->
 					</div>
 				</div>
 			</div>
@@ -291,8 +277,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 						<div class="main-area">
 							<div class="menu">
 								<ul>
-									<li><a href="index.html">首頁</a></li>
-									<li><a href="#">聯絡我們</a></li>
+									<li><button class="btn btn-warning theme-btn-2" type="submit" value="reset">重設</button></li>
 								</ul>
 							</div>
 						</div>
@@ -329,8 +314,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 							</div>
 						</div>
 						<div class="modal-footer form-group">
-							<button type="submit" class="btn theme-btn-2">Btn1</button>
-							<button type="submit" class="btn theme-btn-2 hide">Btn2</button>
+							<button type="submit" class="btn theme-btn-2"></button>
+							<button type="submit" class="btn theme-btn-2 hide"></button>
 							<button type="close" class="btn theme-btn-2" data-dismiss="modal">取消</button>
 						</div>
 					</form>
@@ -343,8 +328,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<script src="js/velocity.js"></script>
 	<script src="js/custom.js"></script>
+	<script src="js/bootbox.min.js"></script>
 	<script>
 		$(document).ready(function() {
+		
+			bootbox.setLocale("zh_TW");
 			
 			$("a[data-toggle='modal'], button[data-toggle='modal']").click(function () {
 			
@@ -371,7 +359,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
 					case "leaveModal":
-						$(".modal-header h1").html("學生下課嗎？");
+						$(".modal-header h1").html("學生已下課");
 						$(".modal-footer button[type='submit']:eq(0)").addClass("hide");
 						$(".modal-footer button[type='submit']:eq(1)").addClass("hide");
 						break;
@@ -386,13 +374,28 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 			});
 			
 			$("button[type='submit']").click(function(){
+				var action = $(this).val();
+				var param = $("#modalStuName").attr("value");
+			
 				var ajaxurl = "lib/ajax.php";
-				var data =  {"action": $(this).val(), "cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": $("#modalStuName").attr("value")};
+				var data =  {"action": action, "cocode":<?php echo $_SESSION['MM_CoCode']; ?>, "param": param};
+				
 				$.ajaxSetup({async: false});
-				$.post(ajaxurl, data, function (response,status) {
-				}).always(function(){
-					location.reload();
-				});
+				
+				if(action.indexOf("reset") !== -1){
+					bootbox.confirm("確認重設所有學生為未上課狀態？", function(result){
+						if(result){
+							$.post(ajaxurl, data, function (data,status) {
+								location.reload()
+							});
+						}
+					});
+				}else{
+					$.post(ajaxurl, data, function (response,status) {
+					}).always(function(){
+						location.reload();
+					});
+				}
 			});
 			
 			// Setup autorefresh every 30s
