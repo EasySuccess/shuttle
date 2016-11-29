@@ -119,8 +119,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								<div class="onclass-from">
 									<div class="onclass" id="">
 										<p><span>學生狀況：<span class="sum" id="status"></span></span></p>
-										<p id="onTime" class"hide"><span>上課時間：<span class="sum"></span></span></p>
-										<p id="leaveTime" class="hide"><span>下課時間：<span class="sum"></span></span></p>
+										<!-- <p id="onTime" class"hide"><span>上課時間：<span class="sum"></span></span></p>
+										<p id="leaveTime" class="hide"><span>下課時間：<span class="sum"></span></span></p> -->
 										<p><span>備註：<span class="sum" id="remark"></span></span></p>
 									</div>
 								</div>
@@ -165,8 +165,10 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 						console.log(row);
 						$("#checkInModal h1").html(row['StuName']);
 						$("#checkInModal h1").attr("value", row['StuCode']);
-						$("#onTime .sum").html(row['Created']);
-						$("#leaveTime .sum").html(row['Created']);
+						
+						// var d = new Date(row['Created']);
+						// $("#onTime .sum").html(d.getHours() + ":" + d.getMinutes());
+						// $("#leaveTime .sum").html(d.getHours() + ":" + d.getMinutes());
 						
 						switch(row['StuPickupStatus']){
 							case "99":
@@ -184,29 +186,29 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 								$("#status").html("上課中");
 								$("#pickWait").removeClass("hide");
 								$("#pickNow").removeClass("hide");
-								$("#onTime").removeClass("hide");
-								$("#leaveTime").addClass("hide");
+								// $("#onTime").removeClass("hide");
+								// $("#leaveTime").addClass("hide");
 								break;
 							case "done":
 								$("#status").html("已完成作業");
 								$("#pickWait").addClass("hide");
 								$("#pickNow").removeClass("hide");
-								$("#onTime").removeClass("hide");
-								$("#leaveTime").addClass("hide");
+								// $("#onTime").removeClass("hide");
+								// $("#leaveTime").addClass("hide");
 								break;
 							case "leave":
 								$("#status").html("已下課");
 								$("#pickWait").addClass("hide");
 								$("#pickNow").addClass("hide");
-								$("#onTime").addClass("hide");
-								$("#leaveTime").removeClass("hide");
+								// $("#onTime").addClass("hide");
+								// $("#leaveTime").removeClass("hide");
 								break;
 							case "off":
 								$("#status").html("未上課");
 								$("#pickWait").addClass("hide");
 								$("#pickNow").addClass("hide");
-								$("#onTime").addClass("hide");
-								$("#leaveTime").addClass("hide");
+								// $("#onTime").addClass("hide");
+								// $("#leaveTime").addClass("hide");
 								break;
 							default:
 								$("#status").html("請聯絡職員");

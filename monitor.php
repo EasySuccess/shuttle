@@ -309,8 +309,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 										<p class="hide"><span>現在時間：<span class="sum" id="cart-balance-after">2016-10-10 10:00</span></span></p>
 									</div>
 								</div>
-								<label for="desc" class="control-label">備註:</label>
-								<input type="text" class="form-control" id="" name="">
+								<!-- <label for="desc" class="control-label">備註:</label>
+								<input type="text" class="form-control" id="" name=""> -->
 							</div>
 						</div>
 						<div class="modal-footer form-group">

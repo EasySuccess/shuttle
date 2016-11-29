@@ -79,12 +79,17 @@ function updateParentStatus($action, $stuCode, $coCode)
 
 function checkCard($cardId, $coCode)
 {
-	$results = DB::queryFirstRow("SELECT tbstudent.StuName, tbstudent.StuCode, tbstustatus.StuStatus, tbstustatus.StuPickupStatus, tblog.Created 
+	// $results = DB::queryFirstRow("SELECT tbstudent.StuName, tbstudent.StuCode, tbstustatus.StuStatus, tbstustatus.StuPickupStatus, tblog.Created 
+	// FROM tbcard INNER JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode 
+	// INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
+	// INNER JOIN tblog ON tblog.StuCode=tbcard.StuCode AND tblog.CoCode=tbstudent.CoCode AND tblog.StuStatus=tbstustatus.StuStatus
+	// WHERE tbstudent.CoCode=%s and tbcard.CardId=%s
+	// ORDER BY tblog.LogId DESC", $coCode, $cardId);
+	
+	$results = DB::queryFirstRow("SELECT tbstudent.StuName, tbstudent.StuCode, tbstustatus.StuStatus, tbstustatus.StuPickupStatus
 	FROM tbcard INNER JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode 
 	INNER JOIN tbstustatus ON tbstudent.StuCode=tbstustatus.StuCode 
-	INNER JOIN tblog ON tblog.StuCode=tbcard.StuCode AND tblog.CoCode=tbstudent.CoCode AND tblog.StuStatus=tbstustatus.StuStatus
-	WHERE tbstudent.CoCode=%s and tbcard.CardId=%s
-	ORDER BY tblog.LogId DESC", $coCode, $cardId);
+	WHERE tbstudent.CoCode=%s and tbcard.CardId=%s", $coCode, $cardId);
 	
 	print json_encode($results);
 
