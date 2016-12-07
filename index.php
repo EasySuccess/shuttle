@@ -96,6 +96,20 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+								群組管理
+							</h3>
+						</div>
+						<div class="panel-body">
+							<a type="button" class="btn btn-md" aria-label="Left Align" href="backend/listGroup.php" >群組列表</a>
+							<a type="button" class="btn btn-md" aria-label="Left Align" href="backend/addGroup.php" >新增群組</a><br>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 								IC卡管理
 							</h3>
 						</div>

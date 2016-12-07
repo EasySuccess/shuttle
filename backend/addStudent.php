@@ -103,6 +103,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="<?php echo $prevUrl;?>">返回</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>

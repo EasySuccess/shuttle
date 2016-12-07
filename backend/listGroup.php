@@ -21,10 +21,10 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers
 	exit;
 }
 
-$tableName = "tbcard";
+$tableName = "tbgroup";
 $currentPage = $_SERVER['PHP_SELF'];
 $homeUrl = "../index.php";
-$nextUrl = "listCard.php";
+$nextUrl = "listGroup.php";
 $prevUrl = $homeUrl;
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
@@ -34,19 +34,24 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$query = "SELECT tbcard.StuCode, tbcard.CardId, tbcard.Created, tbcard.Modified, tbstudent.StuName FROM $tableName LEFT JOIN tbstudent ON tbcard.StuCode=tbstudent.StuCode WHERE tbcard.CoCode = %s ORDER BY tbcard.CardId";
+$colname_RecordsetStd = "-1";
+if (isset($_SESSION['MM_CoCode'])) {
+	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
+}
+
+$query_RecordsetStd = sprintf("SELECT * FROM $tableName WHERE CoCode = %s ORDER BY GroupName", $colname_RecordsetStd);
+$query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
+$RecordsetStd  = DB::query($query_limit_RecordsetStd);
+
 
 if (isset($_GET['totalRows_RecordsetStd'])) {
 	$totalRows_RecordsetStd = $_GET['totalRows_RecordsetStd'];
 } else {
-	$all_RecordsetStd = DB::query($query,  $_SESSION['MM_CoCode']);
+	$all_RecordsetStd = DB::query($query_RecordsetStd);
 	
 	$totalRows_RecordsetStd = count($all_RecordsetStd);
 }
 $totalPages_RecordsetStd = ceil($totalRows_RecordsetStd / $maxRows_RecordsetStd) - 1;
-
-$query_limit = $query." LIMIT %d, %d";
-$RecordsetStd = DB::query($query_limit, $_SESSION['MM_CoCode'], $startRow_RecordsetStd, $maxRows_RecordsetStd);
 
 $queryString_RecordsetStd = "";
 if (!empty($_SERVER['QUERY_STRING'])) {
@@ -65,14 +70,14 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 
 if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 
-	if($_POST['action'] == "delCard"){
-		DB::delete($tableName, "CardId=%s and CoCode=%d", $_POST['param'], $_SESSION['MM_CoCode']);
+	if($_POST['action'] == "delGroup"){
+		DB::delete($tableName, "GroupId=%s and CoCode=%s", $_POST['param'], $_SESSION['MM_CoCode']);
 	}
 	
 	exit;
-	
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -123,7 +128,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		</nav>
 		<div class="container">
 			<div class="starter-template">
-				<h1>IC卡列表</h1>
+				<h1>群組列表</h1>
 				<p class="lead"></p>
 			</div>
 			<div class="row">
@@ -133,33 +138,34 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 					<li role="presentation"><a href="#">Messages</a></li>
 				</ul> -->
 				<div class="col-md-12">
-					<?php if ($totalRows_RecordsetStd > 0) { // Show if recordset not empty ?>
+					<div class="alert alert-danger hide" role="alert"><b>警告</b>：該群組已分配學生，請先把學生移離群組才能刪除！</div>
+					<?php 
+						if ($totalRows_RecordsetStd > 0) {
+						?>
 					<table class="table table-striped">
 						<tr>
-							<td>IC卡編號</td>
-							<td>分配狀態</td>
-							<!-- <td>建立日期</td>
+							<!-- <td>群組編號</td> -->
+							<td>群組名稱</td>
+						<!-- 	<td>建立日期</td>
 							<td>更新日期</td> -->
 							<td>操作</td>
 						</tr>
-						<?php
+						<?php 
 							foreach ($RecordsetStd as $row) {
 							?>
 						<tr>
-							<td><?php echo $row['CardId']; ?></td>
-							<td><?php 
-								if($row['StuCode'] == NULL){
-									echo "未分配";
-								}else{
-									echo $row['StuName'];
-								}
-								?></td>
-						<!-- 	<td><?php echo substr($row['Created'], 0, 10); ?></td>
-							<td><?php echo substr($row['Modified'], 0, 10); ?><br>
-								<?php echo substr($row['Modified'], 11, 15); ?> -->
+							<!-- <td><?php echo $row['GroupId']; ?></td> -->
+							<td><?php echo $row['GroupName']; ?></td>
+							<!-- <td><?php echo substr($row['Created'], 0, 10); ?><br>
+								<?php echo substr($row['Created'], 11, 15); ?>
 							</td>
 							<td>
-								<button type="submit" class="btn btn-danger" name="delCard" value="<?php echo $row['CardId']; ?>">刪除</button>
+								<?php echo substr($row['Modified'], 0, 10); ?><br>
+								<?php echo substr($row['Modified'], 11, 15); ?>
+							</td> -->
+							<td>
+								<a class="btn btn-info" href="editGroup.php?GroupId=<?php echo $row['GroupId']; ?>">修改資料</a>
+								<button type="submit" class="btn btn-danger" name="delGroup" value="<?php echo $row['GroupId']; ?>">刪除</button>
 							</td>
 						</tr>
 						<?php
@@ -167,7 +173,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							?>
 					</table>
 					<?php
-						} // Show if recordset not empty 
+						} 
 						?>
 				</div>
 				<div align="center">
@@ -240,7 +246,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 			
 				bootbox.setLocale("zh_TW");
 				
-				$("button[type='submit']").click(function(){					
+				$("button[type='submit']").click(function(){
 						var action = $(this).attr("name");
 						var param = $(this).val();
 						
@@ -252,7 +258,11 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							bootbox.confirm("確認刪除？", function(result){
 								if(result){
 									$.post(ajaxurl, data, function (data,status) {
-										location.reload()
+										if(data !== ""){
+											$('div[role="alert"]').removeClass("hide");
+										}else{
+											location.reload();
+										}
 									});
 								}
 							});

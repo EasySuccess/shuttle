@@ -25,22 +25,24 @@ $formAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
     $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
-
-$tableName = "tbcard";
+$tableName = "tbgroup";
 $currentPage = $_SERVER['PHP_SELF'];
 $homeUrl = "../index.php";
-$nextUrl = "addCardSuccess.php";
+$nextUrl = "addGroupSuccess.php";
 $prevUrl = $homeUrl;
+
+$row_RecordsetStdGroup  = DB::query("SELECT * FROM $tableName WHERE CoCode=%d", $_SESSION['MM_CoCode']);
+$this_group_count = count($row_RecordsetStdGroup);
 
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 	
 	DB::insert($tableName, array(
-		"CardId" =>  $_POST['CardId'],
 		"CoCode" =>  $_POST['CoCode'],
+		"GroupName" => $_POST['GroupName'],
 		"Created" => NULL
 	));
 
-    header("Location: $nextUrl");
+    header("Location: $nextUrl ");
 }
 ?>
 <!DOCTYPE html>
@@ -53,7 +55,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>補習社接送系統</title>
+		<title>補習社接送系統新增群組</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -83,10 +85,10 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-					  <li class="active"><a href="../index.php">主選單</a></li>
-					  <li><a href="<?php echo $prevUrl;?>">返回</a></li>
-					  <li><a href="../logout.php">登出</a></li>
-				   </ul>
+						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="<?php echo $prevUrl;?>">返回</a></li>
+						<li><a href="../logout.php">登出</a></li>
+					</ul>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
@@ -94,10 +96,15 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form method="post" name="form1" action="<?php echo $formAction ?>" class="form-horizontal">
+				<form method="post" name="form1" action="<?php echo $formAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
-						<legend>新增IC卡</legend>
+						<legend>新增群組</legend>
+						<?php if($this_group_count >= $MAX_GROUPS_COMPANY){?>
+						<div class="form-group">
+							<div class="alert alert-danger" role="alert"><b>警告</b>:群組數目已達上限！</div>
+						</div>
+						<?php }else{ ?>
 						<!-- Text input-->
 						<div class="form-group hidden">
 							<label class="col-md-4 control-label" for="textinput">CoCode:</label>  
@@ -107,18 +114,20 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">IC卡號碼:</label>  
+							<label class="col-md-4 control-label" for="textinput">群組名稱:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="CardId" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="GroupName" type="text" value="" class="form-control input-md">
 							</div>
 						</div>
+						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
-								<input type="submit" class="btn btn-primary" value="新增IC卡">
+								<input type="submit" class="btn btn-primary" value="新增群組">
 								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl ?>">返回</a>
 							</div>
 						</div>
+						<?php }?>
 					</fieldset>
 					<input type="hidden" name="MM_insert" value="form1">
 				</form>

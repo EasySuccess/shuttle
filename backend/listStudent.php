@@ -39,7 +39,7 @@ if (isset($_SESSION['MM_CoCode'])) {
 	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
 }
 
-$query_RecordsetStd = sprintf("SELECT * FROM $tableName WHERE CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
+$query_RecordsetStd = sprintf("SELECT tbstudent.StuCode, tbstudent.StuName, tbstudent.Created, tbstudent.Modified, tbgroup.GroupName FROM $tableName INNER JOIN tbgroup ON tbstudent.GroupId=tbgroup.GroupId WHERE tbstudent.CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd  = DB::query($query_limit_RecordsetStd);
 
@@ -124,6 +124,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="<?php echo $prevUrl;?>">返回</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>
@@ -147,29 +148,30 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						?>
 					<table class="table table-striped">
 						<tr>
-							<td>學生編號</td>
+							<!-- <td>學生編號</td> -->
 							<td>姓名</td>
-							<td>性別</td>
-							<td>建立日期</td>
-							<td>更新日期</td>
+							<td>群組</td>
+							<!-- <td>建立日期</td> -->
+							<!-- <td>更新日期</td> -->
 							<td>操作</td>
 						</tr>
 						<?php 
 							foreach ($RecordsetStd as $row) {
 							?>
 						<tr>
-							<td><?php echo $row['StuCode']; ?></td>
+							<!-- <td><?php echo $row['StuCode']; ?></td> -->
 							<td><?php echo $row['StuName']; ?></td>
-							<td><?php echo $row['StuSex']; ?></td>
-							<td><?php echo substr($row['Created'], 0, 10); ?><br>
+							<td><?php echo $row['GroupName']; ?></td>
+							<!-- <td><?php echo substr($row['Created'], 0, 10); ?><br>
 								<?php echo substr($row['Created'], 11, 15); ?>
 							</td>
 							<td>
 								<?php echo substr($row['Modified'], 0, 10); ?><br>
 								<?php echo substr($row['Modified'], 11, 15); ?>
-							</td>
+							</td> -->
 							<td>
 								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row['StuCode']; ?>">分配IC卡</a>
+								<a class="btn btn-default" href="assignGroup.php?StuCode=<?php echo $row['StuCode']; ?>">分配群組</a>
 								<a class="btn btn-primary" href="listAttendance.php?RefUrl=1&StuCode=<?php echo $row['StuCode']; ?>&StuName=<?php echo $row['StuName']; ?>">出席記錄</a>
 								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row['StuCode']; ?>">修改資料</a>
 								<button type="submit" class="btn btn-danger" name="delStudent" value="<?php echo $row['StuCode']; ?>">刪除</button>

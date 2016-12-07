@@ -26,49 +26,48 @@ $formAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
     $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
-$tableName = "tbcard";
+$tableName = "tbstudent";
 $currentPage = $_SERVER['PHP_SELF'];
 $homeUrl = "../index.php";
 $nextUrl = "listStudent.php";
 $prevUrl = "listStudent.php";
 
-//該學生的IC卡總數
-$colname_RecordsetICCard = "-1";
+//Check Student Details
+$colname_RecordsetStuCode = "-1";
 if (isset($_GET['StuCode'])) {
-    $colname_RecordsetICCard = $_GET['StuCode'];
+    $colname_RecordsetStuCode = $_GET['StuCode'];
 }
-$row_RecordsetStdICCard  = DB::query("SELECT * FROM $tableName WHERE StuCode=%d and CoCode=%d", $colname_RecordsetICCard, $_SESSION['MM_CoCode']);
-$this_STD_IC_total = count($row_RecordsetStdICCard);
-
-//Get Student Details
-$colname_RecordsetStd = "-1";
-if (isset($_GET['StuCode'])) {
-    $colname_RecordsetStd = $_GET['StuCode'];
+$row_RecordsetStd  = DB::queryFirstRow("SELECT tbstudent.StuName, tbstudent.StuCode, tbstudent.GroupId, tbgroup.GroupName FROM $tableName INNER JOIN tbgroup ON tbstudent.GroupId=tbgroup.GroupId WHERE tbstudent.StuCode=%d and tbstudent.CoCode=%d", $colname_RecordsetStuCode, $_SESSION['MM_CoCode']);
+if($row_RecordsetStd['GroupId'] != 1){
+	$group_assigned = true;
+}else{
+	$group_assigned = false;
 }
-$row_RecordsetStd = DB::queryFirstRow("SELECT * FROM tbstudent WHERE StuCode=%d and CoCode=%d", $colname_RecordsetStd, $_SESSION['MM_CoCode']);
-$totalRows_RecordsetStd = count($row_RecordsetStd);
 
-//Show available IC Card
-$row_RecordsetICCard=DB::query("SELECT * FROM $tableName WHERE StuCode IS NULL AND CoCode=%d ORDER BY CardId", $_SESSION['MM_CoCode']);
+//Show available group
+$row_RecordsetGroup=DB::query("SELECT * FROM tbgroup WHERE CoCode=%d ORDER BY GroupId", $_SESSION['MM_CoCode']);
 
 
 if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 
 	DB::update($tableName, array(
-		"StuCode" =>  $_POST['StuCode'],
-	), "CardId=%s and CoCode=%d", $_POST['CardId'], $_POST['CoCode']);
+		"GroupId" =>  $_POST['GroupId'],
+	), "StuCode=%s and CoCode=%d", $_POST['StuCode'], $_POST['CoCode']);
 	
 	header("Location: ". $_SERVER['HTTP_REFERER']);	
+	
+	exit;
 }
 
 if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 
-	if($_POST['action'] == "unassignCard"){
+	if($_POST['action'] == "unassignGroup"){
 		DB::update($tableName, array(
-		"StuCode" =>  NULL
-		), "CardId=%s and CoCode=%d", $_POST['param'], $_SESSION['MM_CoCode']);
+		"GroupId" =>  1,
+		), "StuCode=%s and CoCode=%d", $_POST['param'], $_SESSION['MM_CoCode']);
 	}
 	
+	exit;
 }
 
 ?>
@@ -126,10 +125,10 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 				<form action="<?php echo $formAction; ?>" method="POST" name="form1" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
-						<legend>分配IC卡</legend>
-						<?php if($this_STD_IC_total>= $MAX_ASSIGNED_IC){?>
+						<legend>分配群組</legend>
+						<?php if($group_assigned){?>
 						<div class="form-group">
-							<div class="alert alert-danger" role="alert"><b>警告</b>:每個學生只限<?php echo $MAX_ASSIGNED_IC;?>張卡數，請刪除原來的卡片才能增加！</div>
+							<div class="alert alert-danger" role="alert"><b>警告</b>:該學生已分配群組，請先移離原來的群組才能分配！</div>
 						</div>
 						<?php }?>
 						<!-- Text input-->
@@ -152,14 +151,14 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 								<input id="textinput" name="StuName" type="text" value="<?php echo $row_RecordsetStd['StuName']; ?>" class="form-control input-md" readonly>
 							</div>
 						</div>
-						<?php if($this_STD_IC_total < $MAX_ASSIGNED_IC){//該學生超出卡片數則不能增加?>
+						<?php if(!$group_assigned){?>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">IC卡號:</label>  
+							<label class="col-md-4 control-label" for="textinput">群組名稱:</label>  
 							<div class="col-md-4">
-								<select id="CardId" name="CardId">
-									<?php foreach($row_RecordsetICCard as $row){ ?>
-									<option value=<?php echo $row['CardId'] ?>><?php echo $row['CardId'] ?></option>
+								<select id="GroupId" name="GroupId">
+									<?php foreach($row_RecordsetGroup as $row){ ?>
+									<option value=<?php echo $row['GroupId'] ?>><?php echo $row['GroupName'] ?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -179,22 +178,20 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 				<div class="col-md-12">
 					<fieldset>
 						<!-- Form Name -->
-						<legend>已分配的IC卡</legend>
+						<legend>已分配的群組</legend>
 						<table class="table table-striped">
 							<tr>
-								<td>IC卡號</td>
-								<td>更新日期</td>
+								<td>群組</td>
 								<td>操作</td>
 							</tr>
-							<?php foreach($row_RecordsetStdICCard as $row) {?>
+							<?php if($group_assigned){?>
 							<tr>
-								<td><?php echo $row['CardId']; ?></td>
-								<td><?php echo $row['Modified']; ?></td>
+								<td><?php echo $row_RecordsetStd['GroupName']; ?></td>
 								<td>
-									<button type="submit" class="btn btn-danger" name="unassignCard" value="<?php echo $row['CardId']; ?>">刪除</button>
+									<button type="submit" class="btn btn-danger" name="unassignGroup" value="<?php echo $row_RecordsetStd['StuCode']; ?>">刪除</button>
 								</td>
 							</tr>
-							<?php } ?>
+							<?php }?>
 						</table>
 					</fieldset>
 				</div>
@@ -216,6 +213,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						var data =  {"action": $(this).attr("name"), "param": $(this).val()};
 						$.ajaxSetup({async: false});
 						$.post(ajaxurl, data, function (data,status) {
+							console.log(data);
 						}).always(function(){
 							location.reload();
 						});

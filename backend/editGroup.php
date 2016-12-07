@@ -3,45 +3,45 @@
 require_once("../lib/config.php");
 
 if (!isset($_SESSION)) {
-    session_start();
+	session_start();
 }
 $MM_authorizedUsers  = "admin,company,staff";
 $MM_donotCheckaccess = "false";
 
 $MM_restrictGoTo = "../noPermission.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("", $MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {
-    $MM_qsChar   = "?";
-    $MM_referrer = $_SERVER['PHP_SELF'];
-    if (strpos($MM_restrictGoTo, "?"))
-        $MM_qsChar = "&";
-    if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
-        $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
-    $MM_restrictGoTo = $MM_restrictGoTo . $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-    header("Location: " . $MM_restrictGoTo);
-    exit;
+	$MM_qsChar   = "?";
+	$MM_referrer = $_SERVER['PHP_SELF'];
+	if (strpos($MM_restrictGoTo, "?"))
+		$MM_qsChar = "&";
+	if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
+		$MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+	$MM_restrictGoTo = $MM_restrictGoTo . $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+	header("Location: " . $MM_restrictGoTo);
+	exit;
 }
 
-$formAction = $_SERVER['PHP_SELF'];
-if (isset($_SERVER['QUERY_STRING'])) {
-    $formAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-}
-
-$tableName = "tbcard";
+$tableName = "tbgroup";
 $currentPage = $_SERVER['PHP_SELF'];
 $homeUrl = "../index.php";
-$nextUrl = "addCardSuccess.php";
-$prevUrl = $homeUrl;
+$nextUrl = "listGroup.php";
+$prevUrl = "listGroup.php";
 
-if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
-	
-	DB::insert($tableName, array(
-		"CardId" =>  $_POST['CardId'],
-		"CoCode" =>  $_POST['CoCode'],
-		"Created" => NULL
-	));
-
-    header("Location: $nextUrl");
+if (isset($_GET['GroupId'])) {
+	$recordsetStudent = DB::queryFirstRow("SELECT * FROM $tableName WHERE GroupId = %s", $_GET['GroupId']);
+}else{
+	$recordsetStudent = NULL;
 }
+
+if ((isset($_POST['MM_editGroup'])) && ($_POST['MM_editGroup'] == "form1")) {
+	
+	DB::update($tableName, array(
+		"GroupName" => $_POST['GroupName'],
+	), "GroupId=%s and CoCode=%s", $_POST['GroupId'], $_POST['CoCode']);
+	
+	header("Location: $nextUrl");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,10 +83,10 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-					  <li class="active"><a href="../index.php">主選單</a></li>
-					  <li><a href="<?php echo $prevUrl;?>">返回</a></li>
-					  <li><a href="../logout.php">登出</a></li>
-				   </ul>
+						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="<?php echo $prevUrl;?>">返回</a></li>
+						<li><a href="../logout.php">登出</a></li>
+					</ul>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
@@ -94,34 +94,45 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<div class="container">
 			<div class="starter-template">
 				<p class="lead"></p>
-				<form method="post" name="form1" action="<?php echo $formAction ?>" class="form-horizontal">
+				<form method="post" name="form1" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal">
 					<fieldset>
-						<!-- Form Name -->
-						<legend>新增IC卡</legend>
 						<!-- Text input-->
-						<div class="form-group hidden">
+						<legend>詳細資料</legend>
+						<div class="form-group hide">
+							<label class="col-md-4 control-label" for="textinput">群組編號:</label>  
+							<div class="col-md-4">
+								<input id="textinput" name="GroupId" type="text" value="<?php echo $recordsetStudent['GroupId']; ?>" class="form-control input-md" readonly>
+							</div>
+						</div>
+						<!-- Text input-->
+						<div class="form-group hide">
 							<label class="col-md-4 control-label" for="textinput">CoCode:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="CoCode" type="text" value="<?php echo $_SESSION['MM_CoCode']; ?>" class="form-control input-md" readonly>
+								<input id="textinput" name="CoCode" type="text" value="<?php echo $recordsetStudent['CoCode']; ?>" class="form-control input-md" readonly>
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">IC卡號碼:</label>  
+							<label class="col-md-4 control-label" for="textinput">群組名稱:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="CardId" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="GroupName" type="text" value="<?php echo $recordsetStudent['GroupName']; ?>" class="form-control input-md">
 							</div>
 						</div>
+						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
-								<input type="submit" class="btn btn-primary" value="新增IC卡">
+								<input type="submit" class="btn btn-primary" value="更新記錄">
 								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl ?>">返回</a>
 							</div>
 						</div>
+						<input type="hidden" name="MM_editGroup" value="form1">
 					</fieldset>
-					<input type="hidden" name="MM_insert" value="form1">
 				</form>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				</div>
 			</div>
 		</div>
 		<!-- /.container -->
@@ -129,9 +140,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../js/jquery.min.js"></script>
-		<script>window.jQuery || document.write("<script src="../js/jquery.min.js"><\/script>")</script>
 		<script src="../js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 	</body>
 </html>

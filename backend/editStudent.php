@@ -50,8 +50,7 @@ if ((isset($_POST['MM_editStudent'])) && ($_POST['MM_editStudent'] == "form1")) 
 		"StuGrad" => $_POST['StuGrad']
 	), "StuCode=%s and CoCode=%s", $_POST['StuCode'], $_POST['CoCode']);
 	
-	$goto = $_SERVER['HTTP_REFERER'];
-	header("Location: $goto");
+	header("Location: $nextUrl");
 }
 
 ?>
@@ -96,6 +95,7 @@ if ((isset($_POST['MM_editStudent'])) && ($_POST['MM_editStudent'] == "form1")) 
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="<?php echo $prevUrl;?>">返回</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>
@@ -109,7 +109,7 @@ if ((isset($_POST['MM_editStudent'])) && ($_POST['MM_editStudent'] == "form1")) 
 					<fieldset>
 						<!-- Text input-->
 						<legend>詳細資料</legend>
-						<div class="form-group">
+						<div class="form-group hide">
 							<label class="col-md-4 control-label" for="textinput">學生編號:</label>  
 							<div class="col-md-4">
 								<input id="textinput" name="StuCode" type="text" value="<?php echo $recordsetStudent['StuCode']; ?>" class="form-control input-md" readonly>

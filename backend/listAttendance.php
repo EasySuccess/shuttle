@@ -26,6 +26,12 @@ $currentPage = $_SERVER['PHP_SELF'];
 $homeUrl = "../index.php";
 $nextUrl = $homeUrl ;
 $prevUrl = $homeUrl ;
+if(isset($_GET['RefUrl'])){
+	if($_GET['RefUrl']=="1"){
+			$prevUrl = "listStudent.php" ;
+	}
+}
+		
 
 $maxRows_RecordsetStd = $MAX_ROWS_PAGES;
 $pageNum_RecordsetStd = 0;
@@ -160,6 +166,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="../index.php">主選單</a></li>
+						<li><a href="<?php echo $prevUrl;?>">返回</a></li>
 						<li><a href="../logout.php">登出</a></li>
 					</ul>
 				</div>
@@ -173,7 +180,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" name="form1" class="form-horizontal">
 					<fieldset>
 						<div class="form-group">
-							<div class="col-md-2">
+							<div class="col-md-2 hide">
 								<input id="textinput" name="StuCode" type="text" placeholder="學生編號" value="<?php echo isset($_GET['StuCode'])? $_GET['StuCode']:""; ?>" class="form-control input-md" <?php echo  isset($_GET['RefUrl'])?(($_GET['RefUrl']=="1")?"readonly":""):"" ?>>
 							</div>
 							<div class="col-md-2">
@@ -220,7 +227,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 						?>
 					<table class="table table-striped">
 						<tr>
-							<td>記錄編號</td>
+							<!-- <td>記錄編號</td> -->
 							<td>姓名</td>
 							<td>狀態</td>
 							<td>時間</td>
@@ -229,7 +236,7 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							foreach ($RecordsetStd as $row_RecordsetStd) {
 							?>
 						<tr>
-							<td><?php echo $row_RecordsetStd['LogId']; ?></td>
+							<!-- <td><?php echo $row_RecordsetStd['LogId']; ?></td> -->
 							<td><?php echo $row_RecordsetStd['StuName']; ?></td>
 							<td><?php 
 									switch($row_RecordsetStd['StuStatus']){
