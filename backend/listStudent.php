@@ -171,7 +171,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							</td> -->
 							<td>
 								<a class="btn btn-default" href="assignCard.php?StuCode=<?php echo $row['StuCode']; ?>">分配IC卡</a>
-								<a class="btn btn-default" href="assignGroup.php?StuCode=<?php echo $row['StuCode']; ?>">分配群組</a>
+								<a class="btn btn-success" href="assignGroup.php?StuCode=<?php echo $row['StuCode']; ?>">分配群組</a>
 								<a class="btn btn-primary" href="listAttendance.php?RefUrl=1&StuCode=<?php echo $row['StuCode']; ?>&StuName=<?php echo $row['StuName']; ?>">出席記錄</a>
 								<a class="btn btn-info" href="editStudent.php?StuCode=<?php echo $row['StuCode']; ?>">修改資料</a>
 								<button type="submit" class="btn btn-danger" name="delStudent" value="<?php echo $row['StuCode']; ?>">刪除</button>

@@ -5,13 +5,21 @@
 
 	DB::$error_handler = false;	
 	
-	echo "Running script to generate demo data";
+	echo "Initializing Database <br>";
 	
-	//Company
-	DB::insert("tbco", array(
-		'CoCode' => 1,
-		'CoFullName' => 'company1',
-		'CoName' => 'company1',
+	
+	echo "Creating admin account <br>";
+	DB::insert("tbuser", array(
+		'UserName' => 'admin',
+		'UserPw' => '$2a$08$1R7M9z1DHakaBZFKroCdk.6Tikq/WBU.rsdIv9Nc1vfvaP9A.5p2W',
+		'UserRole' => 'admin',
+		'Created' => NULL,
+	));
+	
+	echo "Creating default group <br>";
+	DB::insert("tbgroup", array(
+		'GroupId' => 1,
+		'GroupName' => 'N/A',
 		'Created' => NULL,
 	));
 	
