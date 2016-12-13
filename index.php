@@ -142,8 +142,8 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 						</div>
 						<div class="panel-body">
 							<a type="button" class="btn btn-md" aria-label="Left Align" href="monitor.php" >實時學生狀態介面</a>
-							<a type="button" class="btn btn-md" aria-label="Left Align" href="stuPass.php" >學生拍卡介面</a><br>
-							<a type="button" class="btn btn-md" aria-label="Left Align" href="parPass.php" >家長拍卡介面</a><br>
+							<a type="button" class="btn btn-md hide" aria-label="Left Align" href="stuPass.php" >學生拍卡介面</a><br>
+							<a type="button" class="btn btn-md" aria-label="Left Align" href="parPassD.php" >家長拍卡介面</a><br>
 						</div>
 					</div>
 				</div>

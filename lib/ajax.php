@@ -10,7 +10,7 @@ if (isset($_POST['action'])) {
 	
 	switch ($action) {
 		case "reset":
-			resetStuStatus($coCode);
+			resetStuStatus($coCode, $param);
 			break;
 		case "1":
 			updateParentStatus($action, $param, $coCode);
@@ -36,10 +36,10 @@ if (isset($_POST['action'])) {
 	}
 }
 
-function resetStuStatus($coCode)
+function resetStuStatus($coCode, $status)
 {
 	DB::update("tbstustatus", array(
-		"StuStatus" => "off",
+		"StuStatus" => $status,
 		"StuArriveTime" => NULL,
 		"StuPickupStatus" => NULL,
 		"StuPickupArriveTime" => NULL,

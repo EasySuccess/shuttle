@@ -15,6 +15,7 @@
 	$MAX_ASSIGNED_IC = 2;  //Max IC Cards per student
 	$MAX_GROUPS_COMPANY = 6;  //Max IC Cards per student
 	$MAX_ROWS_PAGES = 10;  //Max Rows per Pages
+	$DEFAULT_STUDENT_STATUS = "on";
 
 	// // Backend Parameters
 	// $hostname = "localhost";
