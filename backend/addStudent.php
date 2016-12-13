@@ -128,7 +128,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">學生姓名:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="StuName" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="StuName" type="text" value="" class="form-control input-md" autofocus>
 							</div>
 						</div>
 						<!-- Text input-->
@@ -211,7 +211,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
 								<input type="submit" class="btn btn-primary" value="新增學生">
-								<a type="button"  class="btn btn-default" href="<?php echo prevUrl ?>">返回</a>
+								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl ?>">返回</a>
 							</div>
 						</div>
 					</fieldset>

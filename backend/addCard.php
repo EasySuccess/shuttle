@@ -109,7 +109,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">IC卡號碼:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="CardId" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="CardId" type="text" value="" class="form-control input-md" autofocus>
 							</div>
 						</div>
 						<div class="form-group">

@@ -116,7 +116,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">群組名稱:</label>  
 							<div class="col-md-4">
-								<input id="textinput" name="GroupName" type="text" value="" class="form-control input-md">
+								<input id="textinput" name="GroupName" type="text" value="" class="form-control input-md" autofocus>
 							</div>
 						</div>
 						<!-- Text input-->

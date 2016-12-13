@@ -18,16 +18,19 @@ if (isset($_POST['action'])) {
 		case "99":
 			updateParentStatus($action, $param, $coCode);
 			break;
-		case "on":
+		case "4":
+			updateStuStatus($action, $param, $coCode);
+			break;
+		case "1":
 			updateStuStatus($action, $param, $coCode);
 			break;
 		case "done":
 			updateStuStatus($action, $param, $coCode);
 			break;
-		case "leave":
+		case "2":
 			updateStuStatus($action, $param, $coCode);
 			break;
-		case "off":
+		case "0":
 			updateStuStatus($action, $param, $coCode);
 			break;
 		case "checkCardId":

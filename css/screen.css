@@ -410,6 +410,12 @@ box-shadow: 5px 5px 5px 0px rgba(85,85,85,0.5);
 .links-wrapper .links-box li a .title-main.blue{color: #43b9c7;}
 .links-wrapper .links-box li a .title-sub{width: 80px;font-weight: bold;}
 
+.footer-wrapper .main-area .title-main{width: 74px;font-weight: bold;color: #61696b;}
+.footer-wrapper .main-area .title-main.green{color: #42bb42;}
+.footer-wrapper .main-area .title-main.yellow{color: #f7c354;}
+.footer-wrapper .main-area .title-main.red{color: #db6b6b;}
+.footer-wrapper .main-area .title-main.blue{color: #43b9c7;}
+
 /*.links-wrapper .links-box li span{
 	width: 32%;
 	border: 1px solid #333;
