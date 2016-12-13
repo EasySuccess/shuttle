@@ -40,10 +40,7 @@ function resetStuStatus($coCode, $status)
 {
 	DB::update("tbstustatus", array(
 		"StuStatus" => $status,
-		"StuArriveTime" => NULL,
 		"StuPickupStatus" => NULL,
-		"StuPickupArriveTime" => NULL,
-		"StuLeaveTime" => NULL
 	), "CoCode=%s", $coCode);
 	
 	exit;
