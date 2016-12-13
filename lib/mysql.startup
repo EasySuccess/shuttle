@@ -1,6 +1,7 @@
+CREATE USER 'sqluser'@'localhost' IDENTIFIED BY 'sqluser';
+
 //Run in Server
 CREATE DATABASE education DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-CREATE USER 'sqluser'@'localhost' IDENTIFIED BY 'sqluser';
 GRANT ALL PRIVILEGES ON education . * TO 'sqluser'@'localhost';
 
 //Run in DB
@@ -126,3 +127,11 @@ CREATE TABLE tblog (
 				Created TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 				Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 			) CHARACTER SET utf8 COLLATE utf8_general_ci; 
+			
+			
+
+INSERT INTO `tbgroup` (`GroupId`, `CoCode`, `GroupName`, `Created`) VALUES
+(1, NULL, 'N/A', NULL);
+
+INSERT INTO `tbuser` (`UserId`, `UserName`, `UserPw`, `UserRole`, `CoCode`, `Created`) VALUES
+(1, 'admin', '$2a$08$1R7M9z1DHakaBZFKroCdk.6Tikq/WBU.rsdIv9Nc1vfvaP9A.5p2W', 'admin', NULL, NULL);
