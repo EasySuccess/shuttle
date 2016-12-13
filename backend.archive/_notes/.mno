@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<info>
-	<infoitem key="PageAccessControlMethod" value="useAccessList" />
-	<infoitem key="PageAccessControl" value="admin,company,staff" />
-	<infoitem key="MM_Session1" value="CoCode" />
-	<infoitem key="MM_Session_Count" value="1" />
-</info>
