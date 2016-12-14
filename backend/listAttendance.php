@@ -240,20 +240,17 @@ $queryString_RecordsetStd = sprintf("&totalRows_RecordsetStd=%d%s", $totalRows_R
 							<td><?php echo $row_RecordsetStd['StuName']; ?></td>
 							<td><?php 
 									switch($row_RecordsetStd['StuStatus']){
-										case "on":
-											echo "上課";
-											break;
-										case "done":
-											echo "完作作業";
-											break;
-										case "leave":
-											echo "離開";
-											break;
-										case "99":
-											echo "家長要求立刻接走";
+										case "0":
+											echo "未上課";
 											break;
 										case "1":
-											echo "家長到達等候";
+											echo "離開";
+											break;
+										case "10":
+											echo "上課";
+											break;
+										case "99":
+											echo "家長到";
 											break;
 										default:
 											break;

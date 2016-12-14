@@ -12,25 +12,16 @@ if (isset($_POST['action'])) {
 		case "reset":
 			resetStuStatus($coCode, $param);
 			break;
-		case "1":
-			updateParentStatus($action, $param, $coCode);
-			break;
-		case "99":
-			updateParentStatus($action, $param, $coCode);
-			break;
-		case "4":
+		case "0": // off
 			updateStuStatus($action, $param, $coCode);
 			break;
-		case "1":
+		case "1": // leave
 			updateStuStatus($action, $param, $coCode);
 			break;
-		case "done":
+		case "10": //on
 			updateStuStatus($action, $param, $coCode);
 			break;
-		case "2":
-			updateStuStatus($action, $param, $coCode);
-			break;
-		case "0":
+		case "99": //pickup
 			updateStuStatus($action, $param, $coCode);
 			break;
 		case "checkCardId":
