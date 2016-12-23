@@ -65,6 +65,7 @@ $recordSet = DB::queryFirstRow("SELECT CoName FROM tbco WHERE CoCode = %d", $_SE
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="index.php">主選單</a></li>
+						<li><a href="backend/changePassword.php">修改密碼</a></li>
 						<li><a href="logout.php">登出</a></li>
 					</ul>
 				</div>
