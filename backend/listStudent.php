@@ -34,12 +34,13 @@ if (isset($_GET['pageNum_RecordsetStd'])) {
 }
 $startRow_RecordsetStd = $pageNum_RecordsetStd * $maxRows_RecordsetStd;
 
-$colname_RecordsetStd = "-1";
+$coCode = "-1";
 if (isset($_SESSION['MM_CoCode'])) {
-	$colname_RecordsetStd = $_SESSION['MM_CoCode'];
+	$coCode = $_SESSION['MM_CoCode'];
 }
 
-$query_RecordsetStd = sprintf("SELECT tbstudent.StuCode, tbstudent.StuName, tbstudent.Created, tbstudent.Modified, tbgroup.GroupName FROM $tableName INNER JOIN tbgroup ON tbstudent.GroupId=tbgroup.GroupId WHERE tbstudent.CoCode = %s ORDER BY StuName", $colname_RecordsetStd);
+// $query_RecordsetStd = sprintf("SELECT tbstudent.StuCode, tbstudent.StuName, tbstudent.Created, tbstudent.Modified, tbgroup.GroupName FROM $tableName INNER JOIN tbgroup ON tbstudent.GroupId=tbgroup.GroupId WHERE tbstudent.CoCode = %s ORDER BY StuName", $coCode);
+$query_RecordsetStd = sprintf("SELECT tbstudent.StuCode, tbstudent.StuName, tbstudent.Created, tbstudent.Modified, tbgroup.GroupName, temp.Count FROM tbstudent INNER JOIN tbgroup ON tbstudent.GroupId=tbgroup.GroupId LEFT JOIN (SELECT StuCode, Count(*) as Count FROM tbcard WHERE CoCode=%s AND StuCode IS NOT NULL Group by Stucode ) temp ON temp.StuCode=tbstudent.StuCode WHERE tbstudent.CoCode=%s ORDER BY StuName", $coCode, $coCode);
 $query_limit_RecordsetStd = sprintf("%s LIMIT %d, %d", $query_RecordsetStd, $startRow_RecordsetStd, $maxRows_RecordsetStd);
 $RecordsetStd  = DB::query($query_limit_RecordsetStd);
 
@@ -151,6 +152,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							<!-- <td>學生編號</td> -->
 							<td>姓名</td>
 							<td>群組</td>
+							<td>卡數</td>
 							<!-- <td>建立日期</td> -->
 							<!-- <td>更新日期</td> -->
 							<td>操作</td>
@@ -162,6 +164,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							<!-- <td><?php echo $row['StuCode']; ?></td> -->
 							<td><?php echo $row['StuName']; ?></td>
 							<td><?php echo $row['GroupName']; ?></td>
+							<td><?php echo is_null($row['Count'])?"0":$row['Count']; ?></td>
 							<!-- <td><?php echo substr($row['Created'], 0, 10); ?><br>
 								<?php echo substr($row['Created'], 11, 15); ?>
 							</td>
