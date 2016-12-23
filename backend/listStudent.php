@@ -144,7 +144,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 					<li role="presentation"><a href="#">Messages</a></li>
 				</ul> -->
 				<div class="form-group">
-					<div class="alert alert-info" role="alert"><b>提示</b>:未分配群組的學生不會顯示在主畫面中</div>
+					<div class="alert alert-info" role="alert"><b>提示</b>：未分配群組的學生不會顯示在主畫面中</div>
 				</div>
 				<div class="col-md-12">
 					<?php 

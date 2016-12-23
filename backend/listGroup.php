@@ -137,6 +137,9 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 					<li role="presentation"><a href="#">Profile</a></li>
 					<li role="presentation"><a href="#">Messages</a></li>
 				</ul> -->
+				<div class="form-group">
+					<div class="alert alert-info" role="alert"><b>提示</b>：最多只能建立6個群組</div>
+				</div>
 				<div class="col-md-12">
 					<div class="alert alert-danger hide" role="alert"><b>警告</b>：該群組已分配學生，請先把學生移離群組才能刪除！</div>
 					<?php 
