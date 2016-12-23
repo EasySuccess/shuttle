@@ -5,10 +5,11 @@
 	require_once('PasswordHash.php');
 	
 	// Frontend Parameters
-	DB::$user = "sqluser";
-	DB::$password = "sqluser";
-	DB::$dbName = "education";
+	DB::$user = "c-dev";
+	DB::$password = "estest853";
+	DB::$dbName = "edu_dev";
 	DB::$host = "localhost";
+	DB::$encoding = 'utf8';
 	date_default_timezone_set("Asia/Hong_Kong");
 	
 	// Backend Parameters

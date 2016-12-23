@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 require_once('../lib/config.php');
 if (!isset($_SESSION)) {
     session_start();
@@ -49,7 +49,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>¸É²ßªÀ±µ°e¨t²Î</title>
+		<title>è£œç¿’ç¤¾æ¥é€ç³»çµ±</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -75,13 +75,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">¸É²ßªÀ±µ°e¨t²Î</a>
+					<a class="navbar-brand" href="#">è£œç¿’ç¤¾æ¥é€ç³»çµ±</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-					  <li class="active"><a href="../index.php">¥D¿ï³æ</a></li>
-					  <li><a href="<?php echo $prevUrl; ?>">ªğ¦^</a></li>
-					  <li><a href="../logout.php">µn¥X</a></li>
+					  <li class="active"><a href="../index.php">ä¸»é¸å–®</a></li>
+					  <li><a href="<?php echo $prevUrl; ?>">è¿”å›</a></li>
+					  <li><a href="../logout.php">ç™»å‡º</a></li>
 				   </ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -93,26 +93,26 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 				<form method="post" name="form1" action="<?php echo $formAction; ?>" class="form-horizontal">
 					<fieldset>
 						<!-- Form Name -->
-						<legend>­×§ï±K½X</legend>
+						<legend>ä¿®æ”¹å¯†ç¢¼</legend>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">·s±K½X:</label>  
+							<label class="col-md-4 control-label" for="textinput">æ–°å¯†ç¢¼:</label>  
 							<div class="col-md-4">
 								<input id="textinput" name="UserPw"  type="password" placeholder="" class="form-control input-md" autofocus required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">­«½ü·s±K½X:</label>  
+							<label class="col-md-4 control-label" for="textinput">é‡è¼ªæ–°å¯†ç¢¼:</label>  
 							<div class="col-md-4">
 								<input id="textinput" name="UserPw2" type="password" placeholder="" class="form-control input-md" required>
-								 <div id="pw-message" class="help-block hide" style="color:#db6b6b;">±K½X¤£¤@­P</div>
+								 <div id="pw-message" class="help-block hide" style="color:#db6b6b;">å¯†ç¢¼ä¸ä¸€è‡´</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput"></label>  
 							<div class="col-md-4">
-								<input type="submit" class="btn btn-primary" value="½T»{">
-								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl; ?>">ªğ¦^</a>
+								<input type="submit" class="btn btn-primary" value="ç¢ºèª">
+								<a type="button"  class="btn btn-default" href="<?php echo $prevUrl; ?>">è¿”å›</a>
 							</div>
 						</div>
 					</fieldset>
@@ -127,7 +127,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/bootstrap/bootstrapValidator.min.js"></script>
 		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
-		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/bootstrap/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 		<script>

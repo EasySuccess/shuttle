@@ -534,7 +534,7 @@ $RecordsetGroups  = DB::query($query_group);
 				});
 			});
 			// Setup autorefresh every 10s
-			// setTimeout(function() { window.location=window.location;},10000);
+			setTimeout(function() { window.location=window.location;},10000);
 		});
 	</script>
 </html>

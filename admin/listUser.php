@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 require_once('../lib/config.php');
 if (!isset($_SESSION)) {
 	session_start();
@@ -73,7 +73,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../../../../favicon.ico">
-		<title>¸É²ßªÀ±µ°e¨t²Î</title>
+		<title>è£œç¿’ç¤¾æ¥é€ç³»çµ±</title>
 		<!-- Bootstrap core CSS -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -99,12 +99,12 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">¸É²ßªÀ±µ°e¨t²Î</a>
+					<a class="navbar-brand" href="#">è£œç¿’ç¤¾æ¥é€ç³»çµ±</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="../index.php">¥D¿ï³æ</a></li>
-						<li><a href="../logout.php">µn¥X</a></li>
+						<li class="active"><a href="../index.php">ä¸»é¸å–®</a></li>
+						<li><a href="../logout.php">ç™»å‡º</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -112,7 +112,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		</nav>
 		<div class="container">
 			<div class="starter-template">
-				<h1>¥Î¤á¦Cªí</h1>
+				<h1>ç”¨æˆ¶åˆ—è¡¨</h1>
 				<p class="lead"></p>
 			</div>
 			<div class="row">
@@ -127,13 +127,13 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						?>
 					<table class="table table-striped">
 						<tr>
-							<td>¥Î¤á½s¸¹</td>
-							<td>µn¤J¦WºÙ</td>
-							<td>¤½¥q¦WºÙ</td>
-							<td>Åv­­</td>
-							<td>«Ø¥ß¤é´Á</td>
-							<td>§ó·s¤é´Á</td>
-							<td>¾Ş§@</td>
+							<td>ç”¨æˆ¶ç·¨è™Ÿ</td>
+							<td>ç™»å…¥åç¨±</td>
+							<td>å…¬å¸åç¨±</td>
+							<td>æ¬Šé™</td>
+							<td>å»ºç«‹æ—¥æœŸ</td>
+							<td>æ›´æ–°æ—¥æœŸ</td>
+							<td>æ“ä½œ</td>
 						</tr>
 						<?php 
 							foreach ($RecordsetStd as $row_RecordsetStd) {
@@ -151,10 +151,10 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 								<?php echo substr($row_RecordsetStd['Modified'], 11, 15); ?>
 							</td>
 							<td>
-								<a class="btn btn-primary" href="changeRole.php?UserId=<?php echo $row_RecordsetStd['UserId']; ?>">­×§ïÅv­­</a>
+								<a class="btn btn-primary" href="changeRole.php?UserId=<?php echo $row_RecordsetStd['UserId']; ?>">ä¿®æ”¹æ¬Šé™</a>
 								
-								<a class="btn btn-primary" href="changePassword.php?UserId=<?php echo $row_RecordsetStd['UserId']; ?>">­×§ï±K½X</a>
-								<button type="submit" class="btn btn-danger" name="delUser" value="<?php echo $row_RecordsetStd['UserId']; ?>">§R°£</button>
+								<a class="btn btn-primary" href="changePassword.php?UserId=<?php echo $row_RecordsetStd['UserId']; ?>">ä¿®æ”¹å¯†ç¢¼</a>
+								<button type="submit" class="btn btn-danger" name="delUser" value="<?php echo $row_RecordsetStd['UserId']; ?>">åˆªé™¤</button>
 							</td>
 						</tr>
 						<?php
@@ -166,13 +166,13 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						?>
 				</div>
 				<div align="center">
-					°O¿ı <?php
+					è¨˜éŒ„ <?php
 						echo ($startRow_RecordsetStd + 1);
-						?> ¨ì <?php
+						?> åˆ° <?php
 						echo min($startRow_RecordsetStd + $maxRows_RecordsetStd, $totalRows_RecordsetStd);
-						?> ¦@ <?php
+						?> å…± <?php
 						echo $totalRows_RecordsetStd;
-						?>µ§
+						?>ç­†
 				</div>
 				<table border="0" align="center">
 					<tr>
@@ -181,7 +181,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							?>
 							<a href="<?php
 								printf("%s?pageNum_RecordsetStd=%d%s", $currentPage, 0, $queryString_RecordsetStd);
-								?>">²Ä¤@­¶¡@</a>
+								?>">ç¬¬ä¸€é ã€€</a>
 							<?php
 								} // Show if not first page 
 								?>
@@ -191,7 +191,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							?>
 							<a href="<?php
 								printf("%s?pageNum_RecordsetStd=%d%s", $currentPage, max(0, $pageNum_RecordsetStd - 1), $queryString_RecordsetStd);
-								?>">¤W¤@­¶¡@</a>
+								?>">ä¸Šä¸€é ã€€</a>
 							<?php
 								} // Show if not first page 
 								?>
@@ -201,7 +201,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							?>
 							<a href="<?php
 								printf("%s?pageNum_RecordsetStd=%d%s", $currentPage, min($totalPages_RecordsetStd, $pageNum_RecordsetStd + 1), $queryString_RecordsetStd);
-								?>">¤U¤@­¶¡@</a>
+								?>">ä¸‹ä¸€é ã€€</a>
 							<?php
 								} // Show if not last page 
 								?>
@@ -211,7 +211,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 							?>
 							<a href="<?php
 								printf("%s?pageNum_RecordsetStd=%d%s", $currentPage, $totalPages_RecordsetStd, $queryString_RecordsetStd);
-								?>">³Ì«á¤@­¶¡@</a>
+								?>">æœ€å¾Œä¸€é ã€€</a>
 							<?php
 								} // Show if not last page 
 								?>
@@ -227,7 +227,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/bootstrap/bootbox.min.js"></script>
 		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
-		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/bootstrap/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 		<script>
@@ -244,7 +244,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 						$.ajaxSetup({async: false});
 						
 						if(action.indexOf("del") !== -1){
-							bootbox.confirm("½T»{§R°£¡H", function(result){
+							bootbox.confirm("ç¢ºèªåˆªé™¤ï¼Ÿ", function(result){
 								if(result){
 									$.post(ajaxurl, data, function (data, status) {
 										location.reload();

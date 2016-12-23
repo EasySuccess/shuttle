@@ -143,6 +143,9 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 					<li role="presentation"><a href="#">Profile</a></li>
 					<li role="presentation"><a href="#">Messages</a></li>
 				</ul> -->
+				<div class="form-group">
+					<div class="alert alert-info" role="alert"><b>提示</b>:未分配群組的學生不會顯示在主畫面中</div>
+				</div>
 				<div class="col-md-12">
 					<?php 
 						if ($totalRows_RecordsetStd > 0) {
@@ -250,7 +253,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] != "")) {
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/bootstrap/bootbox.min.js"></script>
 		<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
-		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/bootstrap/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 		<script>

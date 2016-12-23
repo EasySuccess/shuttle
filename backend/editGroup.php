@@ -140,7 +140,7 @@ if ((isset($_POST['MM_editGroup'])) && ($_POST['MM_editGroup'] == "form1")) {
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../js/jquery.min.js"></script>
-		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/bootstrap/bootstrap.min.js"></script>
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 	</body>
 </html>

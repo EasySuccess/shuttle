@@ -37,7 +37,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		"CoCode" =>  $_POST['CoCode'],
 		"StuName" => $_POST['StuName'],
 		"StuSex" => $_POST['StuSex'],
-		"StuBirth" => $_POST['StuBirth'],
+		// "StuBirth" => $_POST['StuBirth'],
 		"StuAddress" => $_POST['StuAddress'],
 		"StuFather" => $_POST['StuFather'],
 		"StuFatherTel" => $_POST['StuFatherTel'],
@@ -54,7 +54,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 	DB::insert("tbstustatus", array(
 		"StuCode" => $result['StuCode'],
 		"CoCode" => $result['CoCode'],
-		"StuStatus" => "off",
+		"StuStatus" => "0",
 		"StuPickupStatus" => NULL,
 		"Created" => NULL
 	));
@@ -142,7 +142,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 							</div>
 						</div>
 						<!-- Text input-->
-						<div class="form-group">
+						<div class="form-group hide">
 							<label class="col-md-4 control-label" for="textinput">出生日期:</label>  
 							<div class="col-md-4">
 								<input id="textinput" name="StuBirth" type="text" value="" class="form-control input-md">
@@ -225,7 +225,7 @@ if ((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == "form1")) {
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../js/jquery.min.js"></script>
 		<script>window.jQuery || document.write("<script src="../js/jquery.min.js"><\/script>")</script>
-		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/bootstrap/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/ie10-viewport-bug-workaround.js"></script>
 	</body>
